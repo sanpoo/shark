@@ -1,0 +1,19 @@
+Changes with shark 1.0.4                                         22 Dec 2014
+	*) add CONFIG_SMP in Makefile for spinlock
+	*) add -march=i686 option for __sync_bool_compare_and_swap on 32-bit arch
+	
+Changes with shark 1.0.3                                         19 Dec 2014
+	*) opimize the corotine initialization 
+
+Changes with shark 1.0.2                                         2 Dec 2014
+	*) net.c(h) reconstruct
+
+Changes with shark 1.0.1                                         28 nov 2014
+    *) delete mysql conponent
+    *) reconstruct http server
+    *) add refstr.h
+
+
+Changes with shark 1.0.0                                         19 nov 2014
+    *) The first public version.
+
