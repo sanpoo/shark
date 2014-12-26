@@ -117,8 +117,8 @@ int main(int argc, char **argv)
         exit(0);
     }
 
-    //    worker_process_cycle();
-    //    return 0;
+//worker_process_cycle();
+//return 0;
 
     if (g_process_id == g_master_pid)
         master_process_cycle();

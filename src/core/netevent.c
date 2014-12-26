@@ -87,13 +87,12 @@ void del_fd_event(int fd, event_what what)
         epoll_ctl(g_eventloop.epfd, EPOLL_CTL_MOD, fd, &ee);
 }
 
-void event_cycle(int seconds)
+void event_cycle(int milliseconds)
 {
     int i;
     int value;
 
-    seconds = (seconds < 0)? -1 : seconds * 1000;
-    value = epoll_wait(g_eventloop.epfd, g_eventloop.ee, g_eventloop.max_conn, seconds);
+    value = epoll_wait(g_eventloop.epfd, g_eventloop.ee, g_eventloop.max_conn, milliseconds);
     if (value <= 0)
         return;
 

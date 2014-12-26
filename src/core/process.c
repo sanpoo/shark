@@ -56,7 +56,7 @@ static pid_t fork_worker(struct process *p)
             if (bind_cpu(p->cpuid))
                 printf("Failed to bind cpu: %d\n", p->cpuid);
             //else
-                //printf("succ to bind cpu: %d\n", p->cpuid);
+            //printf("succ to bind cpu: %d\n", p->cpuid);
 
             return 0;
 
@@ -167,7 +167,7 @@ static void worker_accept_proc(void *args)
         }
         else if (connfd == 0)
         {
-            schedule_timeout(1);
+            schedule_timeout(500);
             continue;
         }
         else

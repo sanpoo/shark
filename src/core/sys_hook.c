@@ -19,20 +19,20 @@
 
 #define HOOK_SYSCALL(name) g_sys_##name = (sys_##name)dlsym(RTLD_NEXT, #name)
 
-#define CONN_TIMEOUT      10
-#define ACCEPT_TIMEOUT    3
+#define CONN_TIMEOUT      (10 * 1000)
+#define ACCEPT_TIMEOUT    (3 * 1000)
 
-#define READ_TIMEOUT      10
-#define READV_TIMEOUT     10
-#define RECV_TIMEOUT      10
-#define RECVFROM_TIMEOUT  10
-#define RECVMSG_TIMEOUT   10
+#define READ_TIMEOUT      (10 * 1000)
+#define READV_TIMEOUT     (10 * 1000)
+#define RECV_TIMEOUT      (10 * 1000)
+#define RECVFROM_TIMEOUT  (10 * 1000)
+#define RECVMSG_TIMEOUT   (10 * 1000)
 
-#define WRITE_TIMEOUT     10
-#define WRITEV_TIMEOUT    10
-#define SEND_TIMEOUT      10
-#define SENDTO_TIMEOUT    10
-#define SENDMSG_TIMEOUT   10
+#define WRITE_TIMEOUT     (10 * 1000)
+#define WRITEV_TIMEOUT    (10 * 1000)
+#define SEND_TIMEOUT      (10 * 1000)
+#define SENDTO_TIMEOUT    (10 * 1000)
+#define SENDMSG_TIMEOUT   (10 * 1000)
 
 #define KEEP_ALIVE        60
 
@@ -86,7 +86,7 @@ static void event_conn_callback(void *args)
 
 unsigned int sleep(unsigned int seconds)
 {
-    schedule_timeout(seconds);
+    schedule_timeout(seconds * 1000);
     return 0;
 }
 
@@ -498,7 +498,7 @@ ssize_t sendfile_timeout(int out_fd, int in_fd, off_t *offset, size_t count, int
         if (ret)
             return -2;
 
-        schedule_timeout(timeout);
+        schedule_timeout(timeout * 1000);
         del_fd_event(out_fd, EVENT_WRITABLE);
         if (is_wakeup_by_timeout())
         {

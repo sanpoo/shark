@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include <time.h>
 
 #include "pub.h"
 #include "list.h"
+#include "util.h"
 #include "rbtree.h"
 #include "memcache.h"
 #include "coro_switch.h"
@@ -20,27 +20,26 @@
 struct timer_node
 {
     struct rb_node node;        //用于连接inactive
-    struct rb_root root;        //用于作为相同超时时间的协程的根
-    time_t timeout;             //超时时间
+    struct rb_root root;        //相同超时时间的协程的根
+    long long timeout;          //超时时间(毫秒)
 };
 
 struct coroutine
 {
     struct list_head list;      //挂在coro_schedule中的free_pool或者active链表上
-    struct rb_node node;        //协程休眠时, 挂在timer_node的root上,
-                                //提高网络事件来临时的查找效率
+    struct rb_node node;        //协程休眠时, 挂在timer_node的root上, 提高网络事件来临时的查找效率
     int coro_id;                //协程号
     struct context ctx;         //本协程栈顶指针描述
     struct coro_stack stack;    //协程栈描述
     coro_func func;             //具体执行函数
     void *args;                 //执行函数参数
 
-    time_t timeout;             //未来某个时间, 用于跟踪网络事件超时
+    long long timeout;          //未来某个时间(毫秒), 用于跟踪网络事件超时
     int active_by_timeout;      //是事件到来唤醒的(0), 还是超时唤醒的(1)
 };
 
 /* sched policy, if timeout_milliseconds == -1 sched policy can wait forever */
-typedef void (*sched_policy)(int timeout_seconds);
+typedef void (*sched_policy)(int timeout_milliseconds);
 
 struct coro_schedule
 {
@@ -57,7 +56,7 @@ struct coro_schedule
     struct list_head idle;      //空闲的协程列表
     struct list_head active;    //活跃的协程列表
     struct rb_root inactive;    //处于等待中的协程
-    struct memcache *cache;     //timer_tree的cache
+    struct memcache *cache;     //timer_node的cache
 
     sched_policy policy;        //调度策略
 };
@@ -93,17 +92,17 @@ static inline void remove_from_timer_node(struct timer_node *tm_node,
     rb_erase(&coro->node, &tm_node->root);
 }
 
-static struct timer_node *find_timer_node(time_t time)
+static struct timer_node *find_timer_node(long long timeout)
 {
     struct rb_node *each = g_sched.inactive.rb_node;
 
     while (each)
     {
         struct timer_node *tm_node = container_of(each, struct timer_node, node);
-        long long result = time - tm_node->timeout;
-        if (result < 0)
+        long long timespan = timeout - tm_node->timeout;
+        if (timespan < 0)
             each = each->rb_left;
-        else if (result > 0)
+        else if (timespan > 0)
             each = each->rb_right;
         else
             return tm_node;
@@ -130,8 +129,6 @@ static inline void remove_from_inactive_tree(struct coroutine *coro)
 static void add_to_timer_node(struct timer_node *tm_node, struct coroutine *coro)
 {
     struct rb_node **newer = &tm_node->root.rb_node, *parent = NULL;
-
-    list_del_init(&coro->list);
 
     while (*newer)
     {
@@ -174,7 +171,7 @@ static void move_to_inactive_tree(struct coroutine *coro)
     }
 
     struct timer_node *tmp = memcache_alloc(g_sched.cache);
-    if (unlikely(NULL == tmp))  //继续在活跃队列里执行
+    if (unlikely(NULL == tmp))  //still in active list
         return;
 
     tmp->timeout = coro->timeout;
@@ -188,14 +185,14 @@ static inline void move_to_idle_list_direct(struct coroutine *coro)
     list_add_tail(&coro->list, &g_sched.idle);
 }
 
-static inline void move_to_active_list_tail(struct coroutine *coro)
+static inline void move_to_active_list_tail_direct(struct coroutine *coro)
 {
-    remove_from_inactive_tree(coro);
     list_add_tail(&coro->list, &g_sched.active);
 }
 
-static inline void move_to_active_list_tail_direct(struct coroutine *coro)
+static inline void move_to_active_list_tail(struct coroutine *coro)
 {
+    remove_from_inactive_tree(coro);
     list_add_tail(&coro->list, &g_sched.active);
 }
 
@@ -322,7 +319,7 @@ static inline void handle_timeout_coroutine(struct timer_node *node)
 static void check_timeout_coroutine()
 {
     struct timer_node *node;
-    time_t now = time(NULL);
+    long long now = get_curr_mseconds();
 
     while (NULL != (node = get_recent_timer_node()))
     {
@@ -340,24 +337,24 @@ static inline int get_recent_timespan()
     int timespan;
     struct timer_node *node = get_recent_timer_node();
     if (NULL == node)
-        return 60;  //at least 60 seconds
+        return 10 * 1000;  //at least 10 seconds
 
-    timespan = node->timeout - time(NULL);
+    timespan = node->timeout - get_curr_mseconds();
 
-    return (timespan < 0)? 0 : timespan;
+    return (timespan < 0) ? 0 : timespan;
 }
 
 void schedule_cycle()
 {
-    int timeout_seconds;
+    int timeout_milliseconds;
 
     for (;;)
     {
         check_timeout_coroutine();
         run_active_coroutine();
 
-        timeout_seconds = get_recent_timespan();
-        g_sched.policy(timeout_seconds);
+        timeout_milliseconds = get_recent_timespan();
+        g_sched.policy(timeout_milliseconds);
         run_active_coroutine();
     }
 }
@@ -392,11 +389,11 @@ void yield()
     coroutine_switch(g_sched.current, &g_sched.main_coro);
 }
 
-void schedule_timeout(int seconds)
+void schedule_timeout(int milliseconds)
 {
     struct coroutine *coro = g_sched.current;
 
-    coro->timeout = time(NULL) + seconds;
+    coro->timeout = get_curr_mseconds() + milliseconds;
     move_to_inactive_tree(coro);
     coroutine_switch(g_sched.current, &g_sched.main_coro);
 }
@@ -440,7 +437,7 @@ void schedule_init(size_t stack_kbytes, size_t max_coro_size)
 
     assert(max_coro_size >= 2);
 
-    g_sched.min_coro_size = max_coro_size/2;
+    g_sched.min_coro_size = max_coro_size / 2;
     g_sched.max_coro_size = max_coro_size;
     g_sched.curr_coro_size = 0;
     g_sched.next_coro_id = 0;
@@ -451,11 +448,11 @@ void schedule_init(size_t stack_kbytes, size_t max_coro_size)
     INIT_LIST_HEAD(&g_sched.idle);
     INIT_LIST_HEAD(&g_sched.active);
     g_sched.inactive = RB_ROOT;
-    g_sched.cache = memcache_create(max_coro_size/2, sizeof(struct timer_node));
+    g_sched.cache = memcache_create(max_coro_size / 2, sizeof(struct timer_node));
     g_sched.policy = event_cycle;
     if (NULL == g_sched.cache)
     {
-        printf("Failed to create mem cache\n");
+        printf("Failed to create mem cache for schedule timer node\n");
         exit(0);
     }
 

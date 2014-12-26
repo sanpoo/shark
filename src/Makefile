@@ -24,7 +24,7 @@ LIB = -ldl #-L/usr/lib64/mysql/ -lmysqlclient
 
 CC = gcc
 
-CFLAGS = -pipe -Wall -O2 #-pg -g
+CFLAGS = -pipe -Wall -O2 -pg -g
 CFLAGS += -I$(PUB_INC) -I$(CORE_INC) -I$(HTTP_INC)
 
 ifeq ($(shell arch), i686)

@@ -11,7 +11,7 @@
     ∫Í∂®“Â
  */
 #define MASTER_PID_FILE    "../log/shark.pid"
-#define SHARK_VERSION      "1.0.4.20141222"
+#define SHARK_VERSION      "1.1.0.20141226"
 #define SHARK_VER          "shark/"SHARK_VERSION
 
 

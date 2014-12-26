@@ -10,7 +10,7 @@ typedef void (*coro_func)(void *args);
 void schedule_cycle();
 int dispatch_coro(coro_func func, void *args);
 void yield();
-void schedule_timeout(int seconds);
+void schedule_timeout(int milliseconds);
 int is_wakeup_by_timeout();
 
 void wakeup_coro(void *args);

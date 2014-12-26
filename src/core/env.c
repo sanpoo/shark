@@ -19,13 +19,13 @@
 
 /*
     操作系统相关的变量
- */
+*/
 int PAGE_SIZE;
 int CPU_NUM;
 
 /*
     conf的数据放置到这里
- */
+*/
 char *g_log_path;           //日志路径
 char *g_log_strlevel;       //日志级别
 int g_log_reserve;          //日志保留天数
@@ -39,7 +39,7 @@ int g_server_port;          //tcp 监听端口
 
 /*
     非conf的全局变量放置到这里
- */
+*/
 int g_master_pid;           //master 进程id
 
 int g_listenfd;             //监听fd
@@ -72,7 +72,7 @@ static void get_worker_env()
 
     // 3. coro stacksize
     c = get_conf("coroutine_stacksize");
-    g_coro_stacksize = ALIGN(atoi(c)*1024, PAGE_SIZE)>>10;
+    g_coro_stacksize = ALIGN(atoi(c) * 1024, PAGE_SIZE) >> 10;
     if (g_coro_stacksize <= 0 || g_coro_stacksize > 1024)
     {
         printf("check shark.conf.coroutine_stacksize:%d, should (0~1024)\n", g_coro_stacksize);
@@ -93,7 +93,7 @@ static void get_log_env()
 static void get_server_env()
 {
     char *c = get_conf("server_ip");
-    g_server_ip = str_case_equal(c, "default")? NULL : c;
+    g_server_ip = str_case_equal(c, "default") ? NULL : c;
 
     c = get_conf("listen");
     g_server_port = atoi(c);
@@ -106,7 +106,7 @@ static void get_server_env()
 
 void print_sys_env_var()
 {
-    printf("PAGE SIZE               : %d\n", PAGE_SIZE);
+    printf("\nPAGE SIZE               : %d\n", PAGE_SIZE);
     printf("CPU NUM                 : %d\n", CPU_NUM);
     printf("log path                : %s\n", g_log_path);
     printf("log level               : %s\n", g_log_strlevel);
@@ -114,7 +114,7 @@ void print_sys_env_var()
     printf("worker count            : %d\n", g_worker_processes);
     printf("connection per-worker   : %d\n", g_worker_connections);
     printf("coroutine stacksize(KB) : %d\n", g_coro_stacksize);
-    printf("server ip               : %s\n", g_server_ip? g_server_ip : "default");
+    printf("server ip               : %s\n", g_server_ip ? g_server_ip : "default");
     printf("server port             : %d\n", g_server_port);
     printf("listen fd               : %d\n", g_listenfd);
     printf("master process pid      : %d\n", g_master_pid);
@@ -129,7 +129,7 @@ void sys_env_var_init()
 
 /*
     只处理conf中的数据
- */
+*/
 void conf_env_init()
 {
     get_log_env();

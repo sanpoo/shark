@@ -1,3 +1,7 @@
+Changes with shark 1.1.0                                         22 Dec 2014
+	*) change epoll accuracy from second to milliseconds
+	*) delete no use code in add_to_timer_node 
+
 Changes with shark 1.0.4                                         22 Dec 2014
 	*) add CONFIG_SMP in Makefile for spinlock
 	*) add -march=i686 option for __sync_bool_compare_and_swap on 32-bit arch
@@ -12,7 +16,6 @@ Changes with shark 1.0.1                                         28 nov 2014
     *) delete mysql conponent
     *) reconstruct http server
     *) add refstr.h
-
 
 Changes with shark 1.0.0                                         19 nov 2014
     *) The first public version.

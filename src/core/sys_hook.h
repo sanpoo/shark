@@ -17,5 +17,7 @@ extern sys_usleep g_sys_usleep;
 #define SLEEP(seconds)  g_sys_sleep(seconds)
 #define USLEEP(usec)    g_sys_usleep(usec)
 
+ssize_t sendfile_timeout(int out_fd, int in_fd, off_t *offset, size_t count, int timeout);
+
 #endif
 

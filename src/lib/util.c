@@ -31,14 +31,6 @@ int log_page_order(size_t n)
     return log2n(n / PAGE_SIZE);
 }
 
-struct tm *get_tm()
-{
-    time_t t;
-
-    time(&t);
-    return localtime(&t);
-}
-
 int bind_cpu(int cpuid)
 {
     cpu_set_t mask;
@@ -118,5 +110,21 @@ void delete_pidfile()
 
     if (stat(MASTER_PID_FILE, &statfile) == 0)
         remove(MASTER_PID_FILE);
+}
+
+struct tm *get_tm()
+{
+    time_t t;
+
+    time(&t);
+    return localtime(&t);
+}
+
+long long get_curr_mseconds()
+{
+    struct timeval tv;
+
+    gettimeofday(&tv, NULL);
+    return tv.tv_sec * 1000 + tv.tv_usec / 1000;
 }
 

@@ -9,13 +9,14 @@
 
 int log2n(size_t n);
 int log_page_order(size_t n);
-struct tm *get_tm();
 int bind_cpu(int cpuid);
 void sys_daemon();
 void sys_res_init();
 int create_pidfile(int pid);
 int read_pidfile();
 void delete_pidfile();
+struct tm *get_tm();
+long long get_curr_mseconds();
 
 #endif
 
