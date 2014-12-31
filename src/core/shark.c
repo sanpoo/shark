@@ -63,6 +63,12 @@ static void handle_args(int argc, char *argv[])
         exit(0);
     }
 
+    if (argc == 2 && str_equal(argv[1], "-p"))
+    {
+        printf("to be implement...\n");
+        exit(0);
+    }
+
     if (argc == 3 && str_equal(argv[1], "-s") && str_equal(argv[2], "stop"))
     {
         send_signal_to_master(SHUTDOWN_SIGNAL);
