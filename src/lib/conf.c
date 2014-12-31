@@ -104,7 +104,7 @@ void load_conf(const char *filename)
     fp = fopen(filename, "r");
     if (NULL == fp)
     {
-        printf("Failed to open config file:%s, err:%s\n", filename, strerror(errno));
+        printf("Failed to open config file %s, reason:%s\n", filename, strerror(errno));
         exit(0);
     }
 
