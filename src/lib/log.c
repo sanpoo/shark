@@ -260,7 +260,7 @@ static void gen_logfile_fd(const char *path)
 
     if (g_logfd == -1)
     {
-        printf("%s: %s\n", strerror(errno), path);
+        printf("%s :%s\n", strerror(errno), path);
         exit(0);
     }
 }

@@ -35,10 +35,7 @@ static void useage(int argc, char *argv[])
 static void send_signal_to_master(int signo)
 {
     int pid = read_pidfile();
-    if (pid <= 0)
-        printf("shark maybe not running or pid file removed.\n");
-    else
-        kill(pid, signo);
+    kill(pid, signo);
 }
 
 static void handle_args(int argc, char *argv[])
@@ -115,12 +112,7 @@ int main(int argc, char **argv)
     tcp_srv_init();
     print_conf();
     print_runtime_var();
-
-    if (create_pidfile(g_master_pid))
-    {
-        printf("Failed to write master pid to file\n");
-        exit(0);
-    }
+    create_pidfile(g_master_pid);
 
     process_init();
     if (log_worker_alloc(g_process_id) < 0)

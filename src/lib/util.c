@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 #include <string.h>
 #include <time.h>
 #include <sched.h>
@@ -75,16 +76,17 @@ void sys_res_init()
     }
 }
 
-int create_pidfile(int pid)
+void create_pidfile(int pid)
 {
     FILE *fp = fopen(MASTER_PID_FILE, "w+");
     if (!fp)
-        return -1;
+    {
+        printf("%s :%s\n", strerror(errno), MASTER_PID_FILE);
+        exit(0);
+    }
 
     fprintf(fp, "%d", pid);
     fclose(fp);
-
-    return 0;
 }
 
 int read_pidfile()
@@ -92,12 +94,15 @@ int read_pidfile()
     char buff[32];
     FILE *fp = fopen(MASTER_PID_FILE, "r");
     if (!fp)
-        return -1;
+    {
+        printf("%s :%s\n", strerror(errno), MASTER_PID_FILE);
+        exit(0);
+    }
 
     if (NULL == fgets(buff, sizeof(buff) - 1, fp))
     {
         fclose(fp);
-        return -2;
+        exit(0);
     }
 
     fclose(fp);

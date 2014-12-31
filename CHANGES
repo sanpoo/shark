@@ -1,5 +1,6 @@
 Changes with shark 1.1.1                                         31 Dec 2014
 	*) reconstruct conf module
+	*) optimize pidfile
 
 Changes with shark 1.1.0                                         22 Dec 2014
 	*) change epoll accuracy from second to milliseconds
@@ -10,7 +11,7 @@ Changes with shark 1.0.4                                         22 Dec 2014
 	*) add -march=i686 option for __sync_bool_compare_and_swap on 32-bit arch
 	
 Changes with shark 1.0.3                                         19 Dec 2014
-	*) opimize the corotine initialization 
+	*) optimize the corotine initialization 
 
 Changes with shark 1.0.2                                         2 Dec 2014
 	*) net.c(h) reconstruct
