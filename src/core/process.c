@@ -179,10 +179,10 @@ static void worker_accept_proc(void *args)
 
 void worker_process_cycle()
 {
-    if (0 != project_init())
+    if (project_init())
         exit(0);
 
-    schedule_init(g_coro_stacksize, g_worker_connections);
+    schedule_init(g_coro_stack_kbytes, g_worker_connections);
     event_loop_init(g_worker_connections);
     dispatch_coro(worker_accept_proc, NULL);
     INFO("worker success running....");

@@ -43,7 +43,8 @@ void handle_request(int fd)
 
 /*
     注意:
-    该函数还不在协程上下文里, 因此hook的接口都不能调用
+    1. 该函数还不在协程上下文里, 因此hook的接口都不能调用
+    2. 成功返回0, 失败返回非0
 */
 int project_init()
 {

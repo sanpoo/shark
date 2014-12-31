@@ -35,16 +35,13 @@ static int parse_conf(const char *str, struct refstr *key, struct refstr *value)
     while (*loop != '#' && *loop != '\0' && *loop != '=' && !isspace(*loop) && isprint(*loop))
         loop++;
 
-    if (loop == str)
-        return -1;
-
     key->len = loop - key->p;
 
-    while ((*loop == '=' || isspace(*loop) || !isprint(*loop)) && *loop != '\0' && *loop != '#')
+    while (*loop != '#' && *loop != '\0' && (*loop == '=' || isspace(*loop) || !isprint(*loop)))
         loop++;
 
     value->p = loop;
-    while (*loop != '\0' && *loop != ';' && *loop != '#' && !isspace(*loop) && isprint(*loop))
+    while (*loop != '#' && *loop != '\0' && *loop != ';' && !isspace(*loop) && isprint(*loop))
         loop++;
 
     value->len = loop - value->p;
@@ -52,7 +49,19 @@ static int parse_conf(const char *str, struct refstr *key, struct refstr *value)
     return 0;
 }
 
-void print_conf()
+static void free_old_conf(struct conf *c)
+{
+    struct conf *next;
+
+    while (c)
+    {
+        next = c->next;
+        free(c);
+        c = next;
+    }
+}
+
+void print_raw_conf()
 {
     struct conf *c = g_conf;
 
@@ -60,12 +69,12 @@ void print_conf()
 
     while (c)
     {
-        printf("\t*%s\t[%s]\n", c->key, c->value);
+        printf("\t%s\t[%s]\n", c->key, c->value);
         c = c->next;
     }
 }
 
-char *get_conf(const char *key)
+char *get_raw_conf(const char *key)
 {
     struct conf *c = g_conf;
 
@@ -84,11 +93,12 @@ char *get_conf(const char *key)
 /*
     load config from file. support load from muti file, all config will insert
     into g_conf
- */
+*/
 void load_conf(const char *filename)
 {
     FILE *fp;
     char buff[512];
+    struct conf *head = NULL;
     struct conf *c;
 
     fp = fopen(filename, "r");
@@ -107,7 +117,7 @@ void load_conf(const char *filename)
         c = (struct conf *)malloc(sizeof(struct conf));
         if (!c)
         {
-            printf("Failed to alloc mem for conf");
+            printf("Failed to alloc mem for conf\n");
             exit(0);
         }
 
@@ -116,10 +126,16 @@ void load_conf(const char *filename)
         memcpy(c->value, value.p, value.len);
         c->value[value.len] = 0;
 
-        if (g_conf)
-            c->next = g_conf;
-        g_conf = c;
+        if (head)
+            c->next = head;
+        else
+            c->next = NULL;
+        head = c;
     }
+
+    free_old_conf(g_conf);
+
+    g_conf = head;
 
     fclose(fp);
 }

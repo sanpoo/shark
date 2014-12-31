@@ -28,11 +28,11 @@ int CPU_NUM;
 */
 char *g_log_path;           //日志路径
 char *g_log_strlevel;       //日志级别
-int g_log_reserve;          //日志保留天数
+int g_log_reserve_days;     //日志保留天数
 
 int g_worker_processes;     //系统worker进程个数, 默认为CPU核心数
 int g_worker_connections;   //每个worker进程中保持的协程
-int g_coro_stacksize;       //协程的栈大小(KB)
+int g_coro_stack_kbytes;    //协程的栈大小(KB)
 
 char *g_server_ip;          //tcp server绑定ip
 int g_server_port;          //tcp 监听端口
@@ -41,13 +41,12 @@ int g_server_port;          //tcp 监听端口
     非conf的全局变量放置到这里
 */
 int g_master_pid;           //master 进程id
-
 int g_listenfd;             //监听fd
 spinlock *g_accept_lock;    //accept fd自旋锁
 
 static void get_worker_env()
 {
-    char *c = get_conf("worker_processes");
+    char *c = get_raw_conf("worker_processes");
 
     // 1. worker num
     if (str_case_equal(c, "default"))
@@ -57,12 +56,12 @@ static void get_worker_env()
 
     if (g_worker_processes < 0 || g_worker_processes > 32)
     {
-        printf("check shark.conf.g_worker_processes:%d, should default or (0~32)\n", g_worker_processes);
+        printf("check shark.conf.g_worker_processes:%d, should default or [0~32]\n", g_worker_processes);
         exit(0);
     }
 
     // 2.connection
-    c = get_conf("worker_connections");
+    c = get_raw_conf("worker_connections");
     g_worker_connections = atoi(c);
     if (g_worker_connections <= 0)
     {
@@ -71,51 +70,55 @@ static void get_worker_env()
     }
 
     // 3. coro stacksize
-    c = get_conf("coroutine_stacksize");
-    g_coro_stacksize = ALIGN(atoi(c) * 1024, PAGE_SIZE) >> 10;
-    if (g_coro_stacksize <= 0 || g_coro_stacksize > 1024)
+    c = get_raw_conf("coroutine_stacksize");
+    g_coro_stack_kbytes = ALIGN(atoi(c) * 1024, PAGE_SIZE) >> 10;
+    if (g_coro_stack_kbytes <= 0 || g_coro_stack_kbytes > 1024)
     {
-        printf("check shark.conf.coroutine_stacksize:%d, should (0~1024)\n", g_coro_stacksize);
+        printf("check shark.conf.coroutine_stacksize:%d, should [4~1024]\n", g_coro_stack_kbytes);
         exit(0);
     }
 }
 
 static void get_log_env()
 {
-    g_log_path = get_conf("log_path");
-    g_log_strlevel = get_conf("log_level");
-    g_log_reserve = atoi(get_conf("log_reserve_days"));
+    g_log_path = get_raw_conf("log_path");
+    g_log_strlevel = get_raw_conf("log_level");
+    g_log_reserve_days = atoi(get_raw_conf("log_reserve_days"));
 
-    if (g_log_reserve <= 0)
-        g_log_reserve = 7;
+    if (g_log_reserve_days <= 0)
+        g_log_reserve_days = 7;
 }
 
 static void get_server_env()
 {
-    char *c = get_conf("server_ip");
+    char *c = get_raw_conf("server_ip");
     g_server_ip = str_case_equal(c, "default") ? NULL : c;
 
-    c = get_conf("listen");
+    c = get_raw_conf("listen");
     g_server_port = atoi(c);
     if (g_server_port <= 0)
     {
-        printf("check shark.conf.listen:%d, should uint\n", g_worker_connections);
+        printf("check shark.conf.listen:%d, should uint\n", g_server_port);
         exit(0);
     }
 }
 
-void print_sys_env_var()
+void print_conf()
 {
     printf("\nPAGE SIZE               : %d\n", PAGE_SIZE);
     printf("CPU NUM                 : %d\n", CPU_NUM);
     printf("log path                : %s\n", g_log_path);
     printf("log level               : %s\n", g_log_strlevel);
-    printf("log reserve days        : %d\n", g_log_reserve);
+    printf("log reserve days        : %d\n", g_log_reserve_days);
     printf("worker count            : %d\n", g_worker_processes);
     printf("connection per-worker   : %d\n", g_worker_connections);
-    printf("coroutine stacksize(KB) : %d\n", g_coro_stacksize);
+    printf("coroutine stacksize(KB) : %d\n", g_coro_stack_kbytes);
     printf("server ip               : %s\n", g_server_ip ? g_server_ip : "default");
-    printf("server port             : %d\n", g_server_port);
+    printf("server port             : %d\n\n", g_server_port);
+}
+
+void print_runtime_var()
+{
     printf("listen fd               : %d\n", g_listenfd);
     printf("master process pid      : %d\n", g_master_pid);
 }
@@ -124,7 +127,6 @@ void sys_env_var_init()
 {
     PAGE_SIZE = sysconf(_SC_PAGESIZE);
     CPU_NUM = sysconf(_SC_NPROCESSORS_CONF);
-    g_master_pid = getpid();
 }
 
 /*

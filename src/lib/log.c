@@ -55,7 +55,7 @@ static int g_log_day;               //记录当前的天
 static int g_logfd;                 //日志文件描述符
 enum LOG_LEVEL g_log_level;         //日志级别
 
-static char *g_flush_page;          //磁盘的缓冲区, 一个page_size大小
+static char *g_flush_page;          //磁盘的缓冲区, 一个PAGE_SIZE大小
 static size_t g_flush_page_len;     //已经使用的长度
 
 static spinlock *g_log_lock;        //用于多进程分配和释放时
@@ -100,7 +100,7 @@ static void change_log(struct tm *tp)
     g_logfd = open(g_log_path, O_CREAT | O_RDWR | O_APPEND, 0644);
 
     time(&t);
-    t -= g_log_reserve * 24 * 3600;
+    t -= g_log_reserve_days * 24 * 3600;
     tp = localtime(&t);
     strftime(datefmt, sizeof(datefmt), "_%Y%m%d", tp);
     sprintf(filename, "%s%s", g_log_path, datefmt);

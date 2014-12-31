@@ -23,7 +23,8 @@ static void useage(int argc, char *argv[])
            "Options:                                                      \n"
            "   -?,-h         : this help                                  \n"
            "   -v            : show version and exit                      \n"
-           "   -t            : print running shark config and exit        \n"
+           "   -p            : print running shark config and exit        \n"
+           "   -t            : test current config file and exit          \n"
            "   -s signal     : send signal to a master process: stop, quit, reopen, reload\n"
            "                   stop: stop accept new connection and wait all conneciont to be handled\n"
            "                   quit: direct exit, do not wait all connection handled\n"
@@ -45,7 +46,7 @@ static void handle_args(int argc, char *argv[])
     if (argc == 1)
         return;
 
-    if (str_equal(argv[1], "-v"))
+    if (argc == 2 && str_equal(argv[1], "-v"))
     {
         printf("shark runs under linux on x86 or x86_64 platform\n"
                "shark version: "SHARK_VER"\n"
@@ -53,9 +54,12 @@ static void handle_args(int argc, char *argv[])
         exit(0);
     }
 
-    if (str_equal(argv[1], "-t"))
+    if (argc == 2 && str_equal(argv[1], "-t"))
     {
-        printf("to be implement...\n");
+        load_conf(CONF_FILE);
+        conf_env_init();
+        printf("configuration file %s test successful\n", CONF_FILE);
+        print_conf();
         exit(0);
     }
 
@@ -89,20 +93,22 @@ static void handle_args(int argc, char *argv[])
 
 int main(int argc, char **argv)
 {
+    sys_env_var_init();
     handle_args(argc, argv);
 
     sys_daemon();
-    sys_env_var_init();
-    sys_signal_init();
+    g_master_pid = getpid();
     sys_res_init();
+    sys_signal_init();
 
-    load_conf("../conf/shark.conf");
+    load_conf(CONF_FILE);
     conf_env_init();
     shm_init();
     log_init();
 
     tcp_srv_init();
-    print_sys_env_var();
+    print_conf();
+    print_runtime_var();
 
     if (create_pidfile(g_master_pid))
     {

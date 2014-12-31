@@ -5,8 +5,8 @@
 #ifndef __CONF_H__
 #define __CONF_H__
 
-void print_conf();
-char *get_conf(const char *key);
+void print_raw_conf();
+char *get_raw_conf(const char *key);
 void load_conf(const char *filename);
 
 #endif
