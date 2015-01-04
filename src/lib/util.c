@@ -81,7 +81,7 @@ void create_pidfile(int pid)
     FILE *fp = fopen(MASTER_PID_FILE, "w+");
     if (!fp)
     {
-        printf("%s :%s\n", strerror(errno), MASTER_PID_FILE);
+        printf("%s %s\n", strerror(errno), MASTER_PID_FILE);
         exit(0);
     }
 
@@ -95,7 +95,7 @@ int read_pidfile()
     FILE *fp = fopen(MASTER_PID_FILE, "r");
     if (!fp)
     {
-        printf("%s :%s\n", strerror(errno), MASTER_PID_FILE);
+        printf("%s -> %s\n", strerror(errno), MASTER_PID_FILE);
         exit(0);
     }
 

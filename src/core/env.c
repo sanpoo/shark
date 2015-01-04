@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -20,6 +21,7 @@
 /*
     操作系统相关的变量
 */
+char **shark_argv;
 int PAGE_SIZE;
 int CPU_NUM;
 
@@ -121,6 +123,40 @@ void print_runtime_var()
 {
     printf("listen fd               : %d\n", g_listenfd);
     printf("master process pid      : %d\n", g_master_pid);
+}
+
+void proc_title_init(char **argv)
+{
+    int i;
+    size_t len = 0;
+    void *p;
+
+    shark_argv = argv;
+
+    for (i = 1; shark_argv[i]; i++)
+        len += strlen(shark_argv[i]) + 1;
+
+    for (i = 0; environ[i]; i++)
+        len += strlen(environ[i]) + 1;
+
+    p = malloc(len);
+    if (!p)
+        exit(0);
+
+    memcpy(p, shark_argv[1]? shark_argv[1] : environ[0], len);
+
+    len = 0;
+    for (i = 1; shark_argv[i]; i++)
+    {
+        shark_argv[i] = p + len;
+        len += strlen(shark_argv[i]) + 1;
+    }
+
+    for (i = 0; environ[i]; i++)
+    {
+        environ[i] = p + len;
+        len += strlen(environ[i]) + 1;
+    }
 }
 
 void sys_env_var_init()

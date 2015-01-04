@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <sys/socket.h>
 
 #include "pub.h"
@@ -27,6 +28,11 @@ int g_conn_count = 1;           //初始化为1, 为0的时候, worker退出
 int g_shutdown_shark = 0;       //worker是否停止接收fd, 0表示否, 其他表示停止
 int g_exit_shark = 0;           //是否退出shark系统
 int g_all_workers_exit = 0;     //workers是否都退出
+
+static void set_proc_title(const char *name)
+{
+    strcpy(shark_argv[0], name);
+}
 
 static void process_struct_init()
 {
@@ -52,6 +58,7 @@ static pid_t fork_worker(struct process *p)
         case 0:
             g_process_id = getpid();
             g_process_type = WORKER_PROCESS;
+            set_proc_title("shark: worker process");
 
             if (bind_cpu(p->cpuid))
                 printf("Failed to bind cpu: %d\n", p->cpuid);
@@ -73,6 +80,7 @@ static void spawn_worker_process()
 
     g_process_id = getpid();
     g_process_type = MASTER_PROCESS;
+    set_proc_title("shark: master process");
 
     for (i = 0; i < g_worker_processes; i++)
     {
@@ -145,6 +153,7 @@ static void worker_accept_proc(void *args)
         if (unlikely(g_shutdown_shark))
         {
             WARN("worker stop to accept connect and wait all conntion to be over");
+            set_proc_title("shark: worker process is shutting down");
             decrease_conn_and_check();
             break;
         }
@@ -152,6 +161,7 @@ static void worker_accept_proc(void *args)
         if (unlikely(g_exit_shark))
         {
             WARN("worker direct exit");
+            set_proc_title("shark: worker process direct exit");
             exit(0);
         }
 

@@ -12,13 +12,15 @@
  */
 #define CONF_FILE           "../conf/shark.conf"
 #define MASTER_PID_FILE     "../log/shark.pid"
-#define SHARK_VERSION       "1.1.1.20141231"
+#define SHARK_VERSION       "1.1.1.20150104"
 #define SHARK_VER           "shark/"SHARK_VERSION
 
 
 /*
     操作系统相关的全局变量
  */
+extern char **shark_argv;
+extern char **environ;
 extern int PAGE_SIZE;
 extern int CPU_NUM;
 
@@ -45,6 +47,7 @@ extern spinlock *g_accept_lock;     //accept fd自旋锁
 
 void print_conf();
 void print_runtime_var();
+void proc_title_init(char **argv);
 void sys_env_var_init();
 void conf_env_init();
 void tcp_srv_init();

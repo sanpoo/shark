@@ -101,6 +101,7 @@ int main(int argc, char **argv)
 
     sys_daemon();
     g_master_pid = getpid();
+    proc_title_init(argv);
     sys_res_init();
     sys_signal_init();
 
