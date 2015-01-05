@@ -13,25 +13,25 @@
 #include "strop.h"
 #include "net.h"
 #include "log.h"
+#include "env.h"
 #include "http.h"
 
-#define SHARK_HTTP_VER              "shark/1.0.1"
 #define HTTP_CONTENT_STR            "Content-Length:"
 #define HEADER_IF_MODIFIED_SINCE    "If-Modified-Since: "
 #define RFC1123_DATE_FMT            "%a, %d %b %Y %H:%M:%S %Z"
 
-#define header_404 "HTTP/1.1 404 Not Found\r\nServer: "SHARK_HTTP_VER"\r\n" \
+#define header_404 "HTTP/1.1 404 Not Found\r\nServer: "SHARK_VER"\r\n" \
                    "Content-Type: text/html\r\nConnection: Close\r\n\r\nNot found"
-#define header_400 "HTTP/1.1 400 Bad Request\r\nServer: "SHARK_HTTP_VER"\r\n" \
+#define header_400 "HTTP/1.1 400 Bad Request\r\nServer: "SHARK_VER"\r\n" \
                    "Content-Type: text/html\r\nConnection: Close\r\n\r\nBad request:%s"
-#define header_200_start "HTTP/1.1 200 OK\r\nServer: "SHARK_HTTP_VER"\r\n" \
+#define header_200_start "HTTP/1.1 200 OK\r\nServer: "SHARK_VER"\r\n" \
                          "Content-Type: text/html\r\nConnection: Close\r\nok"
-#define header_304_start "HTTP/1.1 304 Not Modified\r\nServer: "SHARK_HTTP_VER"\r\n" \
+#define header_304_start "HTTP/1.1 304 Not Modified\r\nServer: "SHARK_VER"\r\n" \
                          "Content-Type: text/html\r\nConnection: Close\r\n"
-#define header_200 "HTTP/1.1 200 OK\r\nServer: "SHARK_HTTP_VER"\r\n" \
+#define header_200 "HTTP/1.1 200 OK\r\nServer: "SHARK_VER"\r\n" \
                    "Content-Type: application/json;charset=UTF-8\r\nContent-Length: %zu\r\n" \
                    "Date: %s\r\nConnection: close\r\n\r\n%s"
-#define header_200_raw "HTTP/1.1 200 OK\r\nServer: "SHARK_HTTP_VER"\r\n" \
+#define header_200_raw "HTTP/1.1 200 OK\r\nServer: "SHARK_VER"\r\n" \
                        "Content-Type: application/json;charset=UTF-8\r\nContent-Length: %zu\r\n" \
                        "Date: %s\r\nConnection: keep-alive\r\n\r\n"
 

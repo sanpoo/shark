@@ -51,24 +51,39 @@ struct sys_signal g_signals[] =
     {0, 		NULL,   			"", 			NULL}
 };
 
+static void worker_process_get_status()
+{
+    pid_t pid;
+    int stat;
+
+    while ((pid = waitpid(-1, &stat, WNOHANG)) > 0)
+    {
+        WARN("worker process %d exited", pid);
+        log_worker_flush_and_reset(pid);
+        reset_worker_process(pid);
+    }
+}
+
 static void master_signal_handle(int signo, char **action)
 {
     switch (signo)
     {
         case SIGQUIT:
-            g_shutdown_shark = 1;
-            *action = ", stop accept and wait all connection hander over";
+            g_stop_shark = 1;
+            *action = ", stop accepting new connections, and wait for established connections to be handled over";
             break;
         case SIGTERM:
         case SIGINT:
             g_exit_shark = 1;
-            *action = ", stop accept and DO NOT wait all connection hander over, then exit";
+            *action = ", direct exit, do NOT wait established connections to be handled over";
             break;
         case SIGHUP:
-            break;
         case SIGUSR1:
-            break;
         case SIGUSR2:
+            break;
+
+        case SIGCHLD:
+            worker_process_get_status();
             break;
     }
 }
@@ -78,54 +93,14 @@ static void worker_signal_handle(int signo, char **action)
     switch (signo)
     {
         case SIGQUIT:
-            g_shutdown_shark = 1;
-            *action = ", stop accept and wait all conn hander over";
+            g_stop_shark = 1;
+            *action = ", stop accepting new connections, and wait for established connections to be handled over";
             break;
         case SIGTERM:
         case SIGINT:
             g_exit_shark = 1;
-            *action = ", stop accept and DO NOT wait all conn hander over, then exit";
+            *action = ", direct exit, do NOT wait established connections to be handled over";
             break;
-    }
-}
-
-static int worker_empty()
-{
-    int i;
-    for (i = 0; i < g_worker_processes; i++)
-    {
-        struct process *p = &g_process[i];
-        if (p->pid != INVALID_PID)
-            return 0;
-    }
-
-    return 1;
-}
-
-static void worker_process_reset(int pid)
-{
-    int i;
-    for (i = 0; i < g_worker_processes; i++)
-    {
-        struct process *p = &g_process[i];
-        if (p->pid == pid)
-            p->pid = INVALID_PID;
-    }
-
-    if (worker_empty())
-        g_all_workers_exit = 1;
-}
-
-static void process_get_status()
-{
-    pid_t pid;
-    int stat;
-
-    while ((pid = waitpid(-1, &stat, WNOHANG)) > 0)
-    {
-        WARN("worker process %d exited", pid);
-        log_worker_flush_and_reset(pid);
-        worker_process_reset(pid);
     }
 }
 
@@ -152,12 +127,6 @@ static void signal_handler(int signo)
 
         default:
             break;
-    }
-
-    if (signo == SIGCHLD)
-    {
-        process_get_status();
-        g_shutdown_shark = 1;   //有一个进程退出则所有都退出, 后面再优化
     }
 
     INFO("signal %d (%s) received%s", signo, sig->signame, action);

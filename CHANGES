@@ -1,3 +1,7 @@
+Changes with shark 1.2.0                                         05 Jun 2015
+	*) worker process abnormal exit will re-create
+	*) delete no use args function, keep only stop and exit
+
 Changes with shark 1.1.2                                         04 Jun 2015
 	*) add process name in ps
 	

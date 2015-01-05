@@ -19,17 +19,14 @@
 
 static void useage(int argc, char *argv[])
 {
-    printf("Usage: shark [-?hvt] [-s signal]                            \n\n"
-           "Options:                                                      \n"
-           "   -?,-h         : this help                                  \n"
-           "   -v            : show version and exit                      \n"
-           "   -p            : print running shark config and exit        \n"
-           "   -t            : test current config file and exit          \n"
-           "   -s signal     : send signal to a master process: stop, quit, reopen, reload\n"
-           "                   stop: stop accept new connection and wait all conneciont to be handled\n"
-           "                   quit: direct exit, do not wait all connection handled\n"
-           "                   reopen: reopen log file\n"
-           "                   reload: reboot shark with all connection handled\n");
+    printf("Usage: shark [-?hvt] [-s signal]                                \n\n"
+           "Options:                                                        \n"
+           "  -?,-h     : this help                                         \n"
+           "  -v        : show version and exit                             \n"
+           "  -t        : check current config file and print conf, then exit\n"
+           "  -s signal : send signal to a master process: stop, exit\n"
+           "              stop :stop accepting new connections, and wait for established connections to be handled over\n"
+           "              exit :direct exit, do NOT wait established connections to be handled over\n");
 }
 
 static void send_signal_to_master(int signo)
@@ -60,33 +57,15 @@ static void handle_args(int argc, char *argv[])
         exit(0);
     }
 
-    if (argc == 2 && str_equal(argv[1], "-p"))
-    {
-        printf("to be implement...\n");
-        exit(0);
-    }
-
     if (argc == 3 && str_equal(argv[1], "-s") && str_equal(argv[2], "stop"))
     {
         send_signal_to_master(SHUTDOWN_SIGNAL);
         exit(0);
     }
 
-    if (argc == 3 && str_equal(argv[1], "-s") && str_equal(argv[2], "quit"))
+    if (argc == 3 && str_equal(argv[1], "-s") && str_equal(argv[2], "exit"))
     {
         send_signal_to_master(TERMINATE_SIGNAL);
-        exit(0);
-    }
-
-    if (argc == 3 && str_equal(argv[1], "-s") && str_equal(argv[2], "reopen"))
-    {
-        printf("to be implement...\n");
-        exit(0);
-    }
-
-    if (argc == 3 && str_equal(argv[1], "-s") && str_equal(argv[2], "reload"))
-    {
-        printf("to be implement...\n");
         exit(0);
     }
 
@@ -96,7 +75,7 @@ static void handle_args(int argc, char *argv[])
 
 int main(int argc, char **argv)
 {
-    sys_env_var_init();
+    sys_env_init();
     handle_args(argc, argv);
 
     sys_daemon();
@@ -114,21 +93,10 @@ int main(int argc, char **argv)
     print_conf();
     print_runtime_var();
     create_pidfile(g_master_pid);
-
     process_init();
-    if (log_worker_alloc(g_process_id) < 0)
-    {
-        printf("Failed to alloc log for process:%d\n", g_process_id);
-        exit(0);
-    }
 
-//worker_process_cycle();
-//return 0;
-
-    if (g_process_id == g_master_pid)
-        master_process_cycle();
-    else
-        worker_process_cycle();
+    master_process_cycle();
+    worker_process_cycle();
 
     return 0;
 }

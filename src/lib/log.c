@@ -80,7 +80,7 @@ static enum LOG_LEVEL log_str_level(const char *level)
     1. 重命名当前文件
     2. 新建一个文件
     3. 删掉过期日志文件
- */
+*/
 static void change_log(struct tm *tp)
 {
     time_t t;
@@ -145,17 +145,17 @@ static void log_write(void *data, void *args)
 
     strftime(strnow, sizeof(strnow), "%Y-%m-%d %H:%M:%S", tp);
     buff->len = snprintf(buff->buff, sizeof(buff->buff),
-                        "(%d)%s %s %s(%d)[%s]:%s\n",
-                        desc->wklog->id, strnow, desc->file,
-                        desc->func, desc->line,
-                        STR_LOG_LEVEL[desc->level], desc->msg);
+                         "(%d)%s %s %s(%d)[%s]:%s\n",
+                         desc->wklog->id, strnow, desc->file,
+                         desc->func, desc->line,
+                         STR_LOG_LEVEL[desc->level], desc->msg);
 }
 
 static inline void worker_log_init(struct worker_log *wklog)
 {
     wklog->id = 0;
     wklog->need_init = 0;
-    cqueue_init(&wklog->queue, LOG_SIZE/sizeof(struct log_buff),
+    cqueue_init(&wklog->queue, LOG_SIZE / sizeof(struct log_buff),
                 sizeof(struct log_buff), log_read, log_write);
 }
 
@@ -171,7 +171,7 @@ static inline void copy_to_cache(struct worker_log *wklog)
 /*
     扫描日志的共享内存, 并写到文件
     满一页就往磁盘写, 扫完一轮后, 不够一页也写
- */
+*/
 void log_scan_write()
 {
     int i;
@@ -189,7 +189,7 @@ void log_scan_write()
 
 /*
     成功返回>=0的索引, 失败返回-1
- */
+*/
 int log_worker_alloc(int id)
 {
     int i;
@@ -227,7 +227,7 @@ void log_worker_flush_and_reset(int id)
 }
 
 void log_out(enum LOG_LEVEL level, const char *file, const char *func,
-               int line, const char *fmt, ...)
+             int line, const char *fmt, ...)
 {
     int ret;
     struct log_desc desc;
@@ -247,8 +247,8 @@ void log_out(enum LOG_LEVEL level, const char *file, const char *func,
     va_end(ap);
 
     ret = cqueue_write(&desc.wklog->queue, &desc);
-    //if (unlikely(ret))
-      //  printf("log buff is full\n");
+    if (unlikely(ret))
+        printf("id:%d log buff is full\n", logid);
 }
 
 static void gen_logfile_fd(const char *path)
@@ -294,7 +294,7 @@ void log_init()
 
     for (index = 0; index < g_wklog_num; index++)
     {
-        g_wklog[index].queue.elem = shm_alloc_pages(LOG_SIZE/PAGE_SIZE);
+        g_wklog[index].queue.elem = shm_alloc_pages(LOG_SIZE / PAGE_SIZE);
         if (!g_wklog[index].queue.elem)
         {
             printf("Failed to alloc shm for log shm\n");

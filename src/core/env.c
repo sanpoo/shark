@@ -56,9 +56,9 @@ static void get_worker_env()
     else
         g_worker_processes = atoi(c);
 
-    if (g_worker_processes < 0 || g_worker_processes > 32)
+    if (g_worker_processes < 0 || g_worker_processes > MAX_WORKER_PROCESS)
     {
-        printf("check shark.conf.g_worker_processes:%d, should default or [0~32]\n", g_worker_processes);
+        printf("check shark.conf.g_worker_processes:%d, should default or [0~%d]\n", g_worker_processes, MAX_WORKER_PROCESS);
         exit(0);
     }
 
@@ -159,7 +159,7 @@ void proc_title_init(char **argv)
     }
 }
 
-void sys_env_var_init()
+void sys_env_init()
 {
     PAGE_SIZE = sysconf(_SC_PAGESIZE);
     CPU_NUM = sysconf(_SC_NPROCESSORS_CONF);

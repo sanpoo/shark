@@ -19,15 +19,24 @@
 
 #include "process.h"
 
-struct process g_process[32];   //子进程信息, 最多支持32个子进程
-int g_process_id;               //进程id, 包含master进程
-enum PROC_TYPE g_process_type;  //进程类型
+#define INVALID_PID  -1
 
-int g_conn_count = 1;           //初始化为1, 为0的时候, worker退出
+struct process
+{
+    pid_t pid;          // -1表示不存在
+    int cpuid;          // 绑定cpuid, 初始化后不变
+};
 
-int g_shutdown_shark = 0;       //worker是否停止接收fd, 0表示否, 其他表示停止
-int g_exit_shark = 0;           //是否退出shark系统
-int g_all_workers_exit = 0;     //workers是否都退出
+static struct process g_process[MAX_WORKER_PROCESS];//子进程信息, 最多支持32个子进程
+static int g_process_id;                            //进程id, 包含master进程
+enum PROC_TYPE g_process_type;     //进程类型
+
+static int g_conn_count = 1;       //初始化为1, 为0的时候, worker退出
+static int g_all_workers_exit = 0; //workers是否都退出
+static int g_create_worker = 1;    //当worker异常退出时候
+
+int g_stop_shark = 0;       //worker是否停止接收fd, 0表示否, 其他表示停止
+int g_exit_shark = 0;       //是否退出shark系统
 
 static void set_proc_title(const char *name)
 {
@@ -45,6 +54,19 @@ static void process_struct_init()
     }
 }
 
+static int worker_empty()
+{
+    int i;
+    for (i = 0; i < g_worker_processes; i++)
+    {
+        struct process *p = &g_process[i];
+        if (p->pid != INVALID_PID)
+            return 0;
+    }
+
+    return 1;
+}
+
 static pid_t fork_worker(struct process *p)
 {
     pid_t pid = fork();
@@ -52,7 +74,7 @@ static pid_t fork_worker(struct process *p)
     switch (pid)
     {
         case -1:
-            printf("Failed to fork. my pid:%d\n", getpid());
+            ERR("Failed to fork worker process. master pid:%d\n", getpid());
             return -1;
 
         case 0:
@@ -60,16 +82,22 @@ static pid_t fork_worker(struct process *p)
             g_process_type = WORKER_PROCESS;
             set_proc_title("shark: worker process");
 
+            if (log_worker_alloc(g_process_id) < 0)
+            {
+                printf("Failed to alloc log for process:%d\n", g_process_id);
+                exit(0);
+            }
+
             if (bind_cpu(p->cpuid))
-                printf("Failed to bind cpu: %d\n", p->cpuid);
-            //else
-            //printf("succ to bind cpu: %d\n", p->cpuid);
+            {
+                ERR("Failed to bind cpu: %d\n", p->cpuid);
+                exit(0);
+            }
 
             return 0;
 
         default:
             p->pid = pid;
-            //printf("succ to fork. my pid:%d, my child pid %d\n", getpid(), pid);
             return pid;
     }
 }
@@ -77,11 +105,6 @@ static pid_t fork_worker(struct process *p)
 static void spawn_worker_process()
 {
     int i;
-
-    g_process_id = getpid();
-    g_process_type = MASTER_PROCESS;
-    set_proc_title("shark: master process");
-
     for (i = 0; i < g_worker_processes; i++)
     {
         struct process *p = &g_process[i];
@@ -150,7 +173,7 @@ static void worker_accept_proc(void *args)
 
     for (;;)
     {
-        if (unlikely(g_shutdown_shark))
+        if (unlikely(g_stop_shark))
         {
             WARN("worker stop to accept connect and wait all conntion to be over");
             set_proc_title("shark: worker process is shutting down");
@@ -222,21 +245,21 @@ void master_process_cycle()
 
     for (;;)
     {
-        if (g_shutdown_shark)
+        if (g_stop_shark == 1)
         {
-            WARN("notify workers to stop accept new connection and wait accepted connection to be handled, then exit");
+            WARN("notify worker processes to stop accepting new connections, and wait them handled over, then shark exit");
             send_signal_to_workers(SHUTDOWN_SIGNAL);
-            g_shutdown_shark = 0;
+            g_stop_shark = 2;
         }
 
-        if (g_exit_shark)
+        if (g_exit_shark == 1)
         {
-            WARN("notify workers to direct exit");
+            WARN("notify workers processes to direct exit, then shark exit");
             send_signal_to_workers(TERMINATE_SIGNAL);
-            g_exit_shark = 0;
+            g_exit_shark = 2;
         }
 
-        if (g_all_workers_exit)
+        if (g_all_workers_exit == 1)
         {
             WARN("shark will exit...");
             log_scan_write();
@@ -244,14 +267,48 @@ void master_process_cycle()
             exit(0);
         }
 
+        if (g_create_worker)
+        {
+            g_create_worker = 0;
+            spawn_worker_process();
+            if (g_process_id != g_master_pid)
+                break;
+        }
+
         log_scan_write();
         USLEEP(10000);
     }
 }
 
+void reset_worker_process(int pid)
+{
+    int i;
+    for (i = 0; i < g_worker_processes; i++)
+    {
+        struct process *p = &g_process[i];
+        if (p->pid == pid)
+            p->pid = INVALID_PID;
+    }
+
+    //worker进程退出, 但是并没有收到要shark停止或退出的指令, 表明子进程异常退出
+    if (!g_stop_shark && !g_exit_shark)
+        g_create_worker = 1;
+
+    if (worker_empty() && (g_stop_shark || g_exit_shark))
+        g_all_workers_exit = 1;
+}
+
 void process_init()
 {
+    g_process_id = getpid();
+    g_process_type = MASTER_PROCESS;
+    set_proc_title("shark: master process");
+    if (log_worker_alloc(g_process_id) < 0)
+    {
+        printf("Failed to alloc log for process:%d\n", g_process_id);
+        exit(0);
+    }
+
     process_struct_init();
-    spawn_worker_process();
 }
 
