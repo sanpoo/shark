@@ -9,7 +9,6 @@
 #include <string.h>
 
 #include "strop.h"
-#include "refstr.h"
 
 struct conf
 {

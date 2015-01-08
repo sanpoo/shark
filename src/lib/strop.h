@@ -5,6 +5,12 @@
 #ifndef __STR_H__
 #define __STR_H__
 
+struct refstr
+{
+    const char *p;
+    size_t len;
+};
+
 int format_args(char *str, size_t size, const char *format, ...);
 
 int str_equal(const char *s, const char *t);

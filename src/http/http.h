@@ -5,7 +5,7 @@
 #ifndef __HTTP_H__
 #define __HTTP_H__
 
-#include "refstr.h"
+#include "strop.h"
 
 #define HTTP_BUFF_SIZE    2048
 

@@ -3,6 +3,7 @@ Changes with shark 1.2.1                                         08 Jun 2015
 	*) Makefile make clean add removing bin file
 	*) Adjust src code structure
 	*) add http request
+	*) merge refstr to strop
 
 Changes with shark 1.2.0                                         05 Jun 2015
 	*) worker process abnormal exit will re-create
