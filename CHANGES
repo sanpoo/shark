@@ -1,24 +1,28 @@
+Changes with shark 1.2.1                                         08 Jun 2015
+	*) log local variable to global for reducing stack occupy
+	*) Makefile make clean add removing bin file
+
 Changes with shark 1.2.0                                         05 Jun 2015
 	*) worker process abnormal exit will re-create
 	*) delete no use args function, keep only stop and exit
 
 Changes with shark 1.1.2                                         04 Jun 2015
 	*) add process name in ps
-	
+
 Changes with shark 1.1.1                                         31 Dec 2014
 	*) reconstruct conf module
 	*) optimize pidfile
 
 Changes with shark 1.1.0                                         22 Dec 2014
 	*) change epoll accuracy from second to milliseconds
-	*) delete no use code in add_to_timer_node 
+	*) delete no use code in add_to_timer_node
 
 Changes with shark 1.0.4                                         22 Dec 2014
 	*) add CONFIG_SMP in Makefile for spinlock
 	*) add -march=i686 option for __sync_bool_compare_and_swap on 32-bit arch
-	
+
 Changes with shark 1.0.3                                         19 Dec 2014
-	*) optimize the corotine initialization 
+	*) optimize the corotine initialization
 
 Changes with shark 1.0.2                                         2 Dec 2014
 	*) net.c(h) reconstruct

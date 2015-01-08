@@ -53,4 +53,5 @@ install:
 	@cp -f $(TARGET) ../bin
 
 clean:
+	@rm -rf ../bin/$(TARGET)
 	@rm -rf $(obj) $(TARGET)

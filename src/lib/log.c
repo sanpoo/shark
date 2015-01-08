@@ -226,27 +226,28 @@ void log_worker_flush_and_reset(int id)
     spin_unlock(g_log_lock);
 }
 
+struct log_desc g_desc;
+
 void log_out(enum LOG_LEVEL level, const char *file, const char *func,
              int line, const char *fmt, ...)
 {
     int ret;
-    struct log_desc desc;
 
     if (level > g_log_level)
         return;
 
-    desc.wklog = &g_wklog[logid];
-    desc.file = file;
-    desc.func = func;
-    desc.line = line;
-    desc.level = level;
+    g_desc.wklog = &g_wklog[logid];
+    g_desc.file = file;
+    g_desc.func = func;
+    g_desc.line = line;
+    g_desc.level = level;
 
     va_list ap;
     va_start(ap, fmt);
-    vsnprintf(desc.msg, sizeof(desc.msg), fmt, ap);
+    vsnprintf(g_desc.msg, sizeof(g_desc.msg), fmt, ap);
     va_end(ap);
 
-    ret = cqueue_write(&desc.wklog->queue, &desc);
+    ret = cqueue_write(&g_desc.wklog->queue, &g_desc);
     if (unlikely(ret))
         printf("id:%d log buff is full\n", logid);
 }

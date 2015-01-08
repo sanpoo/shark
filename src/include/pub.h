@@ -27,6 +27,10 @@
     #define cpu_pause()
 #endif
 
+#define CR     (u_char) 13
+#define LF     (u_char) 10
+#define CRLF   "\x0d\x0a"
+
 
 #endif
 
