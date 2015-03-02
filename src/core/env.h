@@ -12,7 +12,7 @@
  */
 #define CONF_FILE           "../conf/shark.conf"
 #define MASTER_PID_FILE     "../log/shark.pid"
-#define SHARK_VER           "shark/1.2.0.20150105"
+#define SHARK_VER           "shark/1.2.0.20150227"
 
 #define MAX_WORKER_PROCESS  32
 

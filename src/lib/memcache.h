@@ -13,7 +13,7 @@ struct memcache
     int curr;           //当前可用的element个数
 };
 
-struct memcache *memcache_create(int cache_size, size_t obj_size);
+struct memcache *memcache_create(size_t obj_size, int max_cache_size);
 void memcache_destroy(struct memcache *cache);
 void *memcache_alloc(struct memcache *cache);
 void memcache_free(struct memcache *cache, void *element);

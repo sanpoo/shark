@@ -4,8 +4,13 @@
 */
 #include <sched.h>
 
-#include "pub.h"
 #include "spinlock.h"
+
+#if (__i386__ || __i386 || __amd64__ || __amd64)
+    #define cpu_pause() __asm__("pause")
+#else
+    #define cpu_pause()
+#endif
 
 void spin_lock_init(spinlock *lock)
 {

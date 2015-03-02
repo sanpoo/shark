@@ -13,7 +13,7 @@
 #include "pub.h"
 #include "conf.h"
 #include "net.h"
-#include "strop.h"
+#include "str.h"
 #include "shm.h"
 
 #include "env.h"
@@ -51,7 +51,7 @@ static void get_worker_env()
     char *c = get_raw_conf("worker_processes");
 
     // 1. worker num
-    if (str_case_equal(c, "default"))
+    if (str_equal(c, "default"))
         g_worker_processes = CPU_NUM;
     else
         g_worker_processes = atoi(c);
@@ -72,11 +72,11 @@ static void get_worker_env()
     }
 
     // 3. coro stacksize
-    c = get_raw_conf("coroutine_stacksize");
+    c = get_raw_conf("coroutine_stack_size");
     g_coro_stack_kbytes = ALIGN(atoi(c) * 1024, PAGE_SIZE) >> 10;
     if (g_coro_stack_kbytes <= 0 || g_coro_stack_kbytes > 1024)
     {
-        printf("check shark.conf.coroutine_stacksize:%d, should [4~1024]\n", g_coro_stack_kbytes);
+        printf("check shark.conf.coroutine_stack_size:%d, should [4~1024]\n", g_coro_stack_kbytes);
         exit(0);
     }
 }
@@ -94,7 +94,7 @@ static void get_log_env()
 static void get_server_env()
 {
     char *c = get_raw_conf("server_ip");
-    g_server_ip = str_case_equal(c, "default") ? NULL : c;
+    g_server_ip = str_equal(c, "default") ? NULL : c;
 
     c = get_raw_conf("listen");
     g_server_port = atoi(c);

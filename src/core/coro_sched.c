@@ -303,7 +303,7 @@ static inline struct timer_node *get_recent_timer_node()
     return container_of(recent, struct timer_node, node);
 }
 
-static inline void handle_timeout_coroutine(struct timer_node *node)
+static inline void timeout_coroutine_handler(struct timer_node *node)
 {
     struct rb_node *recent;
 
@@ -327,7 +327,7 @@ static void check_timeout_coroutine()
             return;
 
         rb_erase(&node->node, &g_sched.inactive);
-        handle_timeout_coroutine(node);
+        timeout_coroutine_handler(node);
         memcache_free(g_sched.cache, node);
     }
 }
@@ -448,7 +448,7 @@ void schedule_init(size_t stack_kbytes, size_t max_coro_size)
     INIT_LIST_HEAD(&g_sched.idle);
     INIT_LIST_HEAD(&g_sched.active);
     g_sched.inactive = RB_ROOT;
-    g_sched.cache = memcache_create(max_coro_size / 2, sizeof(struct timer_node));
+    g_sched.cache = memcache_create(sizeof(struct timer_node), max_coro_size / 2);
     g_sched.policy = event_cycle;
     if (NULL == g_sched.cache)
     {

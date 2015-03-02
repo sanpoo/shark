@@ -134,7 +134,7 @@ static void handle_connection(void *args)
 {
     int connfd = (int)(intptr_t)args;
 
-    handle_request(connfd);
+    request_handler(connfd);
     close(connfd);
     decrease_conn_and_check();
 }
@@ -212,7 +212,7 @@ static void worker_accept_proc(void *args)
 
 void worker_process_cycle()
 {
-    if (project_init())
+    if (worker_process_init())
         exit(0);
 
     schedule_init(g_coro_stack_kbytes, g_worker_connections);
@@ -241,6 +241,9 @@ static void send_signal_to_workers(int signo)
 
 void master_process_cycle()
 {
+    if (master_process_init())
+        exit(0);
+
     INFO("master success running....");
 
     for (;;)

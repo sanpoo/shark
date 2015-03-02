@@ -64,7 +64,7 @@ static void worker_process_get_status()
     }
 }
 
-static void master_signal_handle(int signo, char **action)
+static void master_signal_handler(int signo, char **action)
 {
     switch (signo)
     {
@@ -88,7 +88,7 @@ static void master_signal_handle(int signo, char **action)
     }
 }
 
-static void worker_signal_handle(int signo, char **action)
+static void worker_signal_handler(int signo, char **action)
 {
     switch (signo)
     {
@@ -118,11 +118,11 @@ static void signal_handler(int signo)
     switch (g_process_type)
     {
         case MASTER_PROCESS:
-            master_signal_handle(signo, &action);
+            master_signal_handler(signo, &action);
             break;
 
         case WORKER_PROCESS:
-            worker_signal_handle(signo, &action);
+            worker_signal_handler(signo, &action);
             break;
 
         default:

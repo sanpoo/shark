@@ -31,40 +31,35 @@ static void free_pool(struct memcache *cache)
         free(element);
     }
 
-    free(cache->elements);
     free(cache);
 }
 
 /*
-    @cache_size:最多缓存元素个数
-    @obj_size:  元素对象大小
+    @obj_size       :缓存对象大小
+    @max_cache_size :最多缓存元素个数
     memcache原理:
-    初始化时缓存cache_size个元素, 后续分配从cache中分, 如果超过cache部分, 则malloc
-    释放回来的时候, 也最多装满cache_size个元素, 多的部分free掉
-    cache_size的选择应该选择大部分时候使用的量, 不要选择极端情形下的内存数字
- */
-struct memcache *memcache_create(int cache_size, size_t obj_size)
+    初始化时缓存max_cache_size/2个元素, 后续分配从cache中分, 如果超过cache部分,
+    则malloc释放回来的时候, 也最多装满max_cache_size个元素, 多的部分free掉
+    max_cache_size的选择应该选择大部分时候使用的量, 不要选择极端情形下的内存数字
+*/
+struct memcache *memcache_create(size_t obj_size, int max_cache_size)
 {
     struct memcache *cache;
+    size_t size = sizeof(struct memcache) + max_cache_size * sizeof(void *);
 
-    assert(cache_size >= 1);
+    assert(max_cache_size >= 2);
 
-    cache = (struct memcache *)malloc(sizeof(struct memcache));
+    cache = (struct memcache *)malloc(size);
     if (NULL == cache)
         return NULL;
 
-    cache->elements = malloc(cache_size * sizeof(void *));
-    if (NULL == cache->elements)
-    {
-        free(cache);
-        return NULL;
-    }
-
+    cache->elements = (void **)((char *)cache + sizeof(struct memcache));
     cache->obj_size = obj_size;
-    cache->cache_size = cache_size;
+    cache->cache_size = max_cache_size;
     cache->curr = 0;
 
-    while (cache->curr < cache->cache_size)
+    max_cache_size >>= 2;
+    while (cache->curr < max_cache_size)
     {
         void *element = malloc(cache->obj_size);
         if (NULL == element)

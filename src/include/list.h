@@ -5,7 +5,11 @@
 #ifndef __LIST_H__
 #define __LIST_H__
 
-#include "pub.h"
+#include <stddef.h>
+
+#define container_of(ptr, type, member) ({			\
+        const typeof(((type *)0)->member) *__mptr = (ptr);	\
+        (type *)((char *)__mptr - offsetof(type,member));})
 
 struct list_head
 {
@@ -298,7 +302,7 @@ static inline void list_splice_init(struct list_head *list,
     The list at @list is reinitialised
 */
 static inline void list_splice_tail_init(struct list_head *list,
-        struct list_head *head)
+                                         struct list_head *head)
 {
     if (!list_empty(list))
     {
@@ -394,7 +398,7 @@ static inline void list_splice_tail_init(struct list_head *list,
 */
 #define list_for_each_entry_reverse(pos, head, member)			\
     for (pos = list_entry((head)->prev, typeof(*pos), member);	\
-        &pos->member != (head); 	\
+            &pos->member != (head); 	\
             pos = list_entry(pos->member.prev, typeof(*pos), member))
 
 /**

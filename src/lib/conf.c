@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "strop.h"
+#include "str.h"
 
 struct conf
 {
@@ -20,9 +20,9 @@ struct conf
 
 static struct conf *g_conf = NULL;
 
-static int parse_conf(const char *str, struct refstr *key, struct refstr *value)
+static int parse_conf(unsigned char *str, str_t *key, str_t *value)
 {
-    register const char *loop = str;
+    register unsigned char *loop = str;
 
     while ((isspace(*loop) || !isprint(*loop)) && *loop != '\0')
         loop++;
@@ -90,7 +90,7 @@ char *get_raw_conf(const char *key)
 }
 
 /*
-    load config from file. support load from muti file, all config will insert
+    load config from file. support load from multi file, all config will insert
     into g_conf
 */
 void load_conf(const char *filename)
@@ -103,14 +103,14 @@ void load_conf(const char *filename)
     fp = fopen(filename, "r");
     if (NULL == fp)
     {
-        printf("Failed to open config file %s, reason:%s\n", filename, strerror(errno));
+        printf("%s :%s\n", filename, strerror(errno));
         exit(0);
     }
 
     while (fgets(buff, sizeof(buff), fp))
     {
-        struct refstr key, value;
-        if (parse_conf(buff, &key, &value))
+        str_t key, value;
+        if (parse_conf((unsigned char *)buff, &key, &value))
             continue;
 
         c = (struct conf *)malloc(sizeof(struct conf));
@@ -133,9 +133,7 @@ void load_conf(const char *filename)
     }
 
     free_old_conf(g_conf);
-
     g_conf = head;
-
     fclose(fp);
 }
 

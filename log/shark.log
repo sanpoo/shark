@@ -1,0 +1,1658 @@
+(411)2015-02-28 17:53:01 core/process.c master_process_cycle(247)[INFO]:master success running....
+(412)2015-02-28 17:53:01 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(413)2015-02-28 17:53:01 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(414)2015-02-28 17:53:01 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(416)2015-02-28 17:53:01 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(418)2015-02-28 17:53:01 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(415)2015-02-28 17:53:01 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(419)2015-02-28 17:53:01 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(417)2015-02-28 17:53:01 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(412)2015-02-28 17:53:03 http/http_request.c http_process_request_line(182)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(412)2015-02-28 17:53:03 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(412)2015-02-28 17:53:03 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(412)2015-02-28 17:53:03 http/http_request.c handle_http_request_header(204)[DBG]:[Cache-Control] [max-age=0]
+(412)2015-02-28 17:53:03 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(412)2015-02-28 17:53:03 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(412)2015-02-28 17:53:03 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(412)2015-02-28 17:53:03 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(412)2015-02-28 17:53:03 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 200 OK
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+(412)2015-02-28 17:53:13 http/http_request.c recv_http_request(148)[ERR]:recv timeout, ip:192.168.106.153
+(412)2015-02-28 17:53:13 http/http_request.c http_process_request_line(178)[ERR]:recv http request line error:-2
+(412)2015-02-28 17:53:13 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(412)2015-02-28 17:53:23 http/http_request.c http_process_request_line(182)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(412)2015-02-28 17:53:23 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(412)2015-02-28 17:53:23 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(412)2015-02-28 17:53:23 http/http_request.c handle_http_request_header(204)[DBG]:[Cache-Control] [max-age=0]
+(412)2015-02-28 17:53:23 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(412)2015-02-28 17:53:23 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(412)2015-02-28 17:53:23 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(412)2015-02-28 17:53:23 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(412)2015-02-28 17:53:23 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 200 OK
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+(412)2015-02-28 17:53:33 http/http_request.c recv_http_request(148)[ERR]:recv timeout, ip:192.168.106.153
+(412)2015-02-28 17:53:33 http/http_request.c http_process_request_line(178)[ERR]:recv http request line error:-2
+(412)2015-02-28 17:53:33 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(412)2015-02-28 17:59:43 http/http_request.c http_process_request_line(182)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(412)2015-02-28 17:59:43 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(412)2015-02-28 17:59:43 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(412)2015-02-28 17:59:43 http/http_request.c handle_http_request_header(204)[DBG]:[Cache-Control] [max-age=0]
+(412)2015-02-28 17:59:43 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(412)2015-02-28 17:59:43 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(412)2015-02-28 17:59:43 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(412)2015-02-28 17:59:43 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(412)2015-02-28 17:59:43 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 200 OK
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+(412)2015-02-28 17:59:53 http/http_request.c recv_http_request(148)[ERR]:recv timeout, ip:192.168.106.153
+(412)2015-02-28 17:59:53 http/http_request.c http_process_request_line(178)[ERR]:recv http request line error:-2
+(412)2015-02-28 17:59:53 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(411)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(411)2015-02-28 18:06:48 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(411)2015-02-28 18:06:48 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:412
+(411)2015-02-28 18:06:48 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:413
+(411)2015-02-28 18:06:48 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:414
+(411)2015-02-28 18:06:48 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:415
+(411)2015-02-28 18:06:48 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:416
+(411)2015-02-28 18:06:48 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:417
+(411)2015-02-28 18:06:48 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:418
+(411)2015-02-28 18:06:48 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:419
+(412)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(413)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(416)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(417)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(418)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(415)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(414)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(419)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(411)2015-02-28 18:06:48 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 418 exited
+(411)2015-02-28 18:06:48 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 419 exited
+(411)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(418)2015-02-28 18:06:48 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(418)2015-02-28 18:06:48 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(419)2015-02-28 18:06:48 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(419)2015-02-28 18:06:48 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(411)2015-02-28 18:06:48 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 413 exited
+(411)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(413)2015-02-28 18:06:48 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(413)2015-02-28 18:06:48 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(416)2015-02-28 18:06:48 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(416)2015-02-28 18:06:48 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(411)2015-02-28 18:06:48 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 416 exited
+(411)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(411)2015-02-28 18:06:48 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 414 exited
+(411)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(414)2015-02-28 18:06:48 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(414)2015-02-28 18:06:48 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(411)2015-02-28 18:06:48 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 415 exited
+(411)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(415)2015-02-28 18:06:48 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(415)2015-02-28 18:06:48 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(411)2015-02-28 18:06:48 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 417 exited
+(411)2015-02-28 18:06:48 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(417)2015-02-28 18:06:48 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(417)2015-02-28 18:06:48 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(411)2015-02-28 18:06:49 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 412 exited
+(411)2015-02-28 18:06:49 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(411)2015-02-28 18:06:49 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(412)2015-02-28 18:06:49 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(412)2015-02-28 18:06:49 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(1204)2015-02-28 18:06:52 core/process.c master_process_cycle(247)[INFO]:master success running....
+(1205)2015-02-28 18:06:52 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(1206)2015-02-28 18:06:52 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(1209)2015-02-28 18:06:52 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(1208)2015-02-28 18:06:52 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(1210)2015-02-28 18:06:52 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(1211)2015-02-28 18:06:52 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(1212)2015-02-28 18:06:52 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(1207)2015-02-28 18:06:52 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(1205)2015-02-28 18:06:56 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(1205)2015-02-28 18:06:56 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(1205)2015-02-28 18:06:56 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(1205)2015-02-28 18:06:56 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(1205)2015-02-28 18:06:56 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(1205)2015-02-28 18:06:56 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(1205)2015-02-28 18:06:56 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(1205)2015-02-28 18:06:56 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(1205)2015-02-28 18:06:56 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 200 OK
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+(1205)2015-02-28 18:07:06 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(1205)2015-02-28 18:07:06 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(1205)2015-02-28 18:07:06 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(1205)2015-02-28 18:48:05 http/http_request.c recv_http_request(164)[DBG]:GET /haha?whar HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(1205)2015-02-28 18:48:05 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(1205)2015-02-28 18:48:05 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(1205)2015-02-28 18:48:05 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(1205)2015-02-28 18:48:05 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(1205)2015-02-28 18:48:05 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(1205)2015-02-28 18:48:05 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(1205)2015-02-28 18:48:05 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(1205)2015-02-28 18:48:05 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 200 OK
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+(1205)2015-02-28 18:48:15 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(1205)2015-02-28 18:48:15 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(1205)2015-02-28 18:48:15 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(1205)2015-02-28 18:48:27 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(1205)2015-02-28 18:48:27 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(1205)2015-02-28 18:48:27 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(1205)2015-02-28 18:48:27 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(1205)2015-02-28 18:48:27 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(1205)2015-02-28 18:48:27 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(1205)2015-02-28 18:48:27 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(1205)2015-02-28 18:48:27 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(1205)2015-02-28 18:48:27 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 200 OK
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+(1205)2015-02-28 18:48:37 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(1205)2015-02-28 18:48:37 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(1205)2015-02-28 18:48:37 http/http_response.c http_finalize_request(403)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(1204)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1204)2015-02-28 18:49:28 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(1204)2015-02-28 18:49:28 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:1205
+(1204)2015-02-28 18:49:28 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:1206
+(1204)2015-02-28 18:49:28 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:1207
+(1204)2015-02-28 18:49:28 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:1208
+(1204)2015-02-28 18:49:28 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:1209
+(1204)2015-02-28 18:49:28 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:1210
+(1204)2015-02-28 18:49:28 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:1211
+(1204)2015-02-28 18:49:28 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:1212
+(1205)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1210)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1206)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1207)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1209)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1208)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1211)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1212)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(1204)2015-02-28 18:49:28 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 1211 exited
+(1204)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(1211)2015-02-28 18:49:28 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(1211)2015-02-28 18:49:28 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(1204)2015-02-28 18:49:28 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 1206 exited
+(1204)2015-02-28 18:49:28 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 1208 exited
+(1204)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(1204)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(1206)2015-02-28 18:49:28 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(1206)2015-02-28 18:49:28 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(1208)2015-02-28 18:49:28 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(1208)2015-02-28 18:49:28 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(1204)2015-02-28 18:49:28 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 1209 exited
+(1204)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(1209)2015-02-28 18:49:28 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(1209)2015-02-28 18:49:28 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(1204)2015-02-28 18:49:28 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 1207 exited
+(1204)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(1207)2015-02-28 18:49:28 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(1207)2015-02-28 18:49:28 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(1204)2015-02-28 18:49:28 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 1210 exited
+(1204)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(1210)2015-02-28 18:49:28 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(1210)2015-02-28 18:49:28 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(1212)2015-02-28 18:49:28 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(1212)2015-02-28 18:49:28 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(1204)2015-02-28 18:49:28 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 1212 exited
+(1204)2015-02-28 18:49:28 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(1204)2015-02-28 18:49:30 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 1205 exited
+(1204)2015-02-28 18:49:30 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(1204)2015-02-28 18:49:30 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(1205)2015-02-28 18:49:30 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(1205)2015-02-28 18:49:30 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(3345)2015-02-28 18:50:34 core/process.c master_process_cycle(247)[INFO]:master success running....
+(3346)2015-02-28 18:50:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(3347)2015-02-28 18:50:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(3353)2015-02-28 18:50:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(3352)2015-02-28 18:50:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(3351)2015-02-28 18:50:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(3350)2015-02-28 18:50:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(3349)2015-02-28 18:50:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(3348)2015-02-28 18:50:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(3348)2015-02-28 18:50:39 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(3348)2015-02-28 18:50:39 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(3348)2015-02-28 18:50:39 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(3348)2015-02-28 18:50:39 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(3348)2015-02-28 18:50:39 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(3348)2015-02-28 18:50:39 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(3348)2015-02-28 18:50:39 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(3348)2015-02-28 18:50:39 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(3348)2015-02-28 18:50:39 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(3348)2015-02-28 18:50:49 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(3348)2015-02-28 18:50:49 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(3348)2015-02-28 18:50:49 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15697)2015-03-02 09:23:34 core/process.c master_process_cycle(247)[INFO]:master success running....
+(15698)2015-03-02 09:23:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15700)2015-03-02 09:23:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15701)2015-03-02 09:23:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15702)2015-03-02 09:23:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15704)2015-03-02 09:23:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15705)2015-03-02 09:23:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15699)2015-03-02 09:23:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15703)2015-03-02 09:23:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15698)2015-03-02 09:23:43 http/http_request.c recv_http_request(164)[DBG]:POST /switch HTTP/1.1
+User-Agent: curl/7.19.7 (x86_64-unknown-linux-gnu) libcurl/7.19.7 NSS/3.12.7.0 zlib/1.2.3 libidn/1.18 libssh2/1.2.2
+Host: 10.10.159.20:8080
+Accept: */*
+Content-Length: 20
+Content-Type: application/x-www-form-urlencoded
+
+{   "TargetSN": 123}
+(15698)2015-03-02 09:23:43 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [curl/7.19.7 (x86_64-unknown-linux-gnu) libcurl/7.19.7 NSS/3.12.7.0 zlib/1.2.3 libidn/1.18 libssh2/1.2.2]
+(15698)2015-03-02 09:23:43 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(15698)2015-03-02 09:23:43 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [*/*]
+(15698)2015-03-02 09:23:43 http/http_request.c handle_http_request_header(203)[DBG]:[Content-Length] [20]
+(15698)2015-03-02 09:23:43 http/http_request.c handle_http_request_header(203)[DBG]:[Content-Type] [application/x-www-form-urlencoded]
+(15698)2015-03-02 09:23:43 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15698)2015-03-02 09:24:33 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(15698)2015-03-02 09:24:33 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(15698)2015-03-02 09:24:33 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(15698)2015-03-02 09:24:33 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(15698)2015-03-02 09:24:33 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(15698)2015-03-02 09:24:33 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(15698)2015-03-02 09:24:33 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(15698)2015-03-02 09:24:33 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(15698)2015-03-02 09:24:33 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15698)2015-03-02 09:24:43 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(15698)2015-03-02 09:24:43 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(15698)2015-03-02 09:24:43 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15697)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15697)2015-03-02 09:28:16 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(15697)2015-03-02 09:28:16 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15698
+(15697)2015-03-02 09:28:16 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15699
+(15697)2015-03-02 09:28:16 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15700
+(15697)2015-03-02 09:28:16 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15701
+(15697)2015-03-02 09:28:16 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15702
+(15697)2015-03-02 09:28:16 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15703
+(15697)2015-03-02 09:28:16 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15704
+(15697)2015-03-02 09:28:16 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15705
+(15698)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15702)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15699)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15700)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15701)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15704)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15705)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15703)2015-03-02 09:28:16 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15697)2015-03-02 09:28:17 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15700 exited
+(15697)2015-03-02 09:28:17 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15700)2015-03-02 09:28:17 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15700)2015-03-02 09:28:17 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15697)2015-03-02 09:28:17 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15704 exited
+(15697)2015-03-02 09:28:17 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15704)2015-03-02 09:28:17 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15704)2015-03-02 09:28:17 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15697)2015-03-02 09:28:17 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15705 exited
+(15697)2015-03-02 09:28:17 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15702)2015-03-02 09:28:17 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15702)2015-03-02 09:28:17 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15705)2015-03-02 09:28:17 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15705)2015-03-02 09:28:17 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15697)2015-03-02 09:28:17 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15702 exited
+(15697)2015-03-02 09:28:17 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15697)2015-03-02 09:28:17 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15701 exited
+(15697)2015-03-02 09:28:17 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15701)2015-03-02 09:28:17 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15701)2015-03-02 09:28:17 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15697)2015-03-02 09:28:17 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15703 exited
+(15697)2015-03-02 09:28:17 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15703)2015-03-02 09:28:17 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15703)2015-03-02 09:28:17 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15697)2015-03-02 09:28:17 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15699 exited
+(15697)2015-03-02 09:28:17 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15699)2015-03-02 09:28:17 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15699)2015-03-02 09:28:17 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15697)2015-03-02 09:28:18 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15698 exited
+(15697)2015-03-02 09:28:18 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15697)2015-03-02 09:28:18 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(15698)2015-03-02 09:28:18 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15698)2015-03-02 09:28:18 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15949)2015-03-02 09:28:21 core/process.c master_process_cycle(247)[INFO]:master success running....
+(15950)2015-03-02 09:28:21 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15951)2015-03-02 09:28:21 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15952)2015-03-02 09:28:21 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15953)2015-03-02 09:28:21 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15954)2015-03-02 09:28:21 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15955)2015-03-02 09:28:21 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15956)2015-03-02 09:28:21 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15957)2015-03-02 09:28:21 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(15950)2015-03-02 09:28:25 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(15950)2015-03-02 09:28:25 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(15950)2015-03-02 09:28:25 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(15950)2015-03-02 09:28:25 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(15950)2015-03-02 09:28:25 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(15950)2015-03-02 09:28:25 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(15950)2015-03-02 09:28:25 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(15950)2015-03-02 09:28:25 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(15950)2015-03-02 09:28:25 http/http_request.c http_process_request_content(253)[DBG]:0--0
+(15950)2015-03-02 09:28:25 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15950)2015-03-02 09:28:35 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(15950)2015-03-02 09:28:35 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(15950)2015-03-02 09:28:35 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15950)2015-03-02 09:30:36 http/http_request.c recv_http_request(164)[DBG]:POST /switch HTTP/1.1
+User-Agent: curl/7.19.7 (x86_64-unknown-linux-gnu) libcurl/7.19.7 NSS/3.12.7.0 zlib/1.2.3 libidn/1.18 libssh2/1.2.2
+Host: 10.10.159.20:8080
+Accept: */*
+Content-Length: 20
+Content-Type: application/x-www-form-urlencoded
+
+{   "TargetSN": 123}
+(15950)2015-03-02 09:30:36 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [curl/7.19.7 (x86_64-unknown-linux-gnu) libcurl/7.19.7 NSS/3.12.7.0 zlib/1.2.3 libidn/1.18 libssh2/1.2.2]
+(15950)2015-03-02 09:30:36 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(15950)2015-03-02 09:30:36 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [*/*]
+(15950)2015-03-02 09:30:36 http/http_request.c handle_http_request_header(203)[DBG]:[Content-Length] [20]
+(15950)2015-03-02 09:30:36 http/http_request.c handle_http_request_header(203)[DBG]:[Content-Type] [application/x-www-form-urlencoded]
+(15950)2015-03-02 09:30:36 http/http_request.c http_process_request_content(253)[DBG]:20--20
+(15950)2015-03-02 09:30:36 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15950)2015-03-02 09:33:40 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(15950)2015-03-02 09:33:40 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(15950)2015-03-02 09:33:40 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(15950)2015-03-02 09:33:40 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(15950)2015-03-02 09:33:40 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(15950)2015-03-02 09:33:40 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(15950)2015-03-02 09:33:40 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(15950)2015-03-02 09:33:40 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(15950)2015-03-02 09:33:40 http/http_request.c http_process_request_content(253)[DBG]:0--0
+(15950)2015-03-02 09:33:40 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15950)2015-03-02 09:33:50 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(15950)2015-03-02 09:33:50 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(15950)2015-03-02 09:33:50 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(15949)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15949)2015-03-02 09:34:21 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(15949)2015-03-02 09:34:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15950
+(15949)2015-03-02 09:34:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15951
+(15949)2015-03-02 09:34:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15952
+(15949)2015-03-02 09:34:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15953
+(15949)2015-03-02 09:34:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15954
+(15949)2015-03-02 09:34:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15955
+(15949)2015-03-02 09:34:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15956
+(15949)2015-03-02 09:34:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:15957
+(15950)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15951)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15952)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15953)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15957)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15954)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15955)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15956)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(15949)2015-03-02 09:34:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15951 exited
+(15949)2015-03-02 09:34:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15955 exited
+(15949)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15949)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15951)2015-03-02 09:34:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15951)2015-03-02 09:34:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15955)2015-03-02 09:34:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15955)2015-03-02 09:34:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15949)2015-03-02 09:34:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15952 exited
+(15949)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15952)2015-03-02 09:34:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15952)2015-03-02 09:34:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15949)2015-03-02 09:34:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15954 exited
+(15949)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15953)2015-03-02 09:34:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15953)2015-03-02 09:34:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15954)2015-03-02 09:34:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15954)2015-03-02 09:34:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15949)2015-03-02 09:34:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15953 exited
+(15949)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15949)2015-03-02 09:34:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15957 exited
+(15949)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15957)2015-03-02 09:34:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15957)2015-03-02 09:34:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15949)2015-03-02 09:34:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15956 exited
+(15949)2015-03-02 09:34:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15956)2015-03-02 09:34:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15956)2015-03-02 09:34:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(15949)2015-03-02 09:34:22 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 15950 exited
+(15949)2015-03-02 09:34:22 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(15949)2015-03-02 09:34:22 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(15950)2015-03-02 09:34:22 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(15950)2015-03-02 09:34:22 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(16238)2015-03-02 09:34:24 core/process.c master_process_cycle(247)[INFO]:master success running....
+(16239)2015-03-02 09:34:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(16240)2015-03-02 09:34:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(16241)2015-03-02 09:34:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(16242)2015-03-02 09:34:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(16243)2015-03-02 09:34:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(16245)2015-03-02 09:34:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(16244)2015-03-02 09:34:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(16246)2015-03-02 09:34:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(16240)2015-03-02 09:34:30 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:34:30 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:34:30 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(16240)2015-03-02 09:34:30 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(16240)2015-03-02 09:34:30 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(16240)2015-03-02 09:34:30 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(16240)2015-03-02 09:34:30 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(16240)2015-03-02 09:34:30 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(16240)2015-03-02 09:34:30 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(16240)2015-03-02 09:34:30 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(16240)2015-03-02 09:34:30 http/http_request.c http_process_request_content(253)[DBG]:0--0
+(16240)2015-03-02 09:34:30 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16240)2015-03-02 09:34:40 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(16240)2015-03-02 09:34:40 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(16240)2015-03-02 09:34:40 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16240)2015-03-02 09:34:55 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:34:55 http/http_request.c recv_http_request(164)[DBG]:POST /switch HTTP/1.1
+User-Agent: curl/7.19.7 (x86_64-unknown-linux-gnu) libcurl/7.19.7 NSS/3.12.7.0 zlib/1.2.3 libidn/1.18 libssh2/1.2.2
+Host: 10.10.159.20:8080
+Accept: */*
+Content-Length: 20
+Content-Type: application/x-www-form-urlencoded
+
+{   "TargetSN": 123}
+(16240)2015-03-02 09:34:55 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [curl/7.19.7 (x86_64-unknown-linux-gnu) libcurl/7.19.7 NSS/3.12.7.0 zlib/1.2.3 libidn/1.18 libssh2/1.2.2]
+(16240)2015-03-02 09:34:55 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(16240)2015-03-02 09:34:55 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [*/*]
+(16240)2015-03-02 09:34:55 http/http_request.c handle_http_request_header(203)[DBG]:[Content-Length] [20]
+(16240)2015-03-02 09:34:55 http/http_request.c handle_http_request_header(203)[DBG]:[Content-Type] [application/x-www-form-urlencoded]
+(16240)2015-03-02 09:34:55 http/http_request.c http_process_request_content(253)[DBG]:20--20
+(16240)2015-03-02 09:34:55 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16240)2015-03-02 09:36:30 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:36:30 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:36:30 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(16240)2015-03-02 09:36:30 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(16240)2015-03-02 09:36:30 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(16240)2015-03-02 09:36:30 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(16240)2015-03-02 09:36:30 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(16240)2015-03-02 09:36:30 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(16240)2015-03-02 09:36:30 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(16240)2015-03-02 09:36:30 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(16240)2015-03-02 09:36:30 http/http_request.c http_process_request_content(253)[DBG]:0--0
+(16240)2015-03-02 09:36:30 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16240)2015-03-02 09:36:40 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(16240)2015-03-02 09:36:40 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(16240)2015-03-02 09:36:40 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16240)2015-03-02 09:42:43 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:42:43 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:42:43 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(16240)2015-03-02 09:42:43 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(16240)2015-03-02 09:42:43 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(16240)2015-03-02 09:42:43 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(16240)2015-03-02 09:42:43 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(16240)2015-03-02 09:42:43 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(16240)2015-03-02 09:42:43 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(16240)2015-03-02 09:42:43 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(16240)2015-03-02 09:42:43 http/http_request.c http_process_request_content(253)[DBG]:0--0
+(16240)2015-03-02 09:42:43 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16240)2015-03-02 09:42:53 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(16240)2015-03-02 09:42:53 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(16240)2015-03-02 09:42:53 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16240)2015-03-02 09:43:57 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:43:57 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========
+(16240)2015-03-02 09:43:57 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(16240)2015-03-02 09:43:57 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(16240)2015-03-02 09:43:57 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(16240)2015-03-02 09:43:57 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(16240)2015-03-02 09:43:57 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(16240)2015-03-02 09:43:57 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(16240)2015-03-02 09:43:57 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(16240)2015-03-02 09:43:57 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(16240)2015-03-02 09:43:57 http/http_request.c http_process_request_content(253)[DBG]:0--0
+(16240)2015-03-02 09:43:57 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16240)2015-03-02 09:44:07 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(16240)2015-03-02 09:44:07 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(16240)2015-03-02 09:44:07 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(16238)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16238)2015-03-02 10:19:34 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(16238)2015-03-02 10:19:34 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:16239
+(16238)2015-03-02 10:19:34 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:16240
+(16238)2015-03-02 10:19:34 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:16241
+(16238)2015-03-02 10:19:34 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:16242
+(16238)2015-03-02 10:19:34 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:16243
+(16238)2015-03-02 10:19:34 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:16244
+(16238)2015-03-02 10:19:34 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:16245
+(16238)2015-03-02 10:19:34 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:16246
+(16240)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16241)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16243)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16245)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16239)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16242)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16244)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16246)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(16238)2015-03-02 10:19:34 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 16245 exited
+(16238)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(16245)2015-03-02 10:19:34 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(16245)2015-03-02 10:19:34 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(16238)2015-03-02 10:19:34 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 16244 exited
+(16238)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(16244)2015-03-02 10:19:34 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(16244)2015-03-02 10:19:34 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(16238)2015-03-02 10:19:34 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 16242 exited
+(16238)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(16242)2015-03-02 10:19:34 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(16242)2015-03-02 10:19:34 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(16241)2015-03-02 10:19:34 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(16241)2015-03-02 10:19:34 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(16238)2015-03-02 10:19:34 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 16241 exited
+(16238)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(16238)2015-03-02 10:19:34 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 16246 exited
+(16238)2015-03-02 10:19:34 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 16243 exited
+(16238)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(16238)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(16243)2015-03-02 10:19:34 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(16243)2015-03-02 10:19:34 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(16246)2015-03-02 10:19:34 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(16246)2015-03-02 10:19:34 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(16238)2015-03-02 10:19:34 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 16239 exited
+(16238)2015-03-02 10:19:34 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(16239)2015-03-02 10:19:34 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(16239)2015-03-02 10:19:34 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(16238)2015-03-02 10:19:36 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 16240 exited
+(16238)2015-03-02 10:19:36 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(16238)2015-03-02 10:19:36 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(16240)2015-03-02 10:19:36 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(16240)2015-03-02 10:19:36 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19037)2015-03-02 10:19:38 core/process.c master_process_cycle(247)[INFO]:master success running....
+(19038)2015-03-02 10:19:38 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19039)2015-03-02 10:19:38 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19040)2015-03-02 10:19:38 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19045)2015-03-02 10:19:38 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19042)2015-03-02 10:19:38 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19043)2015-03-02 10:19:38 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19041)2015-03-02 10:19:38 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19044)2015-03-02 10:19:38 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19038)2015-03-02 10:19:49 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========fd:6
+(19038)2015-03-02 10:19:49 http/http_request.c recv_http_request(164)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(19038)2015-03-02 10:19:49 http/http_request.c handle_http_request_header(203)[DBG]:[Host] [10.10.159.20:8080]
+(19038)2015-03-02 10:19:49 http/http_request.c handle_http_request_header(203)[DBG]:[Connection] [keep-alive]
+(19038)2015-03-02 10:19:49 http/http_request.c handle_http_request_header(203)[DBG]:[Cache-Control] [max-age=0]
+(19038)2015-03-02 10:19:49 http/http_request.c handle_http_request_header(203)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(19038)2015-03-02 10:19:49 http/http_request.c handle_http_request_header(203)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(19038)2015-03-02 10:19:49 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(19038)2015-03-02 10:19:49 http/http_request.c handle_http_request_header(203)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(19038)2015-03-02 10:19:49 http/http_request.c http_process_request_content(253)[DBG]:0--0
+(19038)2015-03-02 10:19:49 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19038)2015-03-02 10:19:49 http/http_request.c http_request_handler(355)[DBG]:hahhahaha===========fd:7
+(19038)2015-03-02 10:19:59 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(19038)2015-03-02 10:19:59 http/http_request.c http_process_request_line(179)[ERR]:recv http request line error:-2
+(19038)2015-03-02 10:19:59 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19037)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19037)2015-03-02 10:21:42 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(19037)2015-03-02 10:21:42 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19038
+(19037)2015-03-02 10:21:42 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19039
+(19037)2015-03-02 10:21:42 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19040
+(19037)2015-03-02 10:21:42 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19041
+(19037)2015-03-02 10:21:42 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19042
+(19037)2015-03-02 10:21:42 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19043
+(19037)2015-03-02 10:21:42 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19044
+(19037)2015-03-02 10:21:42 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19045
+(19038)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19039)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19040)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19045)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19042)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19043)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19041)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19044)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19037)2015-03-02 10:21:42 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19045 exited
+(19037)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19045)2015-03-02 10:21:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19045)2015-03-02 10:21:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19044)2015-03-02 10:21:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19044)2015-03-02 10:21:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19037)2015-03-02 10:21:42 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19044 exited
+(19037)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19037)2015-03-02 10:21:42 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19041 exited
+(19037)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19041)2015-03-02 10:21:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19041)2015-03-02 10:21:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19037)2015-03-02 10:21:42 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19040 exited
+(19037)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19040)2015-03-02 10:21:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19040)2015-03-02 10:21:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19037)2015-03-02 10:21:42 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19043 exited
+(19037)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19039)2015-03-02 10:21:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19039)2015-03-02 10:21:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19043)2015-03-02 10:21:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19043)2015-03-02 10:21:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19037)2015-03-02 10:21:42 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19039 exited
+(19037)2015-03-02 10:21:42 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19042 exited
+(19037)2015-03-02 10:21:42 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19042)2015-03-02 10:21:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19042)2015-03-02 10:21:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19037)2015-03-02 10:21:43 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19038 exited
+(19037)2015-03-02 10:21:43 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19037)2015-03-02 10:21:43 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(19038)2015-03-02 10:21:43 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19038)2015-03-02 10:21:43 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19287)2015-03-02 10:21:46 core/process.c master_process_cycle(247)[INFO]:master success running....
+(19288)2015-03-02 10:21:46 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19289)2015-03-02 10:21:46 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19290)2015-03-02 10:21:46 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19291)2015-03-02 10:21:46 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19294)2015-03-02 10:21:46 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19295)2015-03-02 10:21:46 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19292)2015-03-02 10:21:46 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19293)2015-03-02 10:21:46 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19290)2015-03-02 10:21:49 http/http_request.c http_request_handler(356)[DBG]:hahhahaha===========fd:6
+(19290)2015-03-02 10:21:49 http/http_request.c recv_http_request(143)[DBG]:  920
+(19290)2015-03-02 10:21:49 http/http_request.c http_request_handler(356)[DBG]:hahhahaha===========fd:7
+(19290)2015-03-02 10:21:49 http/http_request.c recv_http_request(143)[DBG]:  920
+(19290)2015-03-02 10:21:49 http/http_request.c recv_http_request(165)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(19290)2015-03-02 10:21:49 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(19290)2015-03-02 10:21:49 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(19290)2015-03-02 10:21:49 http/http_request.c handle_http_request_header(204)[DBG]:[Cache-Control] [max-age=0]
+(19290)2015-03-02 10:21:49 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(19290)2015-03-02 10:21:49 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(19290)2015-03-02 10:21:49 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(19290)2015-03-02 10:21:49 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(19290)2015-03-02 10:21:49 http/http_request.c http_process_request_content(254)[DBG]:0--0
+(19290)2015-03-02 10:21:49 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19290)2015-03-02 10:21:59 http/http_request.c recv_http_request(149)[ERR]:recv timeout, client ip:192.168.106.153
+(19290)2015-03-02 10:21:59 http/http_request.c http_process_request_line(180)[ERR]:recv http request line error:-2
+(19290)2015-03-02 10:21:59 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19287)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19287)2015-03-02 10:22:10 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(19287)2015-03-02 10:22:10 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19288
+(19287)2015-03-02 10:22:10 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19289
+(19287)2015-03-02 10:22:10 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19290
+(19287)2015-03-02 10:22:10 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19291
+(19287)2015-03-02 10:22:10 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19292
+(19287)2015-03-02 10:22:10 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19293
+(19287)2015-03-02 10:22:10 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19294
+(19287)2015-03-02 10:22:10 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19295
+(19288)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19289)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19290)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19295)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19293)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19291)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19292)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19294)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19287)2015-03-02 10:22:10 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19290 exited
+(19287)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19290)2015-03-02 10:22:10 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19290)2015-03-02 10:22:10 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19287)2015-03-02 10:22:10 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19289 exited
+(19287)2015-03-02 10:22:10 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19291 exited
+(19287)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19288)2015-03-02 10:22:10 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19288)2015-03-02 10:22:10 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19289)2015-03-02 10:22:10 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19289)2015-03-02 10:22:10 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19291)2015-03-02 10:22:10 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19291)2015-03-02 10:22:10 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19287)2015-03-02 10:22:10 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19288 exited
+(19287)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19287)2015-03-02 10:22:10 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19294 exited
+(19287)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19294)2015-03-02 10:22:10 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19294)2015-03-02 10:22:10 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19287)2015-03-02 10:22:10 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19293 exited
+(19287)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19295)2015-03-02 10:22:10 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19295)2015-03-02 10:22:10 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19293)2015-03-02 10:22:10 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19293)2015-03-02 10:22:10 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19287)2015-03-02 10:22:10 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19295 exited
+(19287)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19287)2015-03-02 10:22:10 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19292 exited
+(19287)2015-03-02 10:22:10 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19287)2015-03-02 10:22:10 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(19292)2015-03-02 10:22:10 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19292)2015-03-02 10:22:10 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19309)2015-03-02 10:22:14 core/process.c master_process_cycle(247)[INFO]:master success running....
+(19310)2015-03-02 10:22:14 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19311)2015-03-02 10:22:14 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19312)2015-03-02 10:22:14 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19313)2015-03-02 10:22:14 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19315)2015-03-02 10:22:14 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19314)2015-03-02 10:22:14 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19316)2015-03-02 10:22:14 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19317)2015-03-02 10:22:14 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19310)2015-03-02 10:22:16 http/http_request.c http_request_handler(356)[DBG]:hahhahaha===========fd:6
+(19310)2015-03-02 10:22:16 http/http_request.c recv_http_request(143)[DBG]:0x2058018  920
+(19310)2015-03-02 10:22:16 http/http_request.c http_request_handler(356)[DBG]:hahhahaha===========fd:7
+(19310)2015-03-02 10:22:16 http/http_request.c recv_http_request(143)[DBG]:0x2057808  920
+(19310)2015-03-02 10:22:16 http/http_request.c recv_http_request(165)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(19310)2015-03-02 10:22:16 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(19310)2015-03-02 10:22:16 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(19310)2015-03-02 10:22:16 http/http_request.c handle_http_request_header(204)[DBG]:[Cache-Control] [max-age=0]
+(19310)2015-03-02 10:22:16 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(19310)2015-03-02 10:22:16 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(19310)2015-03-02 10:22:16 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(19310)2015-03-02 10:22:16 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(19310)2015-03-02 10:22:16 http/http_request.c http_process_request_content(254)[DBG]:0--0
+(19310)2015-03-02 10:22:16 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19310)2015-03-02 10:22:26 http/http_request.c recv_http_request(149)[ERR]:recv timeout, client ip:192.168.106.153
+(19310)2015-03-02 10:22:26 http/http_request.c http_process_request_line(180)[ERR]:recv http request line error:-2
+(19310)2015-03-02 10:22:26 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19309)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19309)2015-03-02 10:26:26 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(19309)2015-03-02 10:26:26 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19310
+(19309)2015-03-02 10:26:26 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19311
+(19309)2015-03-02 10:26:26 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19312
+(19309)2015-03-02 10:26:26 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19313
+(19309)2015-03-02 10:26:26 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19314
+(19309)2015-03-02 10:26:26 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19315
+(19309)2015-03-02 10:26:26 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19316
+(19309)2015-03-02 10:26:26 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19317
+(19310)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19311)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19312)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19315)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19314)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19309)2015-03-02 10:26:26 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19316 exited
+(19309)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19313)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19316)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19316)2015-03-02 10:26:26 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19316)2015-03-02 10:26:26 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19317)2015-03-02 10:26:26 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19309)2015-03-02 10:26:27 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19315 exited
+(19309)2015-03-02 10:26:27 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19315)2015-03-02 10:26:27 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19315)2015-03-02 10:26:27 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19309)2015-03-02 10:26:27 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19312 exited
+(19309)2015-03-02 10:26:27 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19312)2015-03-02 10:26:27 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19312)2015-03-02 10:26:27 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19309)2015-03-02 10:26:27 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19311 exited
+(19309)2015-03-02 10:26:27 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19311)2015-03-02 10:26:27 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19311)2015-03-02 10:26:27 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19309)2015-03-02 10:26:27 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19313 exited
+(19309)2015-03-02 10:26:27 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19317 exited
+(19309)2015-03-02 10:26:27 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19313)2015-03-02 10:26:27 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19313)2015-03-02 10:26:27 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19314)2015-03-02 10:26:27 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19314)2015-03-02 10:26:27 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19317)2015-03-02 10:26:27 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19317)2015-03-02 10:26:27 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19309)2015-03-02 10:26:27 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19314 exited
+(19309)2015-03-02 10:26:27 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19309)2015-03-02 10:26:28 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19310 exited
+(19309)2015-03-02 10:26:28 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19309)2015-03-02 10:26:28 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(19310)2015-03-02 10:26:28 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19310)2015-03-02 10:26:28 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19557)2015-03-02 10:26:30 core/process.c master_process_cycle(247)[INFO]:master success running....
+(19558)2015-03-02 10:26:30 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19561)2015-03-02 10:26:30 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19563)2015-03-02 10:26:30 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19564)2015-03-02 10:26:30 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19565)2015-03-02 10:26:30 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19559)2015-03-02 10:26:30 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19560)2015-03-02 10:26:30 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19562)2015-03-02 10:26:30 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19558)2015-03-02 10:26:34 http/http_request.c http_request_handler(356)[DBG]:1128===========fd:6
+(19558)2015-03-02 10:26:34 http/http_request.c recv_http_request(143)[DBG]:0x13c9018  920
+(19558)2015-03-02 10:26:34 http/http_request.c http_request_handler(356)[DBG]:1128===========fd:7
+(19558)2015-03-02 10:26:34 http/http_request.c recv_http_request(143)[DBG]:0x13c8808  920
+(19558)2015-03-02 10:26:34 http/http_request.c recv_http_request(165)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(19558)2015-03-02 10:26:34 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(19558)2015-03-02 10:26:34 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(19558)2015-03-02 10:26:34 http/http_request.c handle_http_request_header(204)[DBG]:[Cache-Control] [max-age=0]
+(19558)2015-03-02 10:26:34 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(19558)2015-03-02 10:26:34 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(19558)2015-03-02 10:26:34 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(19558)2015-03-02 10:26:34 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(19558)2015-03-02 10:26:34 http/http_request.c http_process_request_content(254)[DBG]:0--0
+(19558)2015-03-02 10:26:34 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19558)2015-03-02 10:26:44 http/http_request.c recv_http_request(149)[ERR]:recv timeout, client ip:192.168.106.153
+(19558)2015-03-02 10:26:44 http/http_request.c http_process_request_line(180)[ERR]:recv http request line error:-2
+(19558)2015-03-02 10:26:44 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19557)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19557)2015-03-02 10:30:04 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(19557)2015-03-02 10:30:04 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19558
+(19557)2015-03-02 10:30:04 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19559
+(19557)2015-03-02 10:30:04 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19560
+(19557)2015-03-02 10:30:04 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19561
+(19557)2015-03-02 10:30:04 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19562
+(19557)2015-03-02 10:30:04 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19563
+(19557)2015-03-02 10:30:04 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19564
+(19557)2015-03-02 10:30:04 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19565
+(19558)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19560)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19562)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19565)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19559)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19561)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19563)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19564)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19557)2015-03-02 10:30:04 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19561 exited
+(19557)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19561)2015-03-02 10:30:04 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19561)2015-03-02 10:30:04 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19557)2015-03-02 10:30:04 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19563 exited
+(19557)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19563)2015-03-02 10:30:04 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19563)2015-03-02 10:30:04 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19557)2015-03-02 10:30:04 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19565 exited
+(19557)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19560)2015-03-02 10:30:04 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19560)2015-03-02 10:30:04 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19564)2015-03-02 10:30:04 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19564)2015-03-02 10:30:04 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19565)2015-03-02 10:30:04 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19565)2015-03-02 10:30:04 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19557)2015-03-02 10:30:04 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19564 exited
+(19557)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19557)2015-03-02 10:30:04 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19562 exited
+(19557)2015-03-02 10:30:04 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19560 exited
+(19557)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19557)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19562)2015-03-02 10:30:04 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19562)2015-03-02 10:30:04 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19557)2015-03-02 10:30:04 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19559 exited
+(19557)2015-03-02 10:30:04 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19559)2015-03-02 10:30:04 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19559)2015-03-02 10:30:04 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19557)2015-03-02 10:30:07 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19558 exited
+(19557)2015-03-02 10:30:07 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19557)2015-03-02 10:30:07 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(19558)2015-03-02 10:30:07 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19558)2015-03-02 10:30:07 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19897)2015-03-02 10:30:24 core/process.c master_process_cycle(247)[INFO]:master success running....
+(19898)2015-03-02 10:30:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19901)2015-03-02 10:30:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19902)2015-03-02 10:30:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19903)2015-03-02 10:30:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19899)2015-03-02 10:30:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19900)2015-03-02 10:30:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19904)2015-03-02 10:30:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19905)2015-03-02 10:30:24 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(19898)2015-03-02 10:30:26 http/http_request.c http_request_handler(356)[DBG]:304===========fd:6
+(19898)2015-03-02 10:30:26 http/http_request.c recv_http_request(143)[DBG]:0x1dffce0  1744
+(19898)2015-03-02 10:30:26 http/http_request.c http_request_handler(356)[DBG]:304===========fd:7
+(19898)2015-03-02 10:30:26 http/http_request.c recv_http_request(143)[DBG]:0x1dff4d0  1744
+(19898)2015-03-02 10:30:26 http/http_request.c recv_http_request(165)[DBG]:GET /hehe?a=3 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(19898)2015-03-02 10:30:26 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(19898)2015-03-02 10:30:26 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(19898)2015-03-02 10:30:26 http/http_request.c handle_http_request_header(204)[DBG]:[Cache-Control] [max-age=0]
+(19898)2015-03-02 10:30:26 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(19898)2015-03-02 10:30:26 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(19898)2015-03-02 10:30:26 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(19898)2015-03-02 10:30:26 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(19898)2015-03-02 10:30:26 http/http_request.c http_process_request_content(254)[DBG]:0--0
+(19898)2015-03-02 10:30:26 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19898)2015-03-02 10:30:36 http/http_request.c recv_http_request(149)[ERR]:recv timeout, client ip:192.168.106.153
+(19898)2015-03-02 10:30:36 http/http_request.c http_process_request_line(180)[ERR]:recv http request line error:-2
+(19898)2015-03-02 10:30:36 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(19897)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19897)2015-03-02 10:42:21 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(19897)2015-03-02 10:42:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19898
+(19897)2015-03-02 10:42:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19899
+(19897)2015-03-02 10:42:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19900
+(19897)2015-03-02 10:42:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19901
+(19897)2015-03-02 10:42:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19902
+(19897)2015-03-02 10:42:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19903
+(19897)2015-03-02 10:42:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19904
+(19897)2015-03-02 10:42:21 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:19905
+(19899)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19900)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19901)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19903)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19898)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19902)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19904)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19905)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(19897)2015-03-02 10:42:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19902 exited
+(19897)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19899)2015-03-02 10:42:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19899)2015-03-02 10:42:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19900)2015-03-02 10:42:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19900)2015-03-02 10:42:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19902)2015-03-02 10:42:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19902)2015-03-02 10:42:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19904)2015-03-02 10:42:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19904)2015-03-02 10:42:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19897)2015-03-02 10:42:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19899 exited
+(19897)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19897)2015-03-02 10:42:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19900 exited
+(19897)2015-03-02 10:42:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19904 exited
+(19897)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19897)2015-03-02 10:42:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19901 exited
+(19897)2015-03-02 10:42:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19903 exited
+(19897)2015-03-02 10:42:21 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19905 exited
+(19897)2015-03-02 10:42:21 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19901)2015-03-02 10:42:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19901)2015-03-02 10:42:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19903)2015-03-02 10:42:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19903)2015-03-02 10:42:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19905)2015-03-02 10:42:21 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19905)2015-03-02 10:42:21 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(19897)2015-03-02 10:42:23 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 19898 exited
+(19897)2015-03-02 10:42:23 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(19897)2015-03-02 10:42:23 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(19898)2015-03-02 10:42:23 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(19898)2015-03-02 10:42:23 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22111)2015-03-02 11:10:57 core/process.c master_process_cycle(247)[INFO]:master success running....
+(22112)2015-03-02 11:10:57 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22113)2015-03-02 11:10:57 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22115)2015-03-02 11:10:57 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22119)2015-03-02 11:10:57 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22114)2015-03-02 11:10:57 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22117)2015-03-02 11:10:57 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22116)2015-03-02 11:10:57 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22118)2015-03-02 11:10:57 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22119)2015-03-02 11:16:22 http/http_request.c http_request_handler(356)[DBG]:304===========fd:6
+(22119)2015-03-02 11:16:22 http/http_request.c recv_http_request(143)[DBG]:0x16a7cd0  1744
+(22119)2015-03-02 11:16:22 http/http_request.c http_request_handler(356)[DBG]:304===========fd:7
+(22119)2015-03-02 11:16:22 http/http_request.c recv_http_request(143)[DBG]:0x16a74c0  1744
+(22119)2015-03-02 11:16:22 http/http_request.c recv_http_request(165)[DBG]:GET /hehe?a=4096 HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Cache-Control] [max-age=0]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(22119)2015-03-02 11:16:22 http/http_request.c http_process_request_content(254)[DBG]:0--0
+(22119)2015-03-02 11:16:22 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(22119)2015-03-02 11:16:22 http/http_request.c recv_http_request(165)[DBG]:GET /favicon.ico HTTP/1.1
+Host: 10.10.159.20:8080
+Connection: keep-alive
+Accept: */*
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+
+
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Host] [10.10.159.20:8080]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Connection] [keep-alive]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Accept] [*/*]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[User-Agent] [Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Encoding] [gzip, deflate, sdch]
+(22119)2015-03-02 11:16:22 http/http_request.c handle_http_request_header(204)[DBG]:[Accept-Language] [zh-CN,zh;q=0.8]
+(22119)2015-03-02 11:16:22 http/http_request.c http_process_request_content(254)[DBG]:0--0
+(22119)2015-03-02 11:16:22 http/http_response.c http_finalize_request(402)[DBG]:HTTP/1.1 400 Bad Request
+Server: shark/1.2.0.20150227
+Content-Type: text/html
+Connection: Close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+
+(22111)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22111)2015-03-02 11:20:15 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(22111)2015-03-02 11:20:15 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22112
+(22111)2015-03-02 11:20:15 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22113
+(22111)2015-03-02 11:20:15 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22114
+(22111)2015-03-02 11:20:15 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22115
+(22111)2015-03-02 11:20:15 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22116
+(22111)2015-03-02 11:20:15 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22117
+(22111)2015-03-02 11:20:15 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22118
+(22111)2015-03-02 11:20:15 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22119
+(22112)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22113)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22114)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22116)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22115)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22117)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22119)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22118)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22111)2015-03-02 11:20:15 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22113 exited
+(22111)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22113)2015-03-02 11:20:15 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22113)2015-03-02 11:20:15 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22117)2015-03-02 11:20:15 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22117)2015-03-02 11:20:15 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22111)2015-03-02 11:20:15 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22117 exited
+(22111)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22111)2015-03-02 11:20:15 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22118 exited
+(22111)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22118)2015-03-02 11:20:15 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22118)2015-03-02 11:20:15 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22111)2015-03-02 11:20:15 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22112 exited
+(22111)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22112)2015-03-02 11:20:15 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22112)2015-03-02 11:20:15 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22111)2015-03-02 11:20:15 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22116 exited
+(22111)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22116)2015-03-02 11:20:15 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22116)2015-03-02 11:20:15 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22111)2015-03-02 11:20:15 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22114 exited
+(22111)2015-03-02 11:20:15 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22115 exited
+(22111)2015-03-02 11:20:15 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22114)2015-03-02 11:20:15 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22114)2015-03-02 11:20:15 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22115)2015-03-02 11:20:15 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22115)2015-03-02 11:20:15 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22111)2015-03-02 11:20:16 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22119 exited
+(22111)2015-03-02 11:20:16 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22111)2015-03-02 11:20:16 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(22119)2015-03-02 11:20:16 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22119)2015-03-02 11:20:16 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22608)2015-03-02 11:20:19 core/process.c master_process_cycle(247)[INFO]:master success running....
+(22611)2015-03-02 11:20:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22616)2015-03-02 11:20:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22615)2015-03-02 11:20:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22614)2015-03-02 11:20:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22612)2015-03-02 11:20:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22609)2015-03-02 11:20:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22610)2015-03-02 11:20:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22613)2015-03-02 11:20:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22608)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22608)2015-03-02 11:23:06 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(22608)2015-03-02 11:23:06 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22609
+(22608)2015-03-02 11:23:06 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22610
+(22608)2015-03-02 11:23:06 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22611
+(22608)2015-03-02 11:23:06 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22612
+(22608)2015-03-02 11:23:06 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22613
+(22608)2015-03-02 11:23:06 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22614
+(22608)2015-03-02 11:23:06 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22615
+(22608)2015-03-02 11:23:06 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22616
+(22609)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22610)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22613)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22611)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22616)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22615)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22614)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22612)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22608)2015-03-02 11:23:06 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22615 exited
+(22608)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22615)2015-03-02 11:23:06 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22615)2015-03-02 11:23:06 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22608)2015-03-02 11:23:06 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22616 exited
+(22608)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22616)2015-03-02 11:23:06 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22616)2015-03-02 11:23:06 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22608)2015-03-02 11:23:06 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22614 exited
+(22608)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22614)2015-03-02 11:23:06 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22614)2015-03-02 11:23:06 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22612)2015-03-02 11:23:06 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22612)2015-03-02 11:23:06 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22608)2015-03-02 11:23:06 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22613 exited
+(22608)2015-03-02 11:23:06 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22612 exited
+(22608)2015-03-02 11:23:06 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22609 exited
+(22608)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22608)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22609)2015-03-02 11:23:06 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22609)2015-03-02 11:23:06 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22613)2015-03-02 11:23:06 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22613)2015-03-02 11:23:06 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22608)2015-03-02 11:23:06 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22610 exited
+(22608)2015-03-02 11:23:06 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22610)2015-03-02 11:23:06 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22610)2015-03-02 11:23:06 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22608)2015-03-02 11:23:07 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22611 exited
+(22608)2015-03-02 11:23:07 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22608)2015-03-02 11:23:07 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(22611)2015-03-02 11:23:07 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22611)2015-03-02 11:23:07 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22630)2015-03-02 11:23:19 core/process.c master_process_cycle(247)[INFO]:master success running....
+(22631)2015-03-02 11:23:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22632)2015-03-02 11:23:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22634)2015-03-02 11:23:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22638)2015-03-02 11:23:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22635)2015-03-02 11:23:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22636)2015-03-02 11:23:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22633)2015-03-02 11:23:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22637)2015-03-02 11:23:19 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(22630)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22630)2015-03-02 11:23:40 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(22630)2015-03-02 11:23:40 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22631
+(22630)2015-03-02 11:23:40 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22632
+(22630)2015-03-02 11:23:40 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22633
+(22630)2015-03-02 11:23:40 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22634
+(22630)2015-03-02 11:23:40 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22635
+(22630)2015-03-02 11:23:40 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22636
+(22630)2015-03-02 11:23:40 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22637
+(22630)2015-03-02 11:23:40 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:22638
+(22632)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22633)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22631)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22634)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22638)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22635)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22636)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22637)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(22630)2015-03-02 11:23:40 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22632 exited
+(22630)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22632)2015-03-02 11:23:40 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22632)2015-03-02 11:23:40 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22638)2015-03-02 11:23:40 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22638)2015-03-02 11:23:40 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22630)2015-03-02 11:23:40 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22638 exited
+(22630)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22630)2015-03-02 11:23:40 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22634 exited
+(22630)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22634)2015-03-02 11:23:40 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22634)2015-03-02 11:23:40 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22635)2015-03-02 11:23:40 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22635)2015-03-02 11:23:40 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22630)2015-03-02 11:23:40 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22635 exited
+(22630)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22630)2015-03-02 11:23:40 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22636 exited
+(22630)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22636)2015-03-02 11:23:40 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22636)2015-03-02 11:23:40 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22630)2015-03-02 11:23:40 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22633 exited
+(22630)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22633)2015-03-02 11:23:40 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22633)2015-03-02 11:23:40 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22630)2015-03-02 11:23:40 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22637 exited
+(22630)2015-03-02 11:23:40 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22637)2015-03-02 11:23:40 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22637)2015-03-02 11:23:40 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(22630)2015-03-02 11:23:42 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 22631 exited
+(22630)2015-03-02 11:23:42 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(22630)2015-03-02 11:23:42 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(22631)2015-03-02 11:23:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(22631)2015-03-02 11:23:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now

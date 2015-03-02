@@ -17,7 +17,7 @@
 #include "pub.h"
 #include "env.h"
 #include "shm.h"
-#include "strop.h"
+#include "str.h"
 #include "util.h"
 #include "cqueue.h"
 #include "spinlock.h"
@@ -68,7 +68,7 @@ static enum LOG_LEVEL log_str_level(const char *level)
 
     for (i = 0; i < ARRAY_SIZE(STR_LOG_LEVEL); i++)
     {
-        if (str_case_equal(level, STR_LOG_LEVEL[i]))
+        if (str_equal(level, STR_LOG_LEVEL[i]))
             return (enum LOG_LEVEL)i;
     }
 
@@ -248,8 +248,8 @@ void log_out(enum LOG_LEVEL level, const char *file, const char *func,
     va_end(ap);
 
     ret = cqueue_write(&g_desc.wklog->queue, &g_desc);
-    if (unlikely(ret))
-        printf("id:%d log buff is full\n", logid);
+    //if (unlikely(ret))
+        //printf("id:%d log buff is full\n", logid);
 }
 
 static void gen_logfile_fd(const char *path)

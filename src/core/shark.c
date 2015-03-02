@@ -10,7 +10,7 @@
 
 #include "conf.h"
 #include "log.h"
-#include "strop.h"
+#include "str.h"
 #include "env.h"
 #include "util.h"
 #include "shm.h"
@@ -43,8 +43,8 @@ static void handle_args(int argc, char *argv[])
     if (argc == 2 && str_equal(argv[1], "-v"))
     {
         printf("shark runs under linux on x86 or x86_64 platform\n"
-               "shark version: "SHARK_VER"\n"
-               "Bug report to :sanpoos@gmail.com\n");
+               "shark version :"SHARK_VER"\n"
+               "bug report to :sanpoos@gmail.com\n");
         exit(0);
     }
 
@@ -94,7 +94,6 @@ int main(int argc, char **argv)
     print_runtime_var();
     create_pidfile(g_master_pid);
     process_init();
-
     master_process_cycle();
     worker_process_cycle();
 
