@@ -1656,3 +1656,75 @@ Connection: Close
 (22630)2015-03-02 11:23:42 core/process.c master_process_cycle(267)[WARN]:shark will exit...
 (22631)2015-03-02 11:23:42 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
 (22631)2015-03-02 11:23:42 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31459)2015-03-02 14:26:34 core/process.c master_process_cycle(247)[INFO]:master success running....
+(31460)2015-03-02 14:26:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(31461)2015-03-02 14:26:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(31465)2015-03-02 14:26:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(31467)2015-03-02 14:26:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(31462)2015-03-02 14:26:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(31463)2015-03-02 14:26:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(31466)2015-03-02 14:26:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(31464)2015-03-02 14:26:34 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(31459)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31459)2015-03-02 14:28:47 core/process.c master_process_cycle(253)[WARN]:notify worker processes to stop accepting new connections, and wait them handled over, then shark exit
+(31459)2015-03-02 14:28:47 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:31460
+(31459)2015-03-02 14:28:47 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:31461
+(31459)2015-03-02 14:28:47 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:31462
+(31459)2015-03-02 14:28:47 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:31463
+(31459)2015-03-02 14:28:47 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:31464
+(31459)2015-03-02 14:28:47 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:31465
+(31459)2015-03-02 14:28:47 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:31466
+(31459)2015-03-02 14:28:47 core/process.c send_signal_to_workers(237)[INFO]:succ to send signal 3 to child pid:31467
+(31460)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31461)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31462)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31463)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31464)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31465)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31467)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31466)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 3 (SIGQUIT) received, stop accepting new connections, and wait for established connections to be handled over
+(31459)2015-03-02 14:28:47 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 31465 exited
+(31459)2015-03-02 14:28:47 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 31461 exited
+(31459)2015-03-02 14:28:47 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 31467 exited
+(31459)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(31459)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(31461)2015-03-02 14:28:47 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(31461)2015-03-02 14:28:47 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31465)2015-03-02 14:28:47 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(31465)2015-03-02 14:28:47 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31467)2015-03-02 14:28:47 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(31467)2015-03-02 14:28:47 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31459)2015-03-02 14:28:47 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 31462 exited
+(31459)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(31462)2015-03-02 14:28:47 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(31462)2015-03-02 14:28:47 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31459)2015-03-02 14:28:47 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 31466 exited
+(31459)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(31466)2015-03-02 14:28:47 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(31466)2015-03-02 14:28:47 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31459)2015-03-02 14:28:47 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 31463 exited
+(31459)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(31463)2015-03-02 14:28:47 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(31463)2015-03-02 14:28:47 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31459)2015-03-02 14:28:47 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 31464 exited
+(31459)2015-03-02 14:28:47 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(31464)2015-03-02 14:28:47 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(31464)2015-03-02 14:28:47 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31460)2015-03-02 14:28:49 core/process.c worker_accept_proc(178)[WARN]:worker stop to accept connect and wait all conntion to be over
+(31460)2015-03-02 14:28:49 core/process.c decrease_conn_and_check(128)[WARN]:worker exit now
+(31459)2015-03-02 14:28:49 core/sys_signal.c worker_process_get_status(61)[WARN]:worker process 31460 exited
+(31459)2015-03-02 14:28:49 core/sys_signal.c signal_handler(132)[INFO]:signal 17 (SIGCHLD) received
+(31459)2015-03-02 14:28:49 core/process.c master_process_cycle(267)[WARN]:shark will exit...
+(442)2015-03-02 14:54:23 core/process.c master_process_cycle(247)[INFO]:master success running....
+(443)2015-03-02 14:54:23 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(444)2015-03-02 14:54:23 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(445)2015-03-02 14:54:23 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(447)2015-03-02 14:54:23 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(448)2015-03-02 14:54:23 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(449)2015-03-02 14:54:23 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(446)2015-03-02 14:54:23 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(450)2015-03-02 14:54:23 core/process.c worker_process_cycle(221)[INFO]:worker success running....
+(444)2015-03-02 17:07:13 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(444)2015-03-02 17:07:13 http/http_request.c http_process_request_line(178)[ERR]:recv http request line error:-2
+(444)2015-03-02 17:07:13 http/http_request.c recv_http_request(148)[ERR]:recv timeout, client ip:192.168.106.153
+(444)2015-03-02 17:07:13 http/http_request.c http_process_request_line(178)[ERR]:recv http request line error:-2
