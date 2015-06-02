@@ -86,7 +86,7 @@ int coro_stack_alloc(struct coro_stack *stack, size_t size_bytes)
     size_bytes += PAGE_SIZE;
 
     stack->ptr = mmap(NULL, size_bytes, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (stack->ptr == (void *) - 1)
+    if (stack->ptr == (void *)-1)
         return -1;
 
     mprotect(stack->ptr, PAGE_SIZE, PROT_NONE);

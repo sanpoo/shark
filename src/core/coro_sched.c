@@ -35,7 +35,7 @@ struct coroutine
     void *args;                 //执行函数参数
 
     long long timeout;          //未来某个时间(毫秒), 用于跟踪网络事件超时
-    int active_by_timeout;      //是事件到来唤醒的(0), 还是超时唤醒的(1)
+    int active_by_timeout;      //超时唤醒的(1), 事件到来唤醒的(非1)
 };
 
 /* sched policy, if timeout_milliseconds == -1 sched policy can wait forever */
@@ -410,7 +410,7 @@ void wakeup_coro(void *args)
 {
     struct coroutine *coro = args;
 
-    g_sched.current->active_by_timeout = -1;
+    coro->active_by_timeout = -1;
     move_to_active_list_tail(coro);
 }
 
@@ -418,7 +418,7 @@ void wakeup_coro_priority(void *args)
 {
     struct coroutine *coro = args;
 
-    g_sched.current->active_by_timeout = -1;
+    coro->active_by_timeout = -1;
     move_to_active_list_head(coro);
 }
 
@@ -433,8 +433,6 @@ void *current_coro()
 */
 void schedule_init(size_t stack_kbytes, size_t max_coro_size)
 {
-    int i;
-
     assert(max_coro_size >= 2);
 
     g_sched.min_coro_size = max_coro_size / 2;
@@ -454,18 +452,6 @@ void schedule_init(size_t stack_kbytes, size_t max_coro_size)
     {
         printf("Failed to create mem cache for schedule timer node\n");
         exit(0);
-    }
-
-    for (i = 0; i < g_sched.min_coro_size; i++)
-    {
-        struct coroutine *coro = create_coroutine();
-        if (NULL == coro)
-        {
-            printf("Failed to init schedule system. created coroutine:%d\n", i);
-            exit(0);
-        }
-
-        move_to_idle_list_direct(coro);
     }
 }
 

@@ -295,7 +295,7 @@ void log_init()
 
     for (index = 0; index < g_wklog_num; index++)
     {
-        g_wklog[index].queue.elem = shm_alloc_pages(LOG_SIZE / PAGE_SIZE);
+        g_wklog[index].queue.elem = shm_pages_alloc(LOG_SIZE / PAGE_SIZE);
         if (!g_wklog[index].queue.elem)
         {
             printf("Failed to alloc shm for log shm\n");

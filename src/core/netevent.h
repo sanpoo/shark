@@ -21,6 +21,5 @@ void del_fd_event(int fd, event_what what);
 void event_cycle(int milliseconds);
 void event_loop_init(int max_conn);
 
-
 #endif
 

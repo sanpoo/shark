@@ -19,10 +19,10 @@ struct fd_event
 
 struct event_loop
 {
-    int max_conn;           //最大能处理的fd个数
-    struct fd_event *array; //每个fd的事件
-    int epfd;               //epoll fd
-    struct epoll_event *ee; //全部的fd事件
+    int max_conn;               //最大能处理的fd个数
+    struct fd_event *array;     //每个fd的事件
+    int epfd;                   //epoll fd
+    struct epoll_event *ee;     //全部的fd事件
 };
 
 static struct event_loop g_eventloop;
@@ -34,16 +34,15 @@ int add_fd_event(int fd, event_what what, event_proc proc, void *args)
     struct epoll_event ee;
     int mask;
 
-/*
     if (fd >= g_eventloop.max_conn)
     {
         errno = ERANGE;
         return -1;
     }
-*/
+
     fe = &g_eventloop.array[fd];
-    op = (EVNET_NONE == fe->mask)? EPOLL_CTL_ADD : EPOLL_CTL_MOD;
-    ee.events =0;
+    op = (EVNET_NONE == fe->mask) ? EPOLL_CTL_ADD : EPOLL_CTL_MOD;
+    ee.events = 0;
     ee.data.fd = fd;
     mask = what | fe->mask; //merge old event
 
@@ -65,17 +64,17 @@ void del_fd_event(int fd, event_what what)
     struct fd_event *fe;
     struct epoll_event ee;
     int mask;
-/*
+
     if (fd >= g_eventloop.max_conn)
         return;
-*/
+
     fe = &g_eventloop.array[fd];
     if (EVNET_NONE == fe->mask)
         return;
 
     fe->mask &= ~(what);    //what可能是一个组合
     mask = fe->mask;
-    ee.events =0;
+    ee.events = 0;
     ee.data.fd = fd;
 
     if (mask & EVENT_READABLE)  ee.events |= EPOLLIN;
@@ -106,12 +105,13 @@ void event_cycle(int milliseconds)
 
 /*
     @max_conn:最大能处理的网络连接数
- */
+    注意: 如果后端转发或连接跟前端是N:N的关系的话, 这个max_conn需要加倍
+*/
 void event_loop_init(int max_conn)
 {
     g_eventloop.max_conn = max_conn + 128;    //多出来的部分留给系统
 
-    g_eventloop.array = (struct fd_event *)calloc(sizeof(struct fd_event), g_eventloop.max_conn);
+    g_eventloop.array = (struct fd_event *)calloc(g_eventloop.max_conn, sizeof(struct fd_event));
     if (NULL == g_eventloop.array)
     {
         printf("Failed to malloc fd g_eventloop\n");
@@ -125,7 +125,7 @@ void event_loop_init(int max_conn)
         exit(0);
     }
 
-    g_eventloop.ee = (struct epoll_event *)malloc(sizeof(struct epoll_event) * g_eventloop.max_conn);
+    g_eventloop.ee = (struct epoll_event *)malloc(g_eventloop.max_conn * sizeof(struct epoll_event));
     if (NULL == g_eventloop.ee)
     {
         printf("Failed to malloc epoll g_eventloop\n");

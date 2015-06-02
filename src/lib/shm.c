@@ -52,7 +52,7 @@ void *shm_alloc(size_t size_bytes)
     该接口用于申请页大小的共享空间, 建议申请4K以上的均用此接口
     @pg_count  :页的个数, 最终申请大小为pg_count * PAGE_SIZE
  */
-void *shm_alloc_pages(unsigned int pg_count)
+void *shm_pages_alloc(unsigned int pg_count)
 {
     void *addr;
 
@@ -60,7 +60,7 @@ void *shm_alloc_pages(unsigned int pg_count)
     return (addr == MAP_FAILED)? NULL : addr;
 }
 
-void shm_free_pages(void *addr, unsigned int pg_count)
+void shm_pages_free(void *addr, unsigned int pg_count)
 {
     munmap(addr, pg_count * PAGE_SIZE);
 }
@@ -73,7 +73,7 @@ void shm_init()
 {
     char *addr;
 
-    addr = shm_alloc_pages(1);
+    addr = shm_pages_alloc(1);
     if (!addr)
     {
         printf("Failed to init system share mem\n");

@@ -115,8 +115,7 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
     if (ret < 0 && errno != EINPROGRESS)
         return -1;
 
-    ret = add_fd_event(sockfd, EVENT_WRITABLE, event_conn_callback, current_coro());
-    if (ret)
+    if (add_fd_event(sockfd, EVENT_WRITABLE, event_conn_callback, current_coro()))
         return -2;
 
     schedule_timeout(CONN_TIMEOUT);
@@ -141,7 +140,6 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 
 int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
 {
-    int ret;
     int connfd = 0;
 
     while ((connfd = g_sys_accept(sockfd, addr, addrlen)) < 0)
@@ -152,8 +150,7 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(sockfd, EVENT_READABLE, event_conn_callback, current_coro());
-        if (ret)
+        if (add_fd_event(sockfd, EVENT_READABLE, event_conn_callback, current_coro()))
             return -2;
 
         schedule_timeout(ACCEPT_TIMEOUT);
@@ -165,22 +162,19 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
         }
     }
 
-    ret = set_nonblock(connfd);
-    if (ret)
+    if (set_nonblock(connfd))
     {
         close(connfd);
         return -4;
     }
 
-    ret = enable_tcp_no_delay(connfd);
-    if (ret)
+    if (enable_tcp_no_delay(connfd))
     {
         close(connfd);
         return -5;
     }
 
-    ret = set_keep_alive(connfd, KEEP_ALIVE);
-    if (ret)
+    if (set_keep_alive(connfd, KEEP_ALIVE))
     {
         close(connfd);
         return -6;
@@ -191,7 +185,6 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
 
 ssize_t read(int fd, void *buf, size_t count)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_read(fd, buf, count)) < 0)
@@ -202,8 +195,7 @@ ssize_t read(int fd, void *buf, size_t count)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(fd, EVENT_READABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(fd, EVENT_READABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(READ_TIMEOUT);
@@ -220,7 +212,6 @@ ssize_t read(int fd, void *buf, size_t count)
 
 ssize_t readv(int fd, const struct iovec *iov, int iovcnt)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_readv(fd, iov, iovcnt)) < 0)
@@ -231,8 +222,7 @@ ssize_t readv(int fd, const struct iovec *iov, int iovcnt)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(fd, EVENT_READABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(fd, EVENT_READABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(READV_TIMEOUT);
@@ -249,7 +239,6 @@ ssize_t readv(int fd, const struct iovec *iov, int iovcnt)
 
 ssize_t recv(int sockfd, void *buf, size_t len, int flags)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_recv(sockfd, buf, len, flags)) < 0)
@@ -260,8 +249,7 @@ ssize_t recv(int sockfd, void *buf, size_t len, int flags)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(sockfd, EVENT_READABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(sockfd, EVENT_READABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(RECV_TIMEOUT);
@@ -279,7 +267,6 @@ ssize_t recv(int sockfd, void *buf, size_t len, int flags)
 ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags,
                                 struct sockaddr *src_addr, socklen_t *addrlen)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_recvfrom(sockfd, buf, len, flags, src_addr, addrlen)) < 0)
@@ -290,8 +277,7 @@ ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags,
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(sockfd, EVENT_READABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(sockfd, EVENT_READABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(RECVFROM_TIMEOUT);
@@ -308,7 +294,6 @@ ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags,
 
 ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_recvmsg(sockfd, msg, flags)) < 0)
@@ -319,8 +304,7 @@ ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(sockfd, EVENT_READABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(sockfd, EVENT_READABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(RECVMSG_TIMEOUT);
@@ -337,7 +321,6 @@ ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags)
 
 ssize_t write(int fd, const void *buf, size_t count)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_write(fd, buf, count)) < 0)
@@ -348,8 +331,7 @@ ssize_t write(int fd, const void *buf, size_t count)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(fd, EVENT_WRITABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(fd, EVENT_WRITABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(WRITE_TIMEOUT);
@@ -366,7 +348,6 @@ ssize_t write(int fd, const void *buf, size_t count)
 
 ssize_t writev(int fd, const struct iovec *iov, int iovcnt)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_writev(fd, iov, iovcnt)) < 0)
@@ -377,8 +358,7 @@ ssize_t writev(int fd, const struct iovec *iov, int iovcnt)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(fd, EVENT_WRITABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(fd, EVENT_WRITABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(WRITEV_TIMEOUT);
@@ -395,7 +375,6 @@ ssize_t writev(int fd, const struct iovec *iov, int iovcnt)
 
 ssize_t send(int sockfd, const void *buf, size_t len, int flags)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_send(sockfd, buf, len, flags)) < 0)
@@ -406,8 +385,7 @@ ssize_t send(int sockfd, const void *buf, size_t len, int flags)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(sockfd, EVENT_WRITABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(sockfd, EVENT_WRITABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(SEND_TIMEOUT);
@@ -425,7 +403,6 @@ ssize_t send(int sockfd, const void *buf, size_t len, int flags)
 ssize_t sendto(int sockfd, const void *buf, size_t len, int flags,
                               const struct sockaddr *dest_addr, socklen_t addrlen)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_sendto(sockfd, buf, len, flags, dest_addr, addrlen)) < 0)
@@ -436,8 +413,7 @@ ssize_t sendto(int sockfd, const void *buf, size_t len, int flags,
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(sockfd, EVENT_WRITABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(sockfd, EVENT_WRITABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(SENDTO_TIMEOUT);
@@ -454,7 +430,6 @@ ssize_t sendto(int sockfd, const void *buf, size_t len, int flags,
 
 ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags)
 {
-    int ret;
     ssize_t n;
 
     while ((n = g_sys_sendmsg(sockfd, msg, flags)) < 0)
@@ -465,8 +440,7 @@ ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags)
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(sockfd, EVENT_WRITABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(sockfd, EVENT_WRITABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(SENDMSG_TIMEOUT);
@@ -483,7 +457,6 @@ ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags)
 
 ssize_t sendfile_timeout(int out_fd, int in_fd, off_t *offset, size_t count, int timeout)
 {
-    int ret;
     ssize_t n;
 
     while ((n = sendfile(out_fd, in_fd, offset, count)) < 0)
@@ -494,8 +467,7 @@ ssize_t sendfile_timeout(int out_fd, int in_fd, off_t *offset, size_t count, int
         if (!fd_not_ready())
             return -1;
 
-        ret = add_fd_event(out_fd, EVENT_WRITABLE, event_rw_callback, current_coro());
-        if (ret)
+        if (add_fd_event(out_fd, EVENT_WRITABLE, event_rw_callback, current_coro()))
             return -2;
 
         schedule_timeout(timeout * 1000);

@@ -11,7 +11,7 @@
 *	支持动态协程池, 汇编实现的高性能协程上下文切换, 每秒达1.7亿次
 *	高效的超时机制, 支持千万级timer
 *	高性能的缓存机制
-*	支持连接池, mysql
+
 
 # shark原理
 *   1) https://www.icloud.com/keynote/AwBWCAESEPgQD_NG7iyzkN4cnfn2xz4aKs0eZHgJ9yypoEO1ydG4SkrtCv03nfK84AAPbb7Hi4_AExZ45oGUbOSEwwMCUCAQEEIA_xmo4vPc9xyVx8LVDl3yELLql9EvhBsCMg6zpi90Qj#汇编与过程
