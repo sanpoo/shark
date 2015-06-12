@@ -21,8 +21,8 @@
 #include "http_request.h"
 #include "http_response.h"
 
-static struct memcache *g_http_request_cache;
 static size_t g_http_header_size;
+static struct memcache *g_http_request_cache;
 static struct hash_table *g_request_header_ht;
 
 static int request_line_method_handler(struct http_request *r)
@@ -294,10 +294,7 @@ static void http_process_request(struct http_request *request)
 
 static void __http_request_handler(struct http_request *request)
 {
-    int ret;
-
-    ret = http_process_request_line(request);
-    if (ret)
+    if (http_process_request_line(request))
     {
         http_finalize_request(request, HTTP_BAD_REQUEST);
         return;
@@ -309,15 +306,13 @@ static void __http_request_handler(struct http_request *request)
         return;
     }
 
-    ret = http_process_request_header(request);
-    if (ret)
+    if (http_process_request_header(request))
     {
         http_finalize_request(request, HTTP_BAD_REQUEST);
         return;
     }
 
-    ret = http_process_request_content(request);
-    if (ret)
+    if (http_process_request_content(request))
     {
         http_finalize_request(request, HTTP_INSUFFICIENT_STORAGE);
         return;
@@ -328,7 +323,9 @@ static void __http_request_handler(struct http_request *request)
 
 int http_request_handler(int fd)
 {
-    struct http_request *request = memcache_alloc(g_http_request_cache);
+    struct http_request *request;
+
+    request = memcache_alloc(g_http_request_cache);
     if (!request)
     {
         ERR("no mem for http request");
@@ -356,8 +353,9 @@ int http_request_init()
 {
     size_t size = 2048;
     struct request_header_handler *header;
-    char *c = get_raw_conf("client_header_buffer_size");
+    char *c;
 
+    c= get_raw_conf("client_header_buffer_sizekbyte");
     if (!str_equal(c, "default"))
     {
         size = atoi(c);

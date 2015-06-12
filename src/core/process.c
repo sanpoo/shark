@@ -211,11 +211,15 @@ static void worker_accept_proc(void *args)
 void worker_process_cycle()
 {
     if (worker_process_init())
+    {
+        ERR("Failed to init worker");
         exit(0);
+    }
 
     schedule_init(g_coro_stack_kbytes, g_worker_connections);
     event_loop_init(g_worker_connections);
     dispatch_coro(worker_accept_proc, NULL);
+
     INFO("worker success running....");
     schedule_cycle();
 }

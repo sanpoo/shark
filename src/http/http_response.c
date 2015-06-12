@@ -63,6 +63,14 @@ static str_t http_status_lines[] =
 #define HTTP_STATUS_OFFSET_LAST  508
 };
 
+static char http_error_200_page[] =
+    "<html>" CRLF
+    "<head><title>Welcome to sanpoo's house</title></head>" CRLF
+    "<body bgcolor=\"white\">" CRLF
+    "<center><h1>welcome to sanpoo's house</h1></center>" CRLF
+    "<center><a accesskey=\"2\" href=\"https://github.com/sanpoo/shark\">about me</a></center>"
+    ;
+
 static char http_error_301_page[] =
     "<html>" CRLF
     "<head><title>301 Moved Permanently</title></head>" CRLF
@@ -390,13 +398,23 @@ void http_finalize_request(struct http_request *request, int ret_code)
     memcpy(b->pos, CRLF HTTP_ERROR_HEADER, 2 + sizeof(HTTP_ERROR_HEADER) - 1);
     b->pos += 2 + sizeof(HTTP_ERROR_HEADER) - 1;
 
-    error_page = get_http_error_page(ret_code);
-    if (error_page)
+    if (ret_code == 200)    //temp add
     {
         memcpy(b->pos, CRLF, 2);
         b->pos += 2;
-        memcpy(b->pos, error_page->p, error_page->len);
-        b->pos += error_page->len;
+        memcpy(b->pos, http_error_200_page, sizeof(http_error_200_page) - 1);
+        b->pos += sizeof(http_error_200_page) - 1;
+    }
+    else
+    {
+        error_page = get_http_error_page(ret_code);
+        if (error_page)
+        {
+            memcpy(b->pos, CRLF, 2);
+            b->pos += 2;
+            memcpy(b->pos, error_page->p, error_page->len);
+            b->pos += error_page->len;
+        }
     }
 
     send(request->fd, b->start, b->pos - b->start, 0);
