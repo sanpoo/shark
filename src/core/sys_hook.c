@@ -5,11 +5,8 @@
 #define _GNU_SOURCE
 #include <dlfcn.h>
 #include <errno.h>
-#include <unistd.h>
 #include <sys/sendfile.h>
 #include <sys/uio.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 
 #include "net.h"
 #include "netevent.h"
@@ -38,45 +35,22 @@
 
 #define KEEP_ALIVE        60
 
+sys_connect g_sys_connect = NULL;
+sys_accept g_sys_accept = NULL;
 
-typedef int (*sys_connect)(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-typedef int (*sys_accept)(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+sys_read g_sys_read = NULL;
+sys_readv g_sys_readv = NULL;
+sys_recv g_sys_recv = NULL;
+sys_recvfrom g_sys_recvfrom = NULL;
+sys_recvmsg g_sys_recvmsg = NULL;
 
-typedef ssize_t (*sys_read)(int fd, void *buf, size_t count);
-typedef ssize_t (*sys_readv)(int fd, const struct iovec *iov, int iovcnt);
-typedef ssize_t (*sys_recv)(int sockfd, void *buf, size_t len, int flags);
-typedef ssize_t (*sys_recvfrom)(int sockfd, void *buf, size_t len, int flags,
-                                struct sockaddr *src_addr, socklen_t *addrlen);
-typedef ssize_t (*sys_recvmsg)(int sockfd, struct msghdr *msg, int flags);
+sys_write g_sys_write = NULL;
+sys_writev g_sys_writev = NULL;
+sys_send g_sys_send = NULL;
+sys_sendto g_sys_sendto = NULL;
+sys_sendmsg g_sys_sendmsg = NULL;
 
-typedef ssize_t (*sys_write)(int fd, const void *buf, size_t count);
-typedef ssize_t (*sys_writev)(int fd, const struct iovec *iov, int iovcnt);
-typedef ssize_t (*sys_send)(int sockfd, const void *buf, size_t len, int flags);
-typedef ssize_t (*sys_sendto)(int sockfd, const void *buf, size_t len, int flags,
-                              const struct sockaddr *dest_addr, socklen_t addrlen);
-typedef ssize_t (*sys_sendmsg)(int sockfd, const struct msghdr *msg, int flags);
-
-typedef ssize_t (*sys_sendfile)(int out_fd, int in_fd, off_t *offset, size_t count);
-
-sys_sleep g_sys_sleep = NULL;
-sys_usleep g_sys_usleep = NULL;
-
-static sys_connect g_sys_connect = NULL;
-static sys_accept g_sys_accept = NULL;
-
-static sys_read g_sys_read = NULL;
-static sys_readv g_sys_readv = NULL;
-static sys_recv g_sys_recv = NULL;
-static sys_recvfrom g_sys_recvfrom = NULL;
-static sys_recvmsg g_sys_recvmsg = NULL;
-
-static sys_write g_sys_write = NULL;
-static sys_writev g_sys_writev = NULL;
-static sys_send g_sys_send = NULL;
-static sys_sendto g_sys_sendto = NULL;
-static sys_sendmsg g_sys_sendmsg = NULL;
-
-static sys_sendfile g_sys_sendfile = NULL;
+sys_sendfile g_sys_sendfile = NULL;
 
 #define fd_not_ready() ((EAGAIN == errno) || (EWOULDBLOCK == errno))
 
@@ -88,18 +62,6 @@ static void event_rw_callback(void *args)
 static void event_conn_callback(void *args)
 {
     wakeup_coro_priority(args);
-}
-
-unsigned int sleep(unsigned int seconds)
-{
-    schedule_timeout(seconds * 1000);
-    return 0;
-}
-
-int usleep(useconds_t useconds)
-{
-    yield();
-    return 0;
 }
 
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
@@ -493,9 +455,6 @@ ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count)
 
 __attribute__((constructor)) static void syscall_hook_init()
 {
-    HOOK_SYSCALL(sleep);
-    HOOK_SYSCALL(usleep);
-
     HOOK_SYSCALL(connect);
     HOOK_SYSCALL(accept);
 

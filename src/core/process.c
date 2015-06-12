@@ -41,6 +41,7 @@ int g_exit_shark = 0;       //是否退出shark系统
 static void process_struct_init()
 {
     int i;
+
     for (i = 0; i < g_worker_processes; i++)
     {
         struct process *p = &g_process[i];
@@ -52,6 +53,7 @@ static void process_struct_init()
 static int worker_empty()
 {
     int i;
+
     for (i = 0; i < g_worker_processes; i++)
     {
         struct process *p = &g_process[i];
@@ -100,6 +102,7 @@ static pid_t fork_worker(struct process *p)
 static void spawn_worker_process()
 {
     int i;
+
     for (i = 0; i < g_worker_processes; i++)
     {
         struct process *p = &g_process[i];
@@ -237,7 +240,10 @@ static void send_signal_to_workers(int signo)
 void master_process_cycle()
 {
     if (master_process_init())
+    {
+        ERR("Failed to init master process, shark exit");
         exit(0);
+    }
 
     INFO("master success running....");
 
@@ -245,7 +251,8 @@ void master_process_cycle()
     {
         if (g_stop_shark == 1)
         {
-            WARN("notify worker processes to stop accepting new connections, and wait them handled over, then shark exit");
+            WARN("notify worker processes to stop accepting new connections, "
+                 "and wait connected connections handled over, then shark exit");
             send_signal_to_workers(SHUTDOWN_SIGNAL);
             g_stop_shark = 2;
         }
@@ -274,7 +281,7 @@ void master_process_cycle()
         }
 
         log_scan_write();
-        USLEEP(10000);
+        usleep(10000);
     }
 }
 
@@ -299,8 +306,10 @@ void reset_worker_process(int pid)
 void process_init()
 {
     g_process_id = getpid();
+    g_master_pid = g_process_id;
     g_process_type = MASTER_PROCESS;
     set_proc_title("shark: master process");
+    create_pidfile(g_master_pid);
     if (log_worker_alloc(g_process_id) < 0)
     {
         printf("Failed to alloc log for process:%d\n", g_process_id);

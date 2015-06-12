@@ -21,6 +21,7 @@
 #include "util.h"
 #include "cqueue.h"
 #include "spinlock.h"
+#include "sys_hook.h"
 #include "log.h"
 
 #define LOG_SIZE        (1024 * 1024)
@@ -122,7 +123,7 @@ static void log_flush()
         change_log(tp);
 
     if (likely(g_log_fd > 0))
-        write(g_log_fd, g_flush_page, g_flush_page_len);
+        g_sys_write(g_log_fd, g_flush_page, g_flush_page_len);
     g_flush_page_len = 0;
 }
 

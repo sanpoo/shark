@@ -4,8 +4,6 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
 #include <signal.h>
 
 #include "conf.h"
@@ -81,7 +79,6 @@ int main(int argc, char **argv)
     sys_daemon();
     sys_rlimit_init();
     sys_signal_init();
-    g_master_pid = getpid();
     proc_title_init(argv);
 
     load_raw_conf(CONF_FILE);
@@ -90,7 +87,6 @@ int main(int argc, char **argv)
     log_init();
 
     tcp_srv_init();
-    create_pidfile(g_master_pid);
     process_init();
     master_process_cycle();
     worker_process_cycle();
