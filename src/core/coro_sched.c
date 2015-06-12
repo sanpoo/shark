@@ -43,7 +43,6 @@ typedef void (*sched_policy)(int timeout_milliseconds);
 
 struct coro_schedule
 {
-    size_t min_coro_size;       //协程最少个数
     size_t max_coro_size;       //协程最大个数
     size_t curr_coro_size;      //当前协程数
 
