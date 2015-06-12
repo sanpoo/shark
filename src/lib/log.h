@@ -20,8 +20,8 @@ enum LOG_LEVEL
 #define INFO(fmt, ...)   log_out(LEVEL_INFO, __FILE__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__)
 #define DBG(fmt, ...)    log_out(LEVEL_DBG,  __FILE__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__)
 
-int log_worker_alloc(int id);
-void log_worker_flush_and_reset(int id);
+int log_worker_alloc(int pid);
+void log_worker_flush_and_reset(int pid);
 void log_scan_write();
 void log_out(enum LOG_LEVEL level, const char *file, const char *func, int line, const char *fmt, ...);
 void log_init();

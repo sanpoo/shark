@@ -129,7 +129,7 @@ static void signal_handler(int signo)
             break;
     }
 
-    INFO("signal %d (%s) received%s", signo, sig->signame, action);
+    WARN("signal %d (%s) received%s", signo, sig->signame, action);
 }
 
 void sys_signal_init()

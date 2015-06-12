@@ -212,7 +212,6 @@ static inline void coroutine_init(struct coroutine *coro)
 
 static struct coroutine *create_coroutine()
 {
-    int ret;
     struct coroutine *coro;
 
     if (unlikely(g_sched.curr_coro_size == g_sched.max_coro_size))
@@ -222,8 +221,7 @@ static struct coroutine *create_coroutine()
     if (unlikely(NULL == coro))
         return NULL;
 
-    ret = coro_stack_alloc(&coro->stack, g_sched.stack_bytes);
-    if (unlikely(ret))
+    if (coro_stack_alloc(&coro->stack, g_sched.stack_bytes))
     {
         free(coro);
         return NULL;
@@ -435,7 +433,6 @@ void schedule_init(size_t stack_kbytes, size_t max_coro_size)
 {
     assert(max_coro_size >= 2);
 
-    g_sched.min_coro_size = max_coro_size / 2;
     g_sched.max_coro_size = max_coro_size;
     g_sched.curr_coro_size = 0;
     g_sched.next_coro_id = 0;

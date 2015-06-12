@@ -7,9 +7,10 @@
 
 #include <string.h>
 
-#define CR     (unsigned char)13
-#define LF     (unsigned char)10
-#define CRLF   "\x0d\x0a"
+#define CR              (unsigned char)13
+#define LF              (unsigned char)10
+#define CRLF            "\x0d\x0a"
+#define LINEFEED        "\x0a"
 
 
 typedef struct

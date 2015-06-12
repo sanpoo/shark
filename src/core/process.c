@@ -38,11 +38,6 @@ static int g_create_worker = 1;    //当worker异常退出时候
 int g_stop_shark = 0;       //worker是否停止接收fd, 0表示否, 其他表示停止
 int g_exit_shark = 0;       //是否退出shark系统
 
-static void set_proc_title(const char *name)
-{
-    strcpy(shark_argv[0], name);
-}
-
 static void process_struct_init()
 {
     int i;
@@ -74,7 +69,7 @@ static pid_t fork_worker(struct process *p)
     switch (pid)
     {
         case -1:
-            ERR("Failed to fork worker process. master pid:%d\n", getpid());
+            ERR("Failed to fork worker process. master pid:%d", getpid());
             return -1;
 
         case 0:
@@ -200,7 +195,7 @@ static void worker_accept_proc(void *args)
         }
         else if (connfd == 0)
         {
-            schedule_timeout(500);
+            schedule_timeout(200);
             continue;
         }
         else

@@ -34,6 +34,8 @@
 #define SENDTO_TIMEOUT    (10 * 1000)
 #define SENDMSG_TIMEOUT   (10 * 1000)
 
+#define SENDFILE_TIMEOUT  (10 * 1000)
+
 #define KEEP_ALIVE        60
 
 
@@ -54,6 +56,8 @@ typedef ssize_t (*sys_sendto)(int sockfd, const void *buf, size_t len, int flags
                               const struct sockaddr *dest_addr, socklen_t addrlen);
 typedef ssize_t (*sys_sendmsg)(int sockfd, const struct msghdr *msg, int flags);
 
+typedef ssize_t (*sys_sendfile)(int out_fd, int in_fd, off_t *offset, size_t count);
+
 sys_sleep g_sys_sleep = NULL;
 sys_usleep g_sys_usleep = NULL;
 
@@ -71,6 +75,8 @@ static sys_writev g_sys_writev = NULL;
 static sys_send g_sys_send = NULL;
 static sys_sendto g_sys_sendto = NULL;
 static sys_sendmsg g_sys_sendmsg = NULL;
+
+static sys_sendfile g_sys_sendfile = NULL;
 
 #define fd_not_ready() ((EAGAIN == errno) || (EWOULDBLOCK == errno))
 
@@ -455,11 +461,14 @@ ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags)
     return n;
 }
 
-ssize_t sendfile_timeout(int out_fd, int in_fd, off_t *offset, size_t count, int timeout)
+/*
+    in_fd一般就是文件fd, out_fd一定要是远端连接fd
+*/
+ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count)
 {
     ssize_t n;
 
-    while ((n = sendfile(out_fd, in_fd, offset, count)) < 0)
+    while ((n = g_sys_sendfile(out_fd, in_fd, offset, count)) < 0)
     {
         if (EINTR == errno)
             continue;
@@ -470,7 +479,7 @@ ssize_t sendfile_timeout(int out_fd, int in_fd, off_t *offset, size_t count, int
         if (add_fd_event(out_fd, EVENT_WRITABLE, event_rw_callback, current_coro()))
             return -2;
 
-        schedule_timeout(timeout * 1000);
+        schedule_timeout(SENDFILE_TIMEOUT);
         del_fd_event(out_fd, EVENT_WRITABLE);
         if (is_wakeup_by_timeout())
         {
@@ -501,5 +510,7 @@ __attribute__((constructor)) static void syscall_hook_init()
     HOOK_SYSCALL(send);
     HOOK_SYSCALL(sendto);
     HOOK_SYSCALL(sendmsg);
+
+    HOOK_SYSCALL(sendfile);
 }
 

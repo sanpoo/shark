@@ -121,7 +121,6 @@ unsigned ip_to_nl(const char *ip)
 
 int create_tcp_server(const char *ip, int port)
 {
-    int ret;
     int listenfd;
     struct sockaddr_in svraddr;
 
@@ -132,15 +131,13 @@ int create_tcp_server(const char *ip, int port)
         exit(0);
     }
 
-    ret = set_reuse_addr(listenfd);
-    if (ret)
+    if (set_reuse_addr(listenfd))
     {
         printf("set reuse listen socket failed. %d %s\n", errno, strerror(errno));
         exit(0);
     }
 
-    ret = set_nonblock(listenfd);
-    if (ret)
+    if (set_nonblock(listenfd))
     {
         printf("set listen socket non-bloack failed. %d %s\n", errno, strerror(errno));
         exit(0);
@@ -151,15 +148,13 @@ int create_tcp_server(const char *ip, int port)
     svraddr.sin_port = htons(port);
     svraddr.sin_addr.s_addr = ip_to_nl(ip);
 
-    ret = bind(listenfd, (struct sockaddr*)&svraddr, sizeof(svraddr));
-    if (0 != ret)
+    if (0 != bind(listenfd, (struct sockaddr*)&svraddr, sizeof(svraddr)))
     {
         printf("bind failed. %d %s\n", errno, strerror(errno));
         exit(0);
     }
 
-    ret = listen(listenfd, 1000);
-    if (0 != ret)
+    if (0 != listen(listenfd, 1000))
     {
         printf("listen failed. %d %s\n", errno, strerror(errno));
         exit(0);

@@ -17,6 +17,9 @@
 #include "env.h"
 #include "util.h"
 
+static char **shark_argv;
+extern char **environ;
+
 int log2n(size_t n)
 {
     int i = 0;
@@ -51,7 +54,7 @@ void sys_daemon()
         exit(0);
 }
 
-void sys_res_init()
+void sys_rlimit_init()
 {
     struct rlimit rlim, rlim_new;
 
@@ -73,6 +76,48 @@ void sys_res_init()
             printf("Failed to set rlimit core. exit!\n");
             exit(0);
         }
+    }
+}
+
+void set_proc_title(const char *name)
+{
+    strcpy(shark_argv[0], name);
+}
+
+void proc_title_init(char **argv)
+{
+    int i;
+    size_t len = 0;
+    void *p;
+
+    shark_argv = argv;
+
+    for (i = 1; argv[i]; i++)
+        len += strlen(argv[i]) + 1;
+
+    for (i = 0; environ[i]; i++)
+        len += strlen(environ[i]) + 1;
+
+    p = malloc(len);
+    if (!p)
+    {
+        printf("Failed to alloc environ mem\n");
+        exit(0);
+    }
+
+    memcpy(p, argv[1] ? argv[1] : environ[0], len);
+
+    len = 0;
+    for (i = 1; argv[i]; i++)
+    {
+        argv[i] = p + len;
+        len += strlen(argv[i]) + 1;
+    }
+
+    for (i = 0; environ[i]; i++)
+    {
+        environ[i] = p + len;
+        len += strlen(environ[i]) + 1;
     }
 }
 

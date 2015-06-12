@@ -3,10 +3,9 @@
     Author: bo.shen <sanpoos@gmail.com>
 */
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <errno.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "str.h"
 
@@ -85,7 +84,7 @@ char *get_raw_conf(const char *key)
         c = c->next;
     }
 
-    printf("Failed to find config :%s\n", key);
+    printf("Failed to find configuration item : %s\n", key);
     exit(0);
 }
 
@@ -93,7 +92,7 @@ char *get_raw_conf(const char *key)
     load config from file. support load from multi file, all config will insert
     into g_conf
 */
-void load_conf(const char *filename)
+void load_raw_conf(const char *filename)
 {
     FILE *fp;
     char buff[512];

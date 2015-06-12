@@ -28,7 +28,7 @@
 struct log_desc
 {
     char msg[1024];
-    struct worker_log *wklog;
+    struct logger *log;
     const char *file;
     const char *func;
     int line;
@@ -37,39 +37,40 @@ struct log_desc
 
 struct log_buff
 {
-    char buff[1024 - sizeof(size_t)];   //日志缓冲区
     size_t len;                         //buff长度
+    char buff[1024 - sizeof(size_t)];   //日志缓冲区
 };
 
-struct worker_log
+struct logger
 {
-    int id;             //id号, pid或者tid
-    int need_init;      //进程退出时, 为1, 待日志写完后, 初始化为0
-    struct cqueue queue;//日志循环队列
+    int pid;                //与进程绑定的pid号
+    int need_init;          //进程退出时, 为1, 待日志写完后, 初始化为0
+    struct cqueue queue;    //日志循环队列
 };
 
 static char STR_LOG_LEVEL[][8] = {"CRIT", "ERR", "WARN", "INFO", "DBG"};
 
-static int logid;                   //每个进程一个id
-static int g_log_day;               //记录当前的天
-static int g_logfd;                 //日志文件描述符
-enum LOG_LEVEL g_log_level;         //日志级别
+static int logger_id;               //每个进程一个id
+
+static int g_log_today;             //记录当前的天
+static int g_log_fd;                //日志文件描述符
+static enum LOG_LEVEL g_log_level;  //日志级别
 
 static char *g_flush_page;          //磁盘的缓冲区, 一个PAGE_SIZE大小
 static size_t g_flush_page_len;     //已经使用的长度
 
 static spinlock *g_log_lock;        //用于多进程分配和释放时
-static int g_wklog_num;             //worker_log的个数, 这意味着需要创建的共享内存数
-static struct worker_log *g_wklog;  //全局worker_log
+static int g_logger_num;            //log的个数(master与worker统一管理)
+static struct logger *g_logger;     //指向含有g_logger_num个logger的共享内存
 
 static enum LOG_LEVEL log_str_level(const char *level)
 {
-    int i;
+    int index;
 
-    for (i = 0; i < ARRAY_SIZE(STR_LOG_LEVEL); i++)
+    for (index = 0; index < ARRAY_SIZE(STR_LOG_LEVEL); index++)
     {
-        if (str_equal(level, STR_LOG_LEVEL[i]))
-            return (enum LOG_LEVEL)i;
+        if (str_equal(level, STR_LOG_LEVEL[index]))
+            return (enum LOG_LEVEL)index;
     }
 
     printf("unknow log level. %s\n", level);
@@ -88,7 +89,7 @@ static void change_log(struct tm *tp)
     char datefmt[256];
     struct stat statfile;
 
-    g_log_day = tp->tm_mday;
+    g_log_today = tp->tm_mday;
 
     strftime(datefmt, sizeof(datefmt), "_%Y%m%d", tp);
     sprintf(filename, "%s%s", g_log_path, datefmt);
@@ -96,8 +97,8 @@ static void change_log(struct tm *tp)
     if (stat(g_log_path, &statfile) == 0)
         rename(g_log_path, filename);
 
-    close(g_logfd);
-    g_logfd = open(g_log_path, O_CREAT | O_RDWR | O_APPEND, 0644);
+    close(g_log_fd);
+    g_log_fd = open(g_log_path, O_CREAT | O_RDWR | O_APPEND, 0644);
 
     time(&t);
     t -= g_log_reserve_days * 24 * 3600;
@@ -117,11 +118,11 @@ static void log_flush()
         return;
 
     tp = get_tm();
-    if (unlikely(tp->tm_mday != g_log_day))
+    if (unlikely(tp->tm_mday != g_log_today))
         change_log(tp);
 
-    if (likely(g_logfd > 0))
-        write(g_logfd, g_flush_page, g_flush_page_len);
+    if (likely(g_log_fd > 0))
+        write(g_log_fd, g_flush_page, g_flush_page_len);
     g_flush_page_len = 0;
 }
 
@@ -146,26 +147,21 @@ static void log_write(void *data, void *args)
     strftime(strnow, sizeof(strnow), "%Y-%m-%d %H:%M:%S", tp);
     buff->len = snprintf(buff->buff, sizeof(buff->buff),
                          "(%d)%s %s %s(%d)[%s]:%s\n",
-                         desc->wklog->id, strnow, desc->file,
+                         desc->log->pid, strnow, desc->file,
                          desc->func, desc->line,
                          STR_LOG_LEVEL[desc->level], desc->msg);
 }
 
-static inline void worker_log_init(struct worker_log *wklog)
+static inline void copy_to_cache(struct logger *log)
 {
-    wklog->id = 0;
-    wklog->need_init = 0;
-    cqueue_init(&wklog->queue, LOG_SIZE / sizeof(struct log_buff),
-                sizeof(struct log_buff), log_read, log_write);
-}
-
-static inline void copy_to_cache(struct worker_log *wklog)
-{
-    while (-1 != cqueue_read(&wklog->queue, NULL))
+    while (-1 != cqueue_read(&log->queue, NULL))
         ;
 
-    if (1 == wklog->need_init)
-        worker_log_init(wklog);
+    if (1 == log->need_init)
+    {
+        log->pid = 0;
+        log->need_init = 0;
+    }
 }
 
 /*
@@ -174,36 +170,42 @@ static inline void copy_to_cache(struct worker_log *wklog)
 */
 void log_scan_write()
 {
-    int i;
+    int index;
 
-    for (i = 0; i < g_wklog_num; i++)
+    for (index = 0; index < g_logger_num; index++)
     {
-        if (g_wklog[i].id == 0)
+        if (g_logger[index].pid == 0)
             continue;
 
-        copy_to_cache(&g_wklog[i]);
+        copy_to_cache(&g_logger[index]);
     }
 
     log_flush();
 }
 
 /*
-    成功返回>=0的索引, 失败返回-1
+    成功返回0, 失败返回<0
 */
-int log_worker_alloc(int id)
+int log_worker_alloc(int pid)
 {
-    int i;
+    int index;
+    struct logger *log;
 
     spin_lock(g_log_lock);
-    for (i = 0; i < g_wklog_num; i++)
+    for (index = 0; index < g_logger_num; index++)
     {
-        if (g_wklog[i].id == 0)
+        log = &g_logger[index];
+
+        if (log->pid == 0)
         {
-            g_wklog[i].id = id;
-            g_wklog[i].need_init = 0;
-            logid = i;
+            log->pid = pid;
+            log->need_init = 0;
+            cqueue_init(&log->queue, LOG_SIZE / sizeof(struct log_buff),
+                        sizeof(struct log_buff), log_read, log_write);
+
+            logger_id = index;
             spin_unlock(g_log_lock);
-            return logid ;
+            return 0;
         }
     }
 
@@ -213,15 +215,15 @@ int log_worker_alloc(int id)
 }
 
 //worker进程退出的时候, 记得加上这句
-void log_worker_flush_and_reset(int id)
+void log_worker_flush_and_reset(int pid)
 {
-    int i;
+    int index;
 
     spin_lock(g_log_lock);
-    for (i = 0; i < g_wklog_num; i++)
+    for (index = 0; index < g_logger_num; index++)
     {
-        if (g_wklog[i].id == id)
-            g_wklog[i].need_init = 1;
+        if (g_logger[index].pid == pid)
+            g_logger[index].need_init = 1;
     }
     spin_unlock(g_log_lock);
 }
@@ -236,7 +238,7 @@ void log_out(enum LOG_LEVEL level, const char *file, const char *func,
     if (level > g_log_level)
         return;
 
-    g_desc.wklog = &g_wklog[logid];
+    g_desc.log = &g_logger[logger_id];
     g_desc.file = file;
     g_desc.func = func;
     g_desc.line = line;
@@ -247,37 +249,41 @@ void log_out(enum LOG_LEVEL level, const char *file, const char *func,
     vsnprintf(g_desc.msg, sizeof(g_desc.msg), fmt, ap);
     va_end(ap);
 
-    ret = cqueue_write(&g_desc.wklog->queue, &g_desc);
+    ret = cqueue_write(&g_desc.log->queue, &g_desc);
     //if (unlikely(ret))
-        //printf("id:%d log buff is full\n", logid);
+    //printf("id:%d log buff is full\n", logger_id);
 }
 
-static void gen_logfile_fd(const char *path)
+static int gen_logfile_fd(const char *path)
 {
-    if (access(path, F_OK | R_OK | W_OK) == 0)
-        g_logfd = open(path, O_RDWR | O_APPEND, 0644);
-    else
-        g_logfd = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
+    int fd;
 
-    if (g_logfd == -1)
+    if (access(path, F_OK | R_OK | W_OK) == 0)
+        fd = open(path, O_RDWR | O_APPEND, 0644);
+    else
+        fd = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
+
+    if (fd == -1)
     {
         printf("%s -> %s\n", strerror(errno), path);
         exit(0);
     }
+
+    return fd;
 }
 
 void log_init()
 {
     int index = 0;
 
-    g_log_day = get_tm()->tm_mday;
-    gen_logfile_fd(g_log_path);
+    g_log_today = get_tm()->tm_mday;
+    g_log_fd = gen_logfile_fd(g_log_path);
     g_log_level = log_str_level(g_log_strlevel);
     g_flush_page = (char *)mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE | PROT_EXEC,
                                 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     if (!g_flush_page)
     {
-        printf("Failed to alloc mem for log flush page\n");
+        printf("Failed to alloc page for log flush\n");
         exit(0);
     }
 
@@ -285,24 +291,23 @@ void log_init()
     g_log_lock = shm_alloc(sizeof(spinlock));
     spin_lock_init(g_log_lock);
 
-    g_wklog_num = g_worker_processes + 1;   //include master process
-    g_wklog = shm_alloc(sizeof(struct worker_log) * g_wklog_num);
-    if (!g_wklog)
+    g_logger_num = g_worker_processes + 1; //include master process
+    g_logger = shm_alloc(sizeof(struct logger) * g_logger_num);
+    if (!g_logger)
     {
-        printf("Failed to alloc mem for worker log\n");
+        printf("Failed to alloc mem for logger\n");
         exit(0);
     }
 
-    for (index = 0; index < g_wklog_num; index++)
+    for (index = 0; index < g_logger_num; index++)
     {
-        g_wklog[index].queue.elem = shm_pages_alloc(LOG_SIZE / PAGE_SIZE);
-        if (!g_wklog[index].queue.elem)
+        g_logger[index].pid = 0;
+        g_logger[index].queue.elem = shm_pages_alloc(LOG_SIZE / PAGE_SIZE);
+        if (!g_logger[index].queue.elem)
         {
-            printf("Failed to alloc shm for log shm\n");
+            printf("Failed to alloc pages for each logger\n");
             exit(0);
         }
-
-        worker_log_init(&g_wklog[index]);
     }
 }
 

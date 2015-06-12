@@ -7,7 +7,7 @@
 
 void print_raw_conf();
 char *get_raw_conf(const char *key);
-void load_conf(const char *filename);
+void load_raw_conf(const char *filename);
 
 #endif
 
