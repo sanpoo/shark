@@ -24,7 +24,7 @@ static void useage(int argc, char *argv[])
            "  -c        : show config file content"LINEFEED
            "  -t        : check and show config file content"LINEFEED
            "  -s signal : send signal to a master process: stop, exit"LINEFEED
-           "              stop : stop accepting, and wait for established connections to be handled over"LINEFEED
+           "              stop : stop accepting, and wait for connections to be handled over"LINEFEED
            "              exit : direct exit"LINEFEED);
 }
 

@@ -24,7 +24,7 @@ LIB = -ldl
 
 CC = gcc
 
-CFLAGS = -pipe -Wall -O2 -g #-pg
+CFLAGS = -pipe -Wall -O2 #-g #-pg
 CFLAGS += -I$(PUB_INC) -I$(LIB_INC) -I$(CORE_INC) -I$(HTTP_INC)
 
 ifeq ($(shell arch), i686)

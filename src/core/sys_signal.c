@@ -64,18 +64,16 @@ static void worker_process_get_status()
     }
 }
 
-static void master_signal_handler(int signo, char **action)
+static void master_signal_handler(int signo)
 {
     switch (signo)
     {
         case SIGQUIT:
             g_stop_shark = 1;
-            *action = ", stop accepting new connections, and wait for established connections to be handled over";
             break;
         case SIGTERM:
         case SIGINT:
             g_exit_shark = 1;
-            *action = ", direct exit, do NOT wait established connections to be handled over";
             break;
         case SIGHUP:
         case SIGUSR1:
@@ -88,18 +86,18 @@ static void master_signal_handler(int signo, char **action)
     }
 }
 
-static void worker_signal_handler(int signo, char **action)
+static void worker_signal_handler(int signo)
 {
     switch (signo)
     {
         case SIGQUIT:
             g_stop_shark = 1;
-            *action = ", stop accepting new connections, and wait for established connections to be handled over";
+            INFO("I am worker, stop accepting and wait for established connections to be handled over");
             break;
         case SIGTERM:
         case SIGINT:
             g_exit_shark = 1;
-            *action = ", direct exit, do NOT wait established connections to be handled over";
+            INFO("I am worker, ditect exit");
             break;
     }
 }
@@ -107,7 +105,6 @@ static void worker_signal_handler(int signo, char **action)
 static void signal_handler(int signo)
 {
     struct sys_signal *sig;
-    char *action = "";
 
     for (sig = g_signals; sig->signo != 0; sig++)
     {
@@ -118,18 +115,16 @@ static void signal_handler(int signo)
     switch (g_process_type)
     {
         case MASTER_PROCESS:
-            master_signal_handler(signo, &action);
+            master_signal_handler(signo);
             break;
 
         case WORKER_PROCESS:
-            worker_signal_handler(signo, &action);
+            worker_signal_handler(signo);
             break;
 
         default:
             break;
     }
-
-    WARN("signal %d (%s) received%s", signo, sig->signame, action);
 }
 
 void sys_signal_init()

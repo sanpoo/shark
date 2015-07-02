@@ -122,10 +122,7 @@ static inline void increase_conn()
 static inline void decrease_conn_and_check()
 {
     if (--g_conn_count == 0)
-    {
-        WARN("worker exit now");
         exit(0);
-    }
 }
 
 static void handle_connection(void *args)
@@ -173,7 +170,6 @@ static void worker_accept_proc(void *args)
     {
         if (unlikely(g_stop_shark))
         {
-            WARN("worker stop to accept connect and wait all conntion to be over");
             set_proc_title("shark: worker process is shutting down");
             decrease_conn_and_check();
             break;
@@ -181,8 +177,6 @@ static void worker_accept_proc(void *args)
 
         if (unlikely(g_exit_shark))
         {
-            WARN("worker direct exit");
-            set_proc_title("shark: worker process direct exit");
             exit(0);
         }
 
@@ -235,8 +229,6 @@ static void send_signal_to_workers(int signo)
         {
             if (kill(p->pid, signo) == -1)
                 ERR("Failed to send signal %d to child pid:%d", signo, p->pid);
-            else
-                INFO("succ to send signal %d to child pid:%d", signo, p->pid);
         }
     }
 }
@@ -255,22 +247,21 @@ void master_process_cycle()
     {
         if (g_stop_shark == 1)
         {
-            WARN("notify worker processes to stop accepting new connections, "
-                 "and wait connected connections handled over, then shark exit");
+            WARN("notify worker processes to stop");
             send_signal_to_workers(SHUTDOWN_SIGNAL);
             g_stop_shark = 2;
         }
 
         if (g_exit_shark == 1)
         {
-            WARN("notify workers processes to direct exit, then shark exit");
+            WARN("notify workers processes to direct exit");
             send_signal_to_workers(TERMINATE_SIGNAL);
             g_exit_shark = 2;
         }
 
         if (g_all_workers_exit == 1)
         {
-            WARN("shark will exit...");
+            WARN("shark exit now...");
             log_scan_write();
             delete_pidfile();
             exit(0);
