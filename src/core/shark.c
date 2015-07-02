@@ -17,14 +17,15 @@
 
 static void useage(int argc, char *argv[])
 {
-    printf("Usage: shark [-?hvt] [-s signal]        "LINEFEED LINEFEED
-           "Options:                                "LINEFEED
-           "  -?,-h     : this help                 "LINEFEED
-           "  -v        : show version and exit     "LINEFEED
-           "  -t        : check configuration file and print, then exit"LINEFEED
+    printf("Usage: shark [-?hvct] [-s signal]     "LINEFEED LINEFEED
+           "Options:                              "LINEFEED
+           "  -?,-h     : this help               "LINEFEED
+           "  -v        : show version and exit   "LINEFEED
+           "  -c        : show config file content"LINEFEED
+           "  -t        : check and show config file content"LINEFEED
            "  -s signal : send signal to a master process: stop, exit"LINEFEED
-           "              stop :stop accepting new connections, and wait for established connections to be handled over"LINEFEED
-           "              exit :direct exit, do NOT wait established connections to be handled over"LINEFEED);
+           "              stop : stop accepting, and wait for established connections to be handled over"LINEFEED
+           "              exit : direct exit"LINEFEED);
 }
 
 static void send_signal_to_master(int signo)
@@ -43,6 +44,13 @@ static void handle_args(int argc, char *argv[])
         printf("shark runs under linux on x86 or x86_64 platform"LINEFEED
                "shark version :"SHARK_VER LINEFEED
                "bug report to :sanpoos@gmail.com"LINEFEED);
+        exit(0);
+    }
+
+    if (argc == 2 && str_equal(argv[1], "-c"))
+    {
+        load_raw_conf(CONF_FILE);
+        print_raw_conf();
         exit(0);
     }
 

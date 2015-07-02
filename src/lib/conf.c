@@ -9,12 +9,14 @@
 
 #include "str.h"
 
+#define CONF_KV_LEN     64
+
 struct conf
 {
     struct conf *next;
 
-    char key[128];
-    char value[128];
+    char key[CONF_KV_LEN];
+    char value[CONF_KV_LEN];
 };
 
 static struct conf *g_conf = NULL;
@@ -39,7 +41,7 @@ static int parse_conf(unsigned char *str, str_t *key, str_t *value)
         loop++;
 
     value->p = loop;
-    while (*loop != '#' && *loop != '\0' && *loop != ';' && !isspace(*loop) && isprint(*loop))
+    while (*loop != '#' && *loop != '\0' && !isspace(*loop) && isprint(*loop))
         loop++;
 
     value->len = loop - value->p;
@@ -59,17 +61,27 @@ static void free_old_conf(struct conf *c)
     }
 }
 
+static void __print_raw_conf(struct conf *c)
+{
+    static int max_key_len = 0;
+    size_t space;
+
+    if (strlen(c->key) > max_key_len)
+        max_key_len = strlen(c->key);
+
+    if (c->next)
+        __print_raw_conf(c->next);
+
+    space = max_key_len + 1 - strlen(c->key);
+    printf("%s", c->key);
+    while (space--)
+        printf(" ");
+    printf(": %s\n", c->value);
+}
+
 void print_raw_conf()
 {
-    struct conf *c = g_conf;
-
-    printf("system conf:\n");
-
-    while (c)
-    {
-        printf("\t%s\t[%s]\n", c->key, c->value);
-        c = c->next;
-    }
+    __print_raw_conf(g_conf);
 }
 
 char *get_raw_conf(const char *key)
@@ -112,10 +124,19 @@ void load_raw_conf(const char *filename)
         if (parse_conf((unsigned char *)buff, &key, &value))
             continue;
 
+        if (key.len >= CONF_KV_LEN || value.len >= CONF_KV_LEN)
+        {
+            printf("config item too long. [%.*s] [%.*s]\n",
+                   (int)key.len, key.p, (int)value.len, value.p);
+            fclose(fp);
+            exit(0);
+        }
+
         c = (struct conf *)malloc(sizeof(struct conf));
         if (!c)
         {
             printf("Failed to alloc mem for conf\n");
+            fclose(fp);
             exit(0);
         }
 

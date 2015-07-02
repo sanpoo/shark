@@ -26,16 +26,16 @@ int CPU_NUM;
 /*
     conf的数据放置到这里
 */
-char *g_log_path;           //日志路径
-char *g_log_strlevel;       //日志级别
-int g_log_reserve_days;     //日志保留天数
+char *g_log_path;               //日志路径
+char *g_log_strlevel;           //日志级别
+int g_log_reserve_days;         //日志保留天数
 
-int g_worker_processes;     //系统worker进程个数, 默认为CPU核心数
-int g_worker_connections;   //每个worker进程中保持的协程
-int g_coro_stack_kbytes;    //协程的栈大小(KB)
+int g_worker_processes;         //系统worker进程个数, 默认为CPU核心数
+int g_worker_connections;       //每个worker进程中保持的协程
+int g_coro_stack_kbytes;        //协程的栈大小(KB)
 
-char *g_server_ip;          //tcp server绑定ip
-int g_server_port;          //tcp 监听端口
+char *g_server_ip;              //tcp server绑定ip
+int g_server_port;              //tcp 监听端口
 
 /*
     非conf的全局变量放置到这里
@@ -91,11 +91,24 @@ static void set_log_env()
 
 static void set_server_env()
 {
-    char *c = get_raw_conf("server_ip");
-    g_server_ip = str_equal(c, "default") ? NULL : c;
+    char *head, *loop;
 
-    c = get_raw_conf("listen");
-    g_server_port = atoi(c);
+    g_server_ip = NULL;
+
+    head = loop = get_raw_conf("listen");
+    while (*loop)
+    {
+        if (*loop == ':')
+        {
+            g_server_ip = head;
+            *loop = 0;
+            head = loop + 1;
+        }
+
+        loop++;
+    }
+
+    g_server_port = atoi(head);
     if (g_server_port <= 0)
     {
         printf("check shark.conf.listen:%d, should uint\n", g_server_port);
@@ -113,8 +126,8 @@ void print_env()
     printf("worker count            : %d"LINEFEED, g_worker_processes);
     printf("connections per-worker  : %d"LINEFEED, g_worker_connections);
     printf("coroutine stack size    : %dKB"LINEFEED, g_coro_stack_kbytes);
-    printf("server ip               : %s"LINEFEED, g_server_ip ? g_server_ip : "default");
-    printf("server port             : %d"LINEFEED LINEFEED, g_server_port);
+    printf("bind address            : %s"LINEFEED, g_server_ip ? g_server_ip : "localhost");
+    printf("listen port             : %d"LINEFEED LINEFEED, g_server_port);
 }
 
 void sys_env_init()
