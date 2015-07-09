@@ -44,7 +44,7 @@
 #define HTTP_GATEWAY_TIME_OUT          504
 #define HTTP_INSUFFICIENT_STORAGE      507
 
-#define HTTP_ERROR_HEADER   "Server: "SHARK_VER CRLF    \
+#define HTTP_ERROR_HEADER   "Server: shark/"SHARK_VER CRLF    \
     "Content-Type: text/html"CRLF   \
     "Connection: Close"CRLF
 

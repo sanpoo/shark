@@ -5,7 +5,6 @@
 #ifndef __PUB_H__
 #define __PUB_H__
 
-
 #define likely(x)   __builtin_expect(!!(x), 1)
 #define unlikely(x)	__builtin_expect(!!(x), 0)
 

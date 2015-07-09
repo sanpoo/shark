@@ -5,14 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 
 #include "pub.h"
-#include "net.h"
 #include "str.h"
-#include "shm.h"
 #include "conf.h"
 
 #include "env.h"
@@ -20,7 +15,7 @@
 /*
     操作系统相关的变量
 */
-int PAGE_SIZE;      //size bytes
+int PAGE_SIZE;
 int CPU_NUM;
 
 /*
@@ -37,12 +32,21 @@ int g_coro_stack_kbytes;        //协程的栈大小(KB)
 char *g_server_ip;              //tcp server绑定ip
 int g_server_port;              //tcp 监听端口
 
-/*
-    非conf的全局变量放置到这里
-*/
-int g_master_pid;           //master 进程id
-int g_listenfd;             //监听fd
-spinlock *g_accept_lock;    //accept fd自旋锁
+static void set_log_env()
+{
+    char *c;
+
+    g_log_path = get_raw_conf("log_path");
+    g_log_strlevel = get_raw_conf("log_level");
+
+    c = get_raw_conf("log_reserve_days");
+    g_log_reserve_days = str_equal(c, "default") ? 36500 : atoi(c);
+    if (g_log_reserve_days <= 0)
+    {
+        printf("check log_reserve_days config:%s, should default or > 0\n", c);
+        exit(0);
+    }
+}
 
 static void set_worker_env()
 {
@@ -53,7 +57,7 @@ static void set_worker_env()
     g_worker_processes = str_equal(c, "default") ? CPU_NUM : atoi(c);
     if (g_worker_processes < 0 || g_worker_processes > MAX_WORKER_PROCESS)
     {
-        printf("worker_processes should default or [0~%d], curr:%d\n",
+        printf("check worker_processes config:%d, should default or [0~%d]\n",
                g_worker_processes, MAX_WORKER_PROCESS);
         exit(0);
     }
@@ -63,30 +67,21 @@ static void set_worker_env()
     g_worker_connections = atoi(c);
     if (g_worker_connections <= 0)
     {
-        printf("check worker_connections config. curr:%d, should > 0\n",
+        printf("check worker_connections config:%d, should > 0\n",
                g_worker_connections);
         exit(0);
     }
 
     // 3. coro stacksize
     c = get_raw_conf("coroutine_stack_sizekbytes");
-    g_coro_stack_kbytes = ALIGN(atoi(c) * 1024, PAGE_SIZE) >> 10;
+    g_coro_stack_kbytes = str_equal(c, "default") ? PAGE_SIZE >> 10 :
+                          ALIGN(atoi(c) * 1024, PAGE_SIZE) >> 10;
     if (g_coro_stack_kbytes <= 0 || g_coro_stack_kbytes > 10240)
     {
-        printf("check coroutine_stack_sizekbyte config. curr:%d, should [%dKB~10MB]\n",
+        printf("check coroutine_stack_sizekbytes config:%d, should [%dKB~10MB]\n",
                g_coro_stack_kbytes, PAGE_SIZE >> 10);
         exit(0);
     }
-}
-
-static void set_log_env()
-{
-    g_log_path = get_raw_conf("log_path");
-    g_log_strlevel = get_raw_conf("log_level");
-    g_log_reserve_days = atoi(get_raw_conf("log_reserve_days"));
-
-    if (g_log_reserve_days <= 0)
-        g_log_reserve_days = 7;
 }
 
 static void set_server_env()
@@ -118,16 +113,16 @@ static void set_server_env()
 
 void print_env()
 {
-    printf("PAGE SIZE               : %dKB"LINEFEED, PAGE_SIZE >> 10);
-    printf("CPU NUM                 : %d"LINEFEED, CPU_NUM);
-    printf("log path                : %s"LINEFEED, g_log_path);
-    printf("log level               : %s"LINEFEED, g_log_strlevel);
-    printf("log reserve days        : %d"LINEFEED, g_log_reserve_days);
-    printf("worker count            : %d"LINEFEED, g_worker_processes);
-    printf("connections per-worker  : %d"LINEFEED, g_worker_connections);
-    printf("coroutine stack size    : %dKB"LINEFEED, g_coro_stack_kbytes);
-    printf("bind address            : %s"LINEFEED, g_server_ip ? g_server_ip : "localhost");
-    printf("listen port             : %d"LINEFEED LINEFEED, g_server_port);
+    printf("PAGE SIZE                  : %dKB\n", PAGE_SIZE >> 10);
+    printf("CPU NUM                    : %d\n", CPU_NUM);
+    printf("log_path                   : %s\n", g_log_path);
+    printf("log_level                  : %s\n", g_log_strlevel);
+    printf("log_reserve_days           : %d\n", g_log_reserve_days);
+    printf("worker_processes           : %d\n", g_worker_processes);
+    printf("worker_connections         : %d\n", g_worker_connections);
+    printf("coroutine_stack_sizekbytes : %dKB\n", g_coro_stack_kbytes);
+    printf("listen                     : %s:%d\n",
+           g_server_ip ? g_server_ip : "localhost", g_server_port);
 }
 
 void sys_env_init()
@@ -144,16 +139,5 @@ void conf_env_init()
     set_log_env();
     set_worker_env();
     set_server_env();
-}
-
-void tcp_srv_init()
-{
-    g_listenfd = create_tcp_server(g_server_ip, g_server_port);
-    g_accept_lock = shm_alloc(sizeof(spinlock));
-    if (NULL == g_accept_lock)
-    {
-        printf("Failed to alloc global accept lock\n");
-        exit(0);
-    }
 }
 

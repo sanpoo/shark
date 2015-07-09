@@ -20,7 +20,7 @@ static void useage(int argc, char *argv[])
     printf("Usage: shark [-?hvct] [-s signal]     "LINEFEED LINEFEED
            "Options:                              "LINEFEED
            "  -?,-h     : this help               "LINEFEED
-           "  -v        : show version and exit   "LINEFEED
+           "  -v        : show version            "LINEFEED
            "  -c        : show config file content"LINEFEED
            "  -t        : check and show config file content"LINEFEED
            "  -s signal : send signal to a master process: stop, exit"LINEFEED
@@ -42,8 +42,8 @@ static void handle_args(int argc, char *argv[])
     if (argc == 2 && str_equal(argv[1], "-v"))
     {
         printf("shark runs under linux on x86 or x86_64 platform"LINEFEED
-               "shark version :"SHARK_VER LINEFEED
-               "bug report to :sanpoos@gmail.com"LINEFEED);
+               "shark version : "SHARK_VER LINEFEED
+               "bug report to : sanpoos@gmail.com"LINEFEED);
         exit(0);
     }
 
@@ -58,7 +58,6 @@ static void handle_args(int argc, char *argv[])
     {
         load_raw_conf(CONF_FILE);
         conf_env_init();
-        printf("configuration file %s test successful"LINEFEED, CONF_FILE);
         print_env();
         exit(0);
     }

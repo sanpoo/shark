@@ -30,6 +30,8 @@ void request_handler(int fd);
 void worker_process_cycle();
 void master_process_cycle();
 void reset_worker_process(int pid);
+
+void tcp_srv_init();
 void process_init();
 
 #endif

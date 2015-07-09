@@ -11,7 +11,10 @@
 #include "pub.h"
 #include "env.h"
 #include "log.h"
+#include "net.h"
+#include "shm.h"
 #include "util.h"
+#include "spinlock.h"
 #include "coro_sched.h"
 #include "netevent.h"
 #include "sys_hook.h"
@@ -19,13 +22,17 @@
 
 #include "process.h"
 
-#define INVALID_PID  -1
+#define INVALID_PID         -1
 
 struct process
 {
     pid_t pid;          // -1表示不存在
     int cpuid;          // 绑定cpuid, 初始化后不变
 };
+
+static int g_master_pid;           //master 进程id
+static int g_listenfd;             //监听fd
+static spinlock *g_accept_lock;    //accept fd自旋锁
 
 static struct process g_process[MAX_WORKER_PROCESS];//子进程信息, 最多支持32个子进程
 static int g_process_id;                            //进程id, 包含master进程
@@ -296,6 +303,17 @@ void reset_worker_process(int pid)
 
     if (worker_empty() && (g_stop_shark || g_exit_shark))
         g_all_workers_exit = 1;
+}
+
+void tcp_srv_init()
+{
+    g_listenfd = create_tcp_server(g_server_ip, g_server_port);
+    g_accept_lock = shm_alloc(sizeof(spinlock));
+    if (NULL == g_accept_lock)
+    {
+        printf("Failed to alloc global accept lock\n");
+        exit(0);
+    }
 }
 
 void process_init()
