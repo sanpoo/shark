@@ -52,7 +52,7 @@ static void set_worker_env()
 {
     char *c;
 
-    // 1. worker num
+    // 1. worker_processes
     c = get_raw_conf("worker_processes");
     g_worker_processes = str_equal(c, "default") ? CPU_NUM : atoi(c);
     if (g_worker_processes < 0 || g_worker_processes > MAX_WORKER_PROCESS)
@@ -62,7 +62,7 @@ static void set_worker_env()
         exit(0);
     }
 
-    // 2.connection
+    // 2.worker_connections
     c = get_raw_conf("worker_connections");
     g_worker_connections = atoi(c);
     if (g_worker_connections <= 0)
@@ -72,7 +72,7 @@ static void set_worker_env()
         exit(0);
     }
 
-    // 3. coro stacksize
+    // 3. coroutine_stack_sizekbytes
     c = get_raw_conf("coroutine_stack_sizekbytes");
     g_coro_stack_kbytes = str_equal(c, "default") ? PAGE_SIZE >> 10 :
                           ALIGN(atoi(c) * 1024, PAGE_SIZE) >> 10;
@@ -106,7 +106,7 @@ static void set_server_env()
     g_server_port = atoi(head);
     if (g_server_port <= 0)
     {
-        printf("check shark.conf.listen:%d, should uint\n", g_server_port);
+        printf("check listen config:%d, should > 0\n", g_server_port);
         exit(0);
     }
 }
