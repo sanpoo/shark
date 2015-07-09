@@ -30,12 +30,12 @@ struct process
     int cpuid;          // 绑定cpuid, 初始化后不变
 };
 
-static int g_master_pid;           //master 进程id
 static int g_listenfd;             //监听fd
 static spinlock *g_accept_lock;    //accept fd自旋锁
 
 static struct process g_process[MAX_WORKER_PROCESS];//子进程信息, 最多支持32个子进程
-static int g_process_id;                            //进程id, 包含master进程
+static int g_master_pid;           //master 进程id
+static int g_process_id;           //进程id, 包含master进程
 enum PROC_TYPE g_process_type;     //进程类型
 
 static int g_conn_count = 1;       //初始化为1, 为0的时候, worker退出
@@ -44,18 +44,6 @@ static int g_create_worker = 1;    //当worker异常退出时候
 
 int g_stop_shark = 0;       //worker是否停止接收fd, 0表示否, 其他表示停止
 int g_exit_shark = 0;       //是否退出shark系统
-
-static void process_struct_init()
-{
-    int i;
-
-    for (i = 0; i < g_worker_processes; i++)
-    {
-        struct process *p = &g_process[i];
-        p->pid = INVALID_PID;
-        p->cpuid = i % CPU_NUM;
-    }
-}
 
 static int worker_empty()
 {
@@ -261,7 +249,7 @@ void master_process_cycle()
 
         if (g_exit_shark == 1)
         {
-            WARN("notify workers processes to direct exit");
+            WARN("notify worker processes to direct exit");
             send_signal_to_workers(TERMINATE_SIGNAL);
             g_exit_shark = 2;
         }
@@ -290,6 +278,7 @@ void master_process_cycle()
 void reset_worker_process(int pid)
 {
     int i;
+
     for (i = 0; i < g_worker_processes; i++)
     {
         struct process *p = &g_process[i];
@@ -318,6 +307,8 @@ void tcp_srv_init()
 
 void process_init()
 {
+    int i;
+
     g_process_id = getpid();
     g_master_pid = g_process_id;
     g_process_type = MASTER_PROCESS;
@@ -329,6 +320,11 @@ void process_init()
         exit(0);
     }
 
-    process_struct_init();
+    for (i = 0; i < g_worker_processes; i++)
+    {
+        struct process *p = &g_process[i];
+        p->pid = INVALID_PID;
+        p->cpuid = i % CPU_NUM;
+    }
 }
 

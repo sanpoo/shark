@@ -12,8 +12,8 @@
 #include "util.h"
 #include "rbtree.h"
 #include "memcache.h"
-#include "coro_switch.h"
 #include "netevent.h"
+#include "coro_switch.h"
 
 #include "coro_sched.h"
 

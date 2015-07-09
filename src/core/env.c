@@ -72,13 +72,13 @@ static void set_worker_env()
         exit(0);
     }
 
-    // 3. coroutine_stack_sizekbytes
-    c = get_raw_conf("coroutine_stack_sizekbytes");
+    // 3. coroutine_stack_kbytes
+    c = get_raw_conf("coroutine_stack_kbytes");
     g_coro_stack_kbytes = str_equal(c, "default") ? PAGE_SIZE >> 10 :
                           ALIGN(atoi(c) * 1024, PAGE_SIZE) >> 10;
     if (g_coro_stack_kbytes <= 0 || g_coro_stack_kbytes > 10240)
     {
-        printf("check coroutine_stack_sizekbytes config:%d, should [%dKB~10MB]\n",
+        printf("check coroutine_stack_kbytes config:%d, should [%dKB~10MB]\n",
                g_coro_stack_kbytes, PAGE_SIZE >> 10);
         exit(0);
     }
@@ -113,15 +113,15 @@ static void set_server_env()
 
 void print_env()
 {
-    printf("PAGE SIZE                  : %dKB\n", PAGE_SIZE >> 10);
-    printf("CPU NUM                    : %d\n", CPU_NUM);
-    printf("log_path                   : %s\n", g_log_path);
-    printf("log_level                  : %s\n", g_log_strlevel);
-    printf("log_reserve_days           : %d\n", g_log_reserve_days);
-    printf("worker_processes           : %d\n", g_worker_processes);
-    printf("worker_connections         : %d\n", g_worker_connections);
-    printf("coroutine_stack_sizekbytes : %dKB\n", g_coro_stack_kbytes);
-    printf("listen                     : %s:%d\n",
+    printf("PAGE_SIZE              : %dKB\n", PAGE_SIZE >> 10);
+    printf("CPU_NUM                : %d\n", CPU_NUM);
+    printf("log_path               : %s\n", g_log_path);
+    printf("log_level              : %s\n", g_log_strlevel);
+    printf("log_reserve_days       : %d\n", g_log_reserve_days);
+    printf("worker_processes       : %d\n", g_worker_processes);
+    printf("worker_connections     : %d\n", g_worker_connections);
+    printf("coroutine_stack_kbytes : %dKB\n", g_coro_stack_kbytes);
+    printf("listen                 : %s:%d\n",
            g_server_ip ? g_server_ip : "localhost", g_server_port);
 }
 
