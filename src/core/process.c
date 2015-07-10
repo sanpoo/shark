@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
 #include <sys/socket.h>
 
 #include "pub.h"
@@ -15,9 +14,8 @@
 #include "shm.h"
 #include "util.h"
 #include "spinlock.h"
-#include "coro_sched.h"
 #include "netevent.h"
-#include "sys_hook.h"
+#include "coro_sched.h"
 #include "sys_signal.h"
 
 #include "process.h"
@@ -26,16 +24,18 @@
 
 struct process
 {
-    pid_t pid;          // -1表示不存在
-    int cpuid;          // 绑定cpuid, 初始化后不变
+    pid_t pid;      // INVALID_PID表示不存在
+    int cpuid;      // 绑定cpuid, 初始化后不变
 };
 
-static int g_listenfd;             //监听fd
+struct project pro = {NULL, NULL, NULL};
+
+static int g_listenfd;
 static spinlock *g_accept_lock;    //accept fd自旋锁
 
 static struct process g_process[MAX_WORKER_PROCESS];//子进程信息, 最多支持32个子进程
-static int g_master_pid;           //master 进程id
-static int g_process_id;           //进程id, 包含master进程
+static int g_master_pid;
+static int g_process_pid;          //进程id, 包含master进程
 enum PROC_TYPE g_process_type;     //进程类型
 
 static int g_conn_count = 1;       //初始化为1, 为0的时候, worker退出
@@ -70,13 +70,13 @@ static pid_t fork_worker(struct process *p)
             return -1;
 
         case 0:
-            g_process_id = getpid();
+            g_process_pid = getpid();
             g_process_type = WORKER_PROCESS;
             set_proc_title("shark: worker process");
 
-            if (log_worker_alloc(g_process_id) < 0)
+            if (log_worker_alloc(g_process_pid) < 0)
             {
-                printf("Failed to alloc log for process:%d\n", g_process_id);
+                printf("Failed to alloc log for process:%d\n", g_process_pid);
                 exit(0);
             }
 
@@ -124,7 +124,9 @@ static void handle_connection(void *args)
 {
     int connfd = (int)(intptr_t)args;
 
-    request_handler(connfd);
+    if (pro.request_handler)
+        pro.request_handler(connfd);
+
     close(connfd);
     decrease_conn_and_check();
 }
@@ -157,7 +159,7 @@ static int worker_accept()
     return connfd;
 }
 
-static void worker_accept_proc(void *args)
+static void worker_accept_cycle(void *args)
 {
     int connfd;
 
@@ -171,9 +173,7 @@ static void worker_accept_proc(void *args)
         }
 
         if (unlikely(g_exit_shark))
-        {
             exit(0);
-        }
 
         connfd = worker_accept();
         if (likely(connfd > 0))
@@ -184,22 +184,19 @@ static void worker_accept_proc(void *args)
                 close(connfd);
                 continue;
             }
+            increase_conn();
         }
         else if (connfd == 0)
         {
             schedule_timeout(200);
             continue;
         }
-        else
-            continue;
-
-        increase_conn();
     }
 }
 
 void worker_process_cycle()
 {
-    if (worker_process_init())
+    if (pro.worker_init && pro.worker_init())
     {
         ERR("Failed to init worker");
         exit(0);
@@ -207,7 +204,7 @@ void worker_process_cycle()
 
     schedule_init(g_coro_stack_kbytes, g_worker_connections);
     event_loop_init(g_worker_connections);
-    dispatch_coro(worker_accept_proc, NULL);
+    dispatch_coro(worker_accept_cycle, NULL);
 
     INFO("worker success running....");
     schedule_cycle();
@@ -230,7 +227,7 @@ static void send_signal_to_workers(int signo)
 
 void master_process_cycle()
 {
-    if (master_process_init())
+    if (pro.master_init && pro.master_init())
     {
         ERR("Failed to init master process, shark exit");
         exit(0);
@@ -266,7 +263,7 @@ void master_process_cycle()
         {
             g_create_worker = 0;
             spawn_worker_process();
-            if (g_process_id != g_master_pid)
+            if (g_process_pid != g_master_pid)
                 break;
         }
 
@@ -275,7 +272,7 @@ void master_process_cycle()
     }
 }
 
-void reset_worker_process(int pid)
+void worker_exit_handler(int pid)
 {
     int i;
 
@@ -294,6 +291,14 @@ void reset_worker_process(int pid)
         g_all_workers_exit = 1;
 }
 
+void register_project(int (*master_init)(), int (*worker_init)(),
+                     void (*request_handler)(int fd))
+{
+    pro.master_init = master_init;
+    pro.worker_init = worker_init;
+    pro.request_handler = request_handler;
+}
+
 void tcp_srv_init()
 {
     g_listenfd = create_tcp_server(g_server_ip, g_server_port);
@@ -309,14 +314,14 @@ void process_init()
 {
     int i;
 
-    g_process_id = getpid();
-    g_master_pid = g_process_id;
+    g_process_pid = getpid();
+    g_master_pid = g_process_pid;
     g_process_type = MASTER_PROCESS;
     set_proc_title("shark: master process");
     create_pidfile(g_master_pid);
-    if (log_worker_alloc(g_process_id) < 0)
+    if (log_worker_alloc(g_process_pid) < 0)
     {
-        printf("Failed to alloc log for process:%d\n", g_process_id);
+        printf("Failed to alloc log for process:%d\n", g_process_pid);
         exit(0);
     }
 

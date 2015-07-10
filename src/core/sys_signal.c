@@ -60,7 +60,7 @@ static void worker_process_get_status()
     {
         WARN("worker process %d exited", pid);
         log_worker_flush_and_reset(pid);
-        reset_worker_process(pid);
+        worker_exit_handler(pid);
     }
 }
 

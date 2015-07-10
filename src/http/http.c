@@ -7,11 +7,6 @@
 #include "process.h"
 #include "http_request.h"
 
-int master_process_init()
-{
-    return 0;
-}
-
 int worker_process_init()
 {
     int ret;
@@ -31,4 +26,8 @@ void request_handler(int fd)
     http_request_handler(fd);
 }
 
+PROJECT_INIT static void http_init()
+{
+    register_project(NULL, worker_process_init, request_handler);
+}
 
