@@ -128,10 +128,10 @@ static inline enum http_method get_request_method(str_t *method_name)
     = 0 解析完成
     > 0 还需要解析
 */
-int http_parse_request_line(struct http_request *request, struct buffer *b)
+int http_parse_request_line(struct http_request *r, struct buffer *b)
 {
     unsigned char *p;
-    int state = request->state;
+    int state = r->state;
 
     for (p = b->pos; p != b->last; p++)
     {
@@ -139,21 +139,21 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
         switch (state)
         {
             case sw_start:
-                request->request_line.p = p;
+                r->request_line.p = p;
                 if (ch == CR || ch == LF)
                     break;
                 if ((ch < 'A' || ch > 'Z') && ch != '_')
                     return -1;
-                request->method_name.p = p;
+                r->method_name.p = p;
                 state = sw_method;
                 break;
 
             case sw_method:
                 if (ch == ' ')
                 {
-                    request->method_name.len = p - request->method_name.p;
-                    request->method = get_request_method(&request->method_name);
-                    if (HTTP_UNKNOWN & request->method)
+                    r->method_name.len = p - r->method_name.p;
+                    r->method = get_request_method(&r->method_name);
+                    if (HTTP_UNKNOWN & r->method)
                         return -2;
                     state = sw_spaces_before_uri;
                     break;
@@ -166,10 +166,10 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
             case sw_spaces_before_uri:
                 if (ch == '/')
                 {
-                    request->uri.p = p;
-                    str_init(&request->schema); //no schema host and port, maybe in host header
-                    str_init(&request->host);
-                    str_init(&request->port);
+                    r->uri.p = p;
+                    str_init(&r->schema); //no schema host and port, maybe in host header
+                    str_init(&r->host);
+                    str_init(&r->port);
                     state = sw_after_slash_in_uri;
                     break;
                 }
@@ -177,7 +177,7 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                 unsigned char c = (unsigned char)(ch | 0x20);
                 if (c >= 'a' && c <= 'z')
                 {
-                    request->schema.p = p;
+                    r->schema.p = p;
                     state = sw_schema;
                     break;
                 }
@@ -190,7 +190,7 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                     break;
                 if (ch == ':')
                 {
-                    request->schema.len = p - request->schema.p;
+                    r->schema.len = p - r->schema.p;
                     state = sw_schema_slash;
                     break;
                 }
@@ -210,7 +210,7 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                 }
                 return -7;
             case sw_host_start:
-                request->host.p = p;
+                r->host.p = p;
                 if (ch == '[')
                 {
                     state = sw_host_ip_literal;
@@ -224,16 +224,16 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                 if ((ch >= '0' && ch <= '9') || ch == '.' || ch == '-')
                     break;
             case sw_host_end:
-                request->host.len = p - request->host.p;
+                r->host.len = p - r->host.p;
                 switch (ch)
                 {
                     case ':':
-                        request->port.p = p + 1;
+                        r->port.p = p + 1;
                         state = sw_port;
                         break;
                     case '/':
-                        str_init(&request->port);
-                        request->uri.p = p;
+                        str_init(&r->port);
+                        r->uri.p = p;
                         state = sw_after_slash_in_uri;
                         break;
                     case ' ':
@@ -241,9 +241,9 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                             GET http://www.qq.com HTTP1.1
                             使用一个/来作为uri
                         */
-                        str_init(&request->port);
-                        request->uri.p = request->schema.p + request->schema.len + 1;
-                        request->uri.len = 1;
+                        str_init(&r->port);
+                        r->uri.p = r->schema.p + r->schema.len + 1;
+                        r->uri.len = 1;
                         state = sw_host_http_09;
                         break;
                     default:
@@ -262,7 +262,7 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                         break;
                     case ']':
                         state = sw_host_end;
-                        //request->host.len in sw_host_end set, not here
+                        //r->host.len in sw_host_end set, not here
                         break;
                     case '-':
                     case '.':
@@ -290,11 +290,11 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
             case sw_port:
                 if (ch >= '0' && ch <= '9')
                     break;
-                request->port.len = p - request->port.p;
+                r->port.len = p - r->port.p;
                 switch (ch)
                 {
                     case '/':
-                        request->uri.p = p;
+                        r->uri.p = p;
                         state = sw_after_slash_in_uri;
                         break;
                     case ' ':
@@ -302,8 +302,8 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                             GET http://host:port HTTP1.1
                             没有/, 那么使用一个/来作为uri
                         */
-                        request->uri.p = request->schema.p + request->schema.len + 1;
-                        request->uri.len = 1;
+                        r->uri.p = r->schema.p + r->schema.len + 1;
+                        r->uri.len = 1;
                         state = sw_host_http_09;
                         break;
                     default:
@@ -317,15 +317,15 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                     case ' ':
                         break;
                     case CR:
-                        request->http_minor = 9;
+                        r->http_minor = 9;
                         state = sw_almost_done;
                         break;
                     case LF:
-                        request->http_minor = 9;
-                        request->request_line.len = p - request->request_line.p;
+                        r->http_minor = 9;
+                        r->request_line.len = p - r->request_line.p;
                         goto done;
                     case 'H':
-                        request->http_protocol.p = p;
+                        r->http_protocol.p = p;
                         state = sw_http_H;
                         break;
                     default:
@@ -342,41 +342,41 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                 switch (ch)
                 {
                     case ' ':   //斜杠后面跟空格, 判断是不是0.9版本(也有可能是1.0)
-                        request->uri.len = p - request->uri.p;
+                        r->uri.len = p - r->uri.p;
                         state = sw_check_uri_http_09;
                         break;
                     case CR:    //斜杠后面直接跟CR, 当0.9版本
-                        request->uri.len = p - request->uri.p;
-                        request->http_minor = 9;
+                        r->uri.len = p - r->uri.p;
+                        r->http_minor = 9;
                         state = sw_almost_done;
                         break;
                     case LF:    //斜杠后面直接跟LF, 当0.9版本
-                        request->uri.len = p - request->uri.p;
-                        request->http_minor = 9;
-                        request->request_line.len = p - request->request_line.p;
+                        r->uri.len = p - r->uri.p;
+                        r->http_minor = 9;
+                        r->request_line.len = p - r->request_line.p;
                         goto done;
                     case '.':
-                        request->complex_uri = 1;
+                        r->complex_uri = 1;
                         state = sw_uri;
                         break;
                     case '%':
-                        request->quoted_uri = 1;
+                        r->quoted_uri = 1;
                         state = sw_uri;
                         break;
                     case '/':
-                        request->complex_uri = 1;
+                        r->complex_uri = 1;
                         state = sw_uri;
                         break;
                     case '?':
-                        request->args = p + 1;
+                        r->args = p + 1;
                         state = sw_uri;
                         break;
                     case '#':
-                        request->complex_uri = 1;
+                        r->complex_uri = 1;
                         state = sw_uri;
                         break;
                     case '+':
-                        request->plus_in_uri = 1;
+                        r->plus_in_uri = 1;
                         break;
                     case '\0':
                         return -12;
@@ -393,41 +393,41 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                 switch (ch)
                 {
                     case '/':
-                        str_init(&request->exten);  //此前出现的.有可能是参数里的0.12
+                        str_init(&r->exten);  //此前出现的.有可能是参数里的0.12
                         state = sw_after_slash_in_uri;
                         break;
                     case '.':
-                        request->exten.p = p + 1;   //exten与uri结束相同
+                        r->exten.p = p + 1;   //exten与uri结束相同
                         break;
                     case ' ':
-                        request->uri.len = p - request->uri.p;
+                        r->uri.len = p - r->uri.p;
                         state = sw_check_uri_http_09;
                         break;
                     case CR:
-                        request->uri.len = p - request->uri.p;
-                        request->http_minor = 9;
+                        r->uri.len = p - r->uri.p;
+                        r->http_minor = 9;
 
                         state = sw_almost_done;
                         break;
                     case LF:
-                        request->uri.len = p - request->uri.p;
-                        request->http_minor = 9;
-                        request->request_line.len = p - request->request_line.p;
+                        r->uri.len = p - r->uri.p;
+                        r->http_minor = 9;
+                        r->request_line.len = p - r->request_line.p;
                         goto done;
                     case '%':
-                        request->quoted_uri = 1;
+                        r->quoted_uri = 1;
                         state = sw_uri;
                         break;
                     case '?':
-                        request->args = p + 1;
+                        r->args = p + 1;
                         state = sw_uri;
                         break;
                     case '#':
-                        request->complex_uri = 1;
+                        r->complex_uri = 1;
                         state = sw_uri;
                         break;
                     case '+':
-                        request->plus_in_uri = 1;
+                        r->plus_in_uri = 1;
                         break;
                     case '\0':
                         return -13;
@@ -440,19 +440,19 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                     case ' ':
                         break;
                     case CR:
-                        request->http_minor = 9;
+                        r->http_minor = 9;
                         state = sw_almost_done;
                         break;
                     case LF:
-                        request->http_minor = 9;
-                        request->request_line.len = p - request->request_line.p;
+                        r->http_minor = 9;
+                        r->request_line.len = p - r->request_line.p;
                         goto done;
                     case 'H':
-                        request->http_protocol.p = p;
+                        r->http_protocol.p = p;
                         state = sw_http_H;
                         break;
                     default:
-                        request->space_in_uri = 1;
+                        r->space_in_uri = 1;
                         state = sw_check_uri;
                         p--;
                         break;
@@ -465,21 +465,21 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                 switch (ch)
                 {
                     case ' ':
-                        request->uri.len = p - request->uri.p;
+                        r->uri.len = p - r->uri.p;
                         state = sw_http_09;
                         break;
                     case CR:
-                        request->uri.len = p - request->uri.p;
-                        request->http_minor = 9;
+                        r->uri.len = p - r->uri.p;
+                        r->http_minor = 9;
                         state = sw_almost_done;
                         break;
                     case LF:
-                        request->uri.len = p - request->uri.p;
-                        request->http_minor = 9;
-                        request->request_line.len = p - request->request_line.p;
+                        r->uri.len = p - r->uri.p;
+                        r->http_minor = 9;
+                        r->request_line.len = p - r->request_line.p;
                         goto done;
                     case '#':
-                        request->complex_uri = 1;
+                        r->complex_uri = 1;
                         break;
                     case '\0':
                         return -14;
@@ -492,19 +492,19 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                     case ' ':
                         break;
                     case CR:
-                        request->http_minor = 9;
+                        r->http_minor = 9;
                         state = sw_almost_done;
                         break;
                     case LF:
-                        request->http_minor = 9;
-                        request->request_line.len = p - request->request_line.p;
+                        r->http_minor = 9;
+                        r->request_line.len = p - r->request_line.p;
                         goto done;
                     case 'H':
-                        request->http_protocol.p = p;
+                        r->http_protocol.p = p;
                         state = sw_http_H;
                         break;
                     default:
-                        request->space_in_uri = 1;
+                        r->space_in_uri = 1;
                         state = sw_uri;
                         p--;
                         break;
@@ -554,7 +554,7 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
             case sw_first_major_digit:
                 if (ch < '1' || ch > '9')
                     return -19;
-                request->http_major = ch - '0';
+                r->http_major = ch - '0';
                 state = sw_major_digit;
                 break;
             /* major HTTP version or dot */
@@ -566,41 +566,41 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                 }
                 if (ch < '0' || ch > '9')
                     return -20;
-                request->http_major = request->http_major * 10 + ch - '0';
+                r->http_major = r->http_major * 10 + ch - '0';
                 break;
             /* first digit of minor HTTP version */
             case sw_first_minor_digit:
                 if (ch < '0' || ch > '9')
                     return -21;
-                request->http_minor = ch - '0';
+                r->http_minor = ch - '0';
                 state = sw_minor_digit;
                 break;
-            /* minor HTTP version or end of request line */
+            /* minor HTTP version or end of r line */
             case sw_minor_digit:
                 if (ch == CR)
                 {
-                    request->http_protocol.len = p - request->http_protocol.p;
+                    r->http_protocol.len = p - r->http_protocol.p;
                     state = sw_almost_done;
                     break;
                 }
 
                 if (ch == LF)
                 {
-                    request->request_line.len = p - request->request_line.p;
-                    request->http_protocol.len = p - request->http_protocol.p;
+                    r->request_line.len = p - r->request_line.p;
+                    r->http_protocol.len = p - r->http_protocol.p;
                     goto done;
                 }
 
                 if (ch == ' ')
                 {
-                    request->http_protocol.len = p - request->http_protocol.p;
+                    r->http_protocol.len = p - r->http_protocol.p;
                     state = sw_spaces_after_digit;
                     break;
                 }
 
                 if (ch < '0' || ch > '9')
                     return -22;
-                request->http_minor = request->http_minor * 10 + ch - '0';
+                r->http_minor = r->http_minor * 10 + ch - '0';
                 break;
             case sw_spaces_after_digit:
                 switch (ch)
@@ -611,15 +611,15 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
                         state = sw_almost_done;
                         break;
                     case LF:
-                        request->request_line.len = p - request->request_line.p;
+                        r->request_line.len = p - r->request_line.p;
                         goto done;
                     default:
                         return -23;
                 }
                 break;
-            /* end of request line */
+            /* end of r line */
             case sw_almost_done:
-                request->request_line.len = p - request->request_line.p - 1;
+                r->request_line.len = p - r->request_line.p - 1;
                 switch (ch)
                 {
                     case LF:
@@ -631,18 +631,18 @@ int http_parse_request_line(struct http_request *request, struct buffer *b)
     }
 
     b->pos = p;
-    request->state = state;
+    r->state = state;
 
     return 1;
 done:
-    if (request->exten.p)
-        request->exten.len = request->uri.p + request->uri.len - request->exten.p;
+    if (r->exten.p)
+        r->exten.len = r->uri.p + r->uri.len - r->exten.p;
     b->pos = p + 1;
-    if (request->http_minor == 9)
-        request->http_major = 0;
-    request->http_version = request->http_major * 1000 + request->http_minor;
-    request->state = sw_start;
-    if (request->http_version == 9 && request->method != HTTP_GET)
+    if (r->http_minor == 9)
+        r->http_major = 0;
+    r->http_version = r->http_major * 1000 + r->http_minor;
+    r->state = sw_start;
+    if (r->http_version == 9 && r->method != HTTP_GET)
         return -25;
 
     return 0;
@@ -654,7 +654,7 @@ done:
     1   没有读完, 需要继续读
     100 已经成功解析完一行
 */
-int http_parse_request_header(struct http_request *request, struct buffer *b)
+int http_parse_request_header(struct http_request *r, struct buffer *b)
 {
     enum
     {
@@ -679,9 +679,9 @@ int http_parse_request_header(struct http_request *request, struct buffer *b)
         "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
     unsigned char c, ch, *p;
-    state = request->state;
-    unsigned hash = request->header_hash;
-    unsigned i = request->lowcase_index;
+    state = r->state;
+    unsigned hash = r->header_hash;
+    unsigned i = r->lowcase_index;
 
     for (p = b->pos; p < b->last; p++)
     {
@@ -689,16 +689,16 @@ int http_parse_request_header(struct http_request *request, struct buffer *b)
         switch (state)
         {
             case sw_start:
-                request->header_name.p = p;
-                request->invalid_header = 0;
+                r->header_name.p = p;
+                r->invalid_header = 0;
                 switch (ch)
                 {
                     case CR:
-                        request->header_name.len = p - request->header_name.p;
+                        r->header_name.len = p - r->header_name.p;
                         state = sw_header_almost_done;
                         break;
                     case LF:
-                        request->header_name.len = p - request->header_name.p;
+                        r->header_name.len = p - r->header_name.p;
                         goto header_done;
                     default:
                         state = sw_name;
@@ -706,14 +706,14 @@ int http_parse_request_header(struct http_request *request, struct buffer *b)
                         if (c)
                         {
                             hash = HASH(0, c);
-                            request->lowcase_header[0] = c;
+                            r->lowcase_header[0] = c;
                             i = 1;
                             break;
                         }
 
                         if (ch == '\0')
                             return -1;
-                        request->invalid_header = 1;
+                        r->invalid_header = 1;
                         break;
                 }
                 break;
@@ -723,32 +723,32 @@ int http_parse_request_header(struct http_request *request, struct buffer *b)
                 if (c)
                 {
                     hash = HASH(hash, c);
-                    request->lowcase_header[i++] = c;
+                    r->lowcase_header[i++] = c;
                     i &= (HTTP_LC_HEADER_LEN - 1);
                     break;
                 }
                 if (ch == ':')
                 {
-                    request->header_name.len = p - request->header_name.p;
+                    r->header_name.len = p - r->header_name.p;
                     state = sw_space_before_value;
                     break;
                 }
                 if (ch == CR)
                 {
-                    request->header_name.len = p - request->header_name.p;
-                    str_init(&request->header_value);
+                    r->header_name.len = p - r->header_name.p;
+                    str_init(&r->header_value);
                     state = sw_almost_done;
                     break;
                 }
                 if (ch == LF)
                 {
-                    request->header_name.len = p - request->header_name.p;
-                    str_init(&request->header_value);
+                    r->header_name.len = p - r->header_name.p;
+                    str_init(&r->header_value);
                     goto done;
                 }
                 if (ch == '\0')
                     return -2;
-                request->invalid_header = 1;
+                r->invalid_header = 1;
                 break;
             /* space* before header value */
             case sw_space_before_value:
@@ -757,16 +757,16 @@ int http_parse_request_header(struct http_request *request, struct buffer *b)
                     case ' ':
                         break;
                     case CR:
-                        str_init(&request->header_value);
+                        str_init(&r->header_value);
                         state = sw_almost_done;
                         break;
                     case LF:
-                        str_init(&request->header_value);
+                        str_init(&r->header_value);
                         goto done;
                     case '\0':
                         return -3;
                     default:
-                        request->header_value.p = p;
+                        r->header_value.p = p;
                         state = sw_value;
                         break;
                 }
@@ -776,15 +776,15 @@ int http_parse_request_header(struct http_request *request, struct buffer *b)
                 switch (ch)
                 {
                     case ' ':
-                        request->header_value.len = p - request->header_value.p;
+                        r->header_value.len = p - r->header_value.p;
                         state = sw_space_after_value;
                         break;
                     case CR:
-                        request->header_value.len = p - request->header_value.p;
+                        r->header_value.len = p - r->header_value.p;
                         state = sw_almost_done;
                         break;
                     case LF:
-                        request->header_value.len = p - request->header_value.p;
+                        r->header_value.len = p - r->header_value.p;
                         goto done;
                     case '\0':
                         return -4;
@@ -832,21 +832,21 @@ int http_parse_request_header(struct http_request *request, struct buffer *b)
         }
     }
     b->pos = p;
-    request->state = state;
-    request->header_hash = hash;
-    request->lowcase_index = i;
+    r->state = state;
+    r->header_hash = hash;
+    r->lowcase_index = i;
     return 1;   //还要继续读
 
 done:
     b->pos = p + 1;
-    request->state = sw_start;
-    request->header_hash = hash;
-    request->lowcase_index = i;
+    r->state = sw_start;
+    r->header_hash = hash;
+    r->lowcase_index = i;
     return 0;   //读到一行请求头
 
 header_done:
     b->pos = p + 1;
-    request->state = sw_start;
+    r->state = sw_start;
     return 100; //全部的请求头处理完
 }
 

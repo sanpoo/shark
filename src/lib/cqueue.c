@@ -17,7 +17,7 @@ static inline int cqueue_is_full(struct cqueue *queue)
 
 /*
     生产者
- */
+*/
 int cqueue_write(struct cqueue *queue, void *args)
 {
     void *data;
@@ -34,7 +34,7 @@ int cqueue_write(struct cqueue *queue, void *args)
 
 /*
     消费者
- */
+*/
 int cqueue_read(struct cqueue *queue, void *args)
 {
     void *data;
@@ -57,9 +57,9 @@ int cqueue_read(struct cqueue *queue, void *args)
     注意:
     1) queue内存和elem内存均需要在调用前申请好
     2) 环形队列可使用的量为elem_count - 1个, 原因是要留一个作为满或者空的标识
- */
+*/
 void cqueue_init(struct cqueue *queue, int elem_count, size_t elem_size,
-                    cqueue_rw_cb read_cb, cqueue_rw_cb write_cb)
+                 cqueue_rw_cb read_cb, cqueue_rw_cb write_cb)
 {
     queue->elem_count = elem_count;
     queue->elem_size = elem_size;

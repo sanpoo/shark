@@ -23,6 +23,6 @@ struct cqueue
 int cqueue_write(struct cqueue *queue, void *args);
 int cqueue_read(struct cqueue *queue, void *args);
 void cqueue_init(struct cqueue *queue, int elem_count, size_t elem_size,
-                    cqueue_rw_cb read_cb, cqueue_rw_cb write_cb);
+                 cqueue_rw_cb read_cb, cqueue_rw_cb write_cb);
 
 #endif

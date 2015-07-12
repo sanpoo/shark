@@ -1,8 +1,7 @@
 #!/bin/bash
 
-export BIN_PATH=/usr/local/shark/bin
-export PID_FILE=/usr/local/shark/log/shark.pid
-
+export BIN_PATH=`pwd`
+export PID_FILE=$BIN_PATH/../conf/shark.pid
 
 if [ -e $PID_PATH ]; then
 	pid=`cat $PID_FILE`
@@ -13,7 +12,6 @@ if [ -e $PID_PATH ]; then
 	if [ $n -eq 1 ]; then
 	        echo "already running!"
 	else
-	        DT=`date`
 	        $BIN_PATH/start.sh
 	fi
 else

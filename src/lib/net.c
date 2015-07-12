@@ -148,7 +148,7 @@ int create_tcp_server(const char *ip, int port)
     svraddr.sin_port = htons(port);
     svraddr.sin_addr.s_addr = ip_to_nl(ip);
 
-    if (0 != bind(listenfd, (struct sockaddr*)&svraddr, sizeof(svraddr)))
+    if (0 != bind(listenfd, (struct sockaddr *)&svraddr, sizeof(svraddr)))
     {
         printf("bind failed. %d %s\n", errno, strerror(errno));
         exit(0);

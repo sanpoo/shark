@@ -48,7 +48,7 @@
     "Content-Type: text/html"CRLF   \
     "Connection: Close"CRLF
 
-#define HTTP_INSUFFICIENT_STORAGE_PAGE "HTTP/1.1 507 Insufficient Storage"CRLF  \
+#define HTTP_INSUFFICIENT_STORAGE_PAGE "HTTP/1.1 507 Insufficient Storage"CRLF \
     HTTP_ERROR_HEADER   \
     CRLF    \
     "<html>" CRLF       \
@@ -57,7 +57,7 @@
     "<center><h1>507 Insufficient Storage</h1></center>" CRLF
 
 void http_fast_response(int fd, const char *content, size_t len);
-void http_finalize_request(struct http_request *request, int ret_code);
+void http_finalize_request(struct http_request *r, int ret_code);
 
 #endif
 

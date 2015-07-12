@@ -3,31 +3,33 @@
     Author: bo.shen <sanpoos@gmail.com>
 */
 #include <stdio.h>
+#include <stdlib.h>
 
+#include "log.h"
+#include "conf.h"
 #include "process.h"
 #include "http_request.h"
 
 int worker_process_init()
 {
-    int ret;
-
-    ret = http_request_init();
-    if (ret)
+    size_t size = 2;
+    char *c = get_raw_conf("client_header_buffer_kbytes");
+    if (!str_equal(c, "default"))
     {
-        printf("Failed to init HTTP request. code:%d\n", ret);
-        return -1;
+        size = atoi(c);
+        if (size <= 0 || size > 4)
+        {
+            ERR("client header buffer size should between [1-4]KB");
+            return -1;
+        }
     }
 
+    http_request_init(size, NULL, NULL, NULL);
     return 0;
 }
 
-void request_handler(int fd)
+__INIT__ static void http_init()
 {
-    http_request_handler(fd);
-}
-
-PROJECT_INIT static void http_init()
-{
-    register_project(NULL, worker_process_init, request_handler);
+    register_project(NULL, worker_process_init, http_request_handler);
 }
 

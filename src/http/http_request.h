@@ -8,9 +8,6 @@
 #include "str.h"
 #include "buffer.h"
 
-#define HTTP_PARSE_INVALID_METHOD   -1
-#define HTTP_PARSE_INVALID_REQUEST  -2
-
 /*
     request method
 */
@@ -113,6 +110,9 @@ struct http_request
     char lowcase_header[HTTP_LC_HEADER_LEN];    //解析时临时请求头的key变量
 };
 
+/*
+    请求行处理
+*/
 typedef int (*http_request_line_handler)(struct http_request *r);
 struct request_line_handler
 {
@@ -121,6 +121,9 @@ struct request_line_handler
     http_request_line_handler http;
 };
 
+/*
+    请求头处理
+*/
 typedef int (*http_request_header_handler)(struct http_request *r);
 struct request_header_handler
 {
@@ -128,11 +131,16 @@ struct request_header_handler
     http_request_header_handler handler;
 };
 
-extern struct request_line_handler g_http_line_in;
+/*
+    读完全部的请求后处理
+*/
+typedef void (*http_request_body_handler)(struct http_request *r);
 
-int http_request_handler(int fd);
-
-int http_request_init();
+void http_request_handler(int fd);
+void http_request_init(size_t client_header_buffer_kbytes,
+                       struct request_line_handler *line_handler,
+                       struct request_header_handler *header_handler,
+                       http_request_body_handler body_handler);
 
 #endif
 

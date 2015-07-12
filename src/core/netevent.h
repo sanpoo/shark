@@ -11,7 +11,7 @@ typedef enum
     EVENT_READABLE = 0x1,
     EVENT_WRITABLE = 0x2,
     EVENT_ALL = 0x3
-}event_what;
+} event_what;
 
 typedef void (*event_proc)(void *args);
 

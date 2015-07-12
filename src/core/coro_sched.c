@@ -83,7 +83,7 @@ static struct coroutine *find_in_timer(struct timer_node *tm_node, int coro_id)
 }
 
 static inline void remove_from_timer_node(struct timer_node *tm_node,
-                                                  struct coroutine *coro)
+                                          struct coroutine *coro)
 {
     if (NULL == find_in_timer(tm_node, coro->coro_id))
         return;

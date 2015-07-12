@@ -7,7 +7,7 @@
 
 typedef struct
 {
-	volatile int counter;
+    volatile int counter;
 } spinlock;
 
 void spin_lock_init(spinlock *lock);

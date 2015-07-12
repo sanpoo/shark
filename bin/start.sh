@@ -1,11 +1,10 @@
 #!/bin/bash
 
-export BIN_PATH=/usr/local/shark/bin
+export BIN_PATH=`pwd`
+cd $BIN_PATH/
 
 ulimit -c unlimited
 ulimit -s unlimited
-
-cd $BIN_PATH/
 
 killall -9 shark
 ./shark

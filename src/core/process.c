@@ -28,7 +28,9 @@ struct process
     int cpuid;      // 绑定cpuid, 初始化后不变
 };
 
-struct project pro = {NULL, NULL, NULL};
+static master_init_proc g_master_init_proc = NULL;
+static worker_init_proc g_worker_init_proc = NULL;
+static request_handler g_request_handler = request_default_handler;
 
 static int g_listenfd;
 static spinlock *g_accept_lock;    //accept fd自旋锁
@@ -124,9 +126,7 @@ static void handle_connection(void *args)
 {
     int connfd = (int)(intptr_t)args;
 
-    if (pro.request_handler)
-        pro.request_handler(connfd);
-
+    g_request_handler(connfd);
     close(connfd);
     decrease_conn_and_check();
 }
@@ -196,7 +196,7 @@ static void worker_accept_cycle(void *args)
 
 void worker_process_cycle()
 {
-    if (pro.worker_init && pro.worker_init())
+    if (g_worker_init_proc && g_worker_init_proc())
     {
         ERR("Failed to init worker");
         exit(0);
@@ -205,7 +205,6 @@ void worker_process_cycle()
     schedule_init(g_coro_stack_kbytes, g_worker_connections);
     event_loop_init(g_worker_connections);
     dispatch_coro(worker_accept_cycle, NULL);
-
     INFO("worker success running....");
     schedule_cycle();
 }
@@ -227,7 +226,7 @@ static void send_signal_to_workers(int signo)
 
 void master_process_cycle()
 {
-    if (pro.master_init && pro.master_init())
+    if (g_master_init_proc && g_master_init_proc())
     {
         ERR("Failed to init master process, shark exit");
         exit(0);
@@ -291,12 +290,11 @@ void worker_exit_handler(int pid)
         g_all_workers_exit = 1;
 }
 
-void register_project(int (*master_init)(), int (*worker_init)(),
-                     void (*request_handler)(int fd))
+void register_project(master_init_proc master_proc, worker_init_proc worker_proc, request_handler handler)
 {
-    pro.master_init = master_init;
-    pro.worker_init = worker_init;
-    pro.request_handler = request_handler;
+    g_master_init_proc = master_proc;
+    g_worker_init_proc = worker_proc;
+    g_request_handler = handler;
 }
 
 void tcp_srv_init()

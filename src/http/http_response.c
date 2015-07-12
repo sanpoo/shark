@@ -380,10 +380,10 @@ void http_fast_response(int fd, const char *content, size_t len)
     send(fd, content, len, 0);
 }
 
-void http_finalize_request(struct http_request *request, int ret_code)
+void http_finalize_request(struct http_request *r, int ret_code)
 {
     str_t *error_page;
-    struct buffer *b = &request->header;
+    struct buffer *b = &r->header;
     str_t *status_line = get_http_status_line(ret_code);
     if (!status_line)
         return;
@@ -417,6 +417,6 @@ void http_finalize_request(struct http_request *request, int ret_code)
         }
     }
 
-    send(request->fd, b->start, b->pos - b->start, 0);
+    send(r->fd, b->start, b->pos - b->start, 0);
 }
 

@@ -25,7 +25,7 @@ static struct shm *g_shm;    //全局唯一一个分配小共享内存的空间
 
 /*
     一旦分配, 则不回收
- */
+*/
 void *shm_alloc(size_t size_bytes)
 {
     char *addr;
@@ -43,7 +43,7 @@ void *shm_alloc(size_t size_bytes)
     g_shm->offset += size_bytes;
     spin_unlock(&g_shm->lock);
 
-//    printf("global share memory left bytes: %zu\n", g_shm->size - g_shm->offset);
+    //    printf("global share memory left bytes: %zu\n", g_shm->size - g_shm->offset);
 
     return addr;
 }
@@ -51,13 +51,13 @@ void *shm_alloc(size_t size_bytes)
 /*
     该接口用于申请页大小的共享空间, 建议申请4K以上的均用此接口
     @pg_count  :页的个数, 最终申请大小为pg_count * PAGE_SIZE
- */
+*/
 void *shm_pages_alloc(unsigned int pg_count)
 {
     void *addr;
 
-    addr = mmap(NULL, pg_count * PAGE_SIZE, PROT_READ|PROT_WRITE, MAP_ANONYMOUS|MAP_SHARED, -1, 0);
-    return (addr == MAP_FAILED)? NULL : addr;
+    addr = mmap(NULL, pg_count * PAGE_SIZE, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED, -1, 0);
+    return (addr == MAP_FAILED) ? NULL : addr;
 }
 
 void shm_pages_free(void *addr, unsigned int pg_count)
@@ -68,7 +68,7 @@ void shm_pages_free(void *addr, unsigned int pg_count)
 /*
     这是一个供进程间共享数据的内存分配, 前SHM_OFFSET个字节用于存储shm
     这种结构体分配的内存, 最好用于分配小字节, 否则请使用shm_alloc_page
- */
+*/
 void shm_init()
 {
     char *addr;
