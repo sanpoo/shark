@@ -8,6 +8,8 @@
 #define likely(x)   __builtin_expect(!!(x), 1)
 #define unlikely(x)	__builtin_expect(!!(x), 0)
 
+#define MEM_ALIGN   sizeof(unsigned long)
+
 #define ALIGN_MASK(x,mask)  (((x)+(mask))&~(mask))
 #define ALIGN(x,a)		    ALIGN_MASK(x, (typeof(x))(a)-1)
 #define DIV_ROUND_UP(n,d)   (((n) + (d) - 1) / (d))

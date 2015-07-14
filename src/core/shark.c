@@ -4,7 +4,6 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <signal.h>
 
 #include "conf.h"
 #include "log.h"
@@ -12,8 +11,8 @@
 #include "env.h"
 #include "util.h"
 #include "shm.h"
-#include "sys_signal.h"
 #include "process.h"
+#include "sys_signal.h"
 
 static void useage(int argc, char *argv[])
 {

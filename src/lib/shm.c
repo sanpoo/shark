@@ -11,8 +11,6 @@
 #include "shm.h"
 #include "spinlock.h"
 
-#define SHM_OFFSET     64
-
 struct shm
 {
     char *addr;     //mmap的起始指针, 初始化后永不变
@@ -30,7 +28,7 @@ void *shm_alloc(size_t size_bytes)
 {
     char *addr;
 
-    size_bytes = roundup(size_bytes, 8);    //8字节对齐
+    size_bytes = roundup(size_bytes, MEM_ALIGN);
 
     spin_lock(&g_shm->lock);
     if (unlikely(g_shm->offset + size_bytes > g_shm->size))
@@ -43,7 +41,7 @@ void *shm_alloc(size_t size_bytes)
     g_shm->offset += size_bytes;
     spin_unlock(&g_shm->lock);
 
-    //    printf("global share memory left bytes: %zu\n", g_shm->size - g_shm->offset);
+    //printf("global share memory left bytes: %zu\n", g_shm->size - g_shm->offset);
 
     return addr;
 }
@@ -83,7 +81,7 @@ void shm_init()
     g_shm = (struct shm *)addr;
     g_shm->addr = addr;
     g_shm->size = PAGE_SIZE;
-    g_shm->offset = SHM_OFFSET;
+    g_shm->offset = roundup(sizeof(struct shm), MEM_ALIGN);
     spin_lock_init(&g_shm->lock);
 }
 
