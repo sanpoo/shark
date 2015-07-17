@@ -5,7 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <errno.h>
+#include <sys/types.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
 
 #include "shark.h"
 #include "env.h"
@@ -295,6 +299,50 @@ void register_project(master_init_proc master_proc, worker_init_proc worker_proc
     g_master_init_proc = master_proc;
     g_worker_init_proc = worker_proc;
     g_request_handler = handler;
+}
+
+static int create_tcp_server(const char *ip, int port)
+{
+    int listenfd;
+    struct sockaddr_in svraddr;
+
+    listenfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (listenfd == -1)
+    {
+        printf("socket failed. %d %s\n", errno, strerror(errno));
+        exit(0);
+    }
+
+    if (set_reuse_addr(listenfd))
+    {
+        printf("set reuse listen socket failed. %d %s\n", errno, strerror(errno));
+        exit(0);
+    }
+
+    if (set_nonblock(listenfd))
+    {
+        printf("set listen socket non-bloack failed. %d %s\n", errno, strerror(errno));
+        exit(0);
+    }
+
+    memset(&svraddr, 0, sizeof(svraddr));
+    svraddr.sin_family = AF_INET;
+    svraddr.sin_port = htons(port);
+    svraddr.sin_addr.s_addr = ip_to_nl(ip);
+
+    if (0 != bind(listenfd, (struct sockaddr *)&svraddr, sizeof(svraddr)))
+    {
+        printf("bind failed. %d %s\n", errno, strerror(errno));
+        exit(0);
+    }
+
+    if (0 != listen(listenfd, 1000))
+    {
+        printf("listen failed. %d %s\n", errno, strerror(errno));
+        exit(0);
+    }
+
+    return listenfd;
 }
 
 void tcp_srv_init()

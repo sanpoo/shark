@@ -15,7 +15,5 @@ unsigned fd_to_nl(int fd);
 char *get_peer_ip(int fd);
 unsigned ip_to_nl(const char *ip);
 
-int create_tcp_server(const char *ip, int port);
-
 #endif
 

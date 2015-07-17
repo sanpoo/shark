@@ -1,5 +1,6 @@
-Changes with shark 1.5.2                                         17 Jul 2015
+Changes with shark 1.6.0                                         17 Jul 2015
 	*) adjustment folder
+	*) add deny and allow
 
 Changes with shark 1.5.1                                         12 Jul 2015
 	*) modularization

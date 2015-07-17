@@ -5,6 +5,15 @@
 #ifndef __SHARK_H__
 #define __SHARK_H__
 
+#if __amd64
+    #define BITS_PER_LONG   64
+#elif __i386
+    #define BITS_PER_LONG   32
+#else
+    #error unsupported architecture
+#endif
+
+
 #define likely(x)   __builtin_expect(!!(x), 1)
 #define unlikely(x)	__builtin_expect(!!(x), 0)
 

@@ -2,17 +2,11 @@
     Copyright (C) 2014 bo.shen. All Rights Reserved.
     Author: bo.shen <sanpoos@gmail.com>
 */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
 #include <fcntl.h>
+#include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
 #include <netinet/tcp.h>
-#include <arpa/inet.h>
 
 int set_nonblock(int fd)
 {
@@ -107,60 +101,12 @@ unsigned ip_to_nl(const char *ip)
 {
     struct in_addr s;
 
-    if (ip == NULL)
+    if (!ip)
         return htonl(INADDR_ANY);
 
     if (1 != inet_pton(AF_INET, ip, &s))
-    {
-        printf("inet_pton failed. %s, %d, %s\n", ip, errno, strerror(errno));
-        exit(0);
-    }
+        return htonl(INADDR_ANY);
 
     return s.s_addr;
 }
-
-int create_tcp_server(const char *ip, int port)
-{
-    int listenfd;
-    struct sockaddr_in svraddr;
-
-    listenfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (listenfd == -1)
-    {
-        printf("socket failed. %d %s\n", errno, strerror(errno));
-        exit(0);
-    }
-
-    if (set_reuse_addr(listenfd))
-    {
-        printf("set reuse listen socket failed. %d %s\n", errno, strerror(errno));
-        exit(0);
-    }
-
-    if (set_nonblock(listenfd))
-    {
-        printf("set listen socket non-bloack failed. %d %s\n", errno, strerror(errno));
-        exit(0);
-    }
-
-    memset(&svraddr, 0, sizeof(svraddr));
-    svraddr.sin_family = AF_INET;
-    svraddr.sin_port = htons(port);
-    svraddr.sin_addr.s_addr = ip_to_nl(ip);
-
-    if (0 != bind(listenfd, (struct sockaddr *)&svraddr, sizeof(svraddr)))
-    {
-        printf("bind failed. %d %s\n", errno, strerror(errno));
-        exit(0);
-    }
-
-    if (0 != listen(listenfd, 1000))
-    {
-        printf("listen failed. %d %s\n", errno, strerror(errno));
-        exit(0);
-    }
-
-    return listenfd;
-}
-
 
