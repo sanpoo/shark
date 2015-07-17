@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <sys/socket.h>
 
-#include "pub.h"
+#include "shark.h"
 #include "env.h"
 #include "log.h"
 #include "net.h"

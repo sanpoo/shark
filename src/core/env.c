@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "pub.h"
+#include "shark.h"
 #include "str.h"
 #include "conf.h"
 

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <sys/mman.h>
 
-#include "pub.h"
+#include "shark.h"
 #include "env.h"
 #include "shm.h"
 #include "spinlock.h"

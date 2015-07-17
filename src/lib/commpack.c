@@ -2,7 +2,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 
-#include "pub.h"
+#include "shark.h"
 #include "env.h"
 #include "commpack.h"
 

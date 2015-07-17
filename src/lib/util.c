@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <sys/resource.h>
 
-#include "pub.h"
+#include "shark.h"
 #include "env.h"
 #include "util.h"
 

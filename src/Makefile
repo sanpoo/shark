@@ -12,7 +12,6 @@ obj = $(patsubst %.c, %.o, $(src))
 #
 # include
 #
-PUB_INC		:= ./include/
 LIB_INC		:= ./lib/
 CORE_INC	:= ./core
 HTTP_INC	:= ./http
@@ -24,8 +23,8 @@ LIB = -ldl
 
 CC = gcc
 
-CFLAGS = -pipe -Wall -O2 #-g #-pg
-CFLAGS += -I$(PUB_INC) -I$(LIB_INC) -I$(CORE_INC) -I$(HTTP_INC)
+CFLAGS = -pipe -Wall -O2 #-g -pg
+CFLAGS += -I$(LIB_INC) -I$(CORE_INC) -I$(HTTP_INC)
 
 ifeq ($(shell arch), i686)
 	CFLAGS += -march=i686

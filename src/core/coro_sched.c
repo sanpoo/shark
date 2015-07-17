@@ -7,7 +7,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include "pub.h"
+#include "shark.h"
 #include "list.h"
 #include "util.h"
 #include "rbtree.h"

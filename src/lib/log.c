@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "pub.h"
+#include "shark.h"
 #include "env.h"
 #include "shm.h"
 #include "str.h"
